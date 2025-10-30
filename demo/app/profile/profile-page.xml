@@ -1,0 +1,11 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    navigatingTo="onNavigatingTo"
+    actionBarHidden="true">
+
+    <StackLayout class="p-20">
+        <Label text="User Profile Page" class="h2 text-center" />
+        <Label text="Username: johndoe" class="text-center" />
+    </StackLayout>
+
+</Page>

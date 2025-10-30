@@ -1,0 +1,25 @@
+<Page 
+    id="rootLayout" 
+    xmlns="http://schemas.nativescript.org/tns.xsd" 
+    navigatingTo="navigatingTo" 
+    cssFile="~/main-page.css"
+    backgroundSpanUnderStatusBar="false">
+        
+    <ActionBar title="ia.de AppSDK Demo" icon="" />
+    
+    <TabView selectedIndex="0">
+        
+        <TabViewItem title="Home">
+            <Frame defaultPage="home/home-page" />
+        </TabViewItem>
+        
+        <TabViewItem title="Dashboard">
+            <Frame defaultPage="dashboard/dashboard-page" />
+        </TabViewItem>
+        
+        <TabViewItem title="Profile">
+            <Frame defaultPage="profile/profile-page" />
+        </TabViewItem>
+        
+    </TabView>
+</Page>

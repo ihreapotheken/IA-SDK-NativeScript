@@ -1,0 +1,13 @@
+<Page 
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    navigatingTo="onNavigatingTo"
+    actionBarHidden="true">
+
+    <StackLayout class="p-20">
+        <Button text="Init ia.de SDK" tap="{{ initIaSdk }}" class="-primary" />
+        <Button text="Launch Dashboard Route" tap="{{ initIaSdk }}" class="-primary" />
+        <Button text="Launch Legal Disclaimer Route" tap="{{ initIaSdk }}" class="-primary" />
+        <Button text="Transfer Prescriptions" tap="{{ initIaSdk }}" class="-primary" />
+    </StackLayout>
+
+</Page>
