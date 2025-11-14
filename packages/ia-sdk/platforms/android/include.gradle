@@ -1,0 +1,34 @@
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+    mavenLocal()
+    maven {
+        url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
+    }
+    maven {
+        name = "IA SDK repo"
+        url = uri("https://maven.pkg.github.com/ihreapotheken/IA-SDK-Android")
+        credentials {
+            username = System.getenv("GITHUB_USERNAME") ?: "mljubas@4ofthem.eu"
+            password = System.getenv("GITHUB_TOKEN") ?: "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"
+        }
+    }
+}
+
+dependencies {
+    def iaDeSdkVersion = "0.0.34-1"
+    def iaDeSdkEnv = System.getenv("IA_DE_SDK_ENV") ?: ""
+    def iaDeSdkDeps = [
+            "de.ihreapotheken.sdk:integrations",
+            "de.ihreapotheken.sdk:otc",
+            "de.ihreapotheken.sdk:ordering",
+            "de.ihreapotheken.sdk:pharmacy",
+            "de.ihreapotheken.sdk:rx",
+            "de.ihreapotheken.sdk:apofinder"
+    ]
+    iaDeSdkDeps.each { dep ->
+        def fullDep = "${dep}${!iaDeSdkEnv.isBlank() ? "-${iaDeSdkEnv}" : ""}:${iaDeSdkVersion}"
+        implementation fullDep
+    }
+}

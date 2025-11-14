@@ -1,0 +1,254 @@
+import Foundation
+import UIKit
+import SwiftUI
+import IACore
+import IAIntegrations
+import IAOverTheCounter
+import IAOrdering
+
+@MainActor
+@objcMembers
+@objc(NSCIaSdk)
+class NSCIaSdk: NSObject {
+    public func initIaSdk(
+        accessKey: String,
+        clientId: String,
+        serverEnvironment: String,
+        completionHandler: @escaping (String?) -> Void,
+    ) {
+      IASDK.configuration.apiKey = accessKey
+      IASDK.configuration.clientID = clientId
+      let specifiedServerEnvironment: EnvironmentID
+      switch serverEnvironment {
+        case "development":
+            specifiedServerEnvironment = EnvironmentID.dev
+            break
+        case "staging":
+            specifiedServerEnvironment = EnvironmentID.staging
+            break
+        case "production":
+            specifiedServerEnvironment = EnvironmentID.prod
+            break
+        default:
+            fatalError("Invalid environment ID: \(serverEnvironment)")
+      }
+      IASDK.setEnvironment(specifiedServerEnvironment)
+      IASDK.register([
+        .integrations,
+        .overTheCounter,
+        .ordering,
+        .apofinder
+      ])
+      let masterDelegate = IaClientDelegate()
+      IASDK.setDelegates(
+        sdk: masterDelegate,
+        ordering: masterDelegate,
+        prescription: masterDelegate,
+        cardLink: masterDelegate,
+      )
+      Task.init {
+        do {
+          let prerequisitesOptions = IASDKPrerequisitesOptions(
+            shouldShowIndicator: true,
+            isCancellable: true,
+            isAnimated: true,
+            shouldRunLegal: true,
+            shouldRunOnboarding: false,
+            shouldRunApofinder: true,
+          )
+          let _ = try await IASDK.initialize(
+            options: .init(
+              shouldShowIndicator: false,
+              prerequisitesOptions: prerequisitesOptions
+            ),
+          )
+          completionHandler(nil)
+        } catch {
+          completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+        }
+      }
+    }
+
+    /**
+     * Forwards the client personal information to the ia.de library for checkout purposes.
+     */
+    public func setGuestUserData(
+      salutation: String,
+      firstName: String,
+      lastName: String,
+      email: String,
+      phoneNumberCountryCode: Int,
+      phoneNumberWithoutCountryCode: Int,
+      completionHandler: @escaping (String?) -> Void,
+    ) {
+      let iaSalutation: IAUserSalutation
+      switch salutation.lowercased() {
+      case "herr":
+        iaSalutation = IAUserSalutation.male
+      case "frau":
+        iaSalutation = IAUserSalutation.female
+      case "keine angabe":
+        iaSalutation = IAUserSalutation.notSpecified
+      default:
+        iaSalutation = IAUserSalutation.diverse
+      }
+      Task.init {
+        do {
+          let userData = IAUserData(
+            salutation: iaSalutation,
+            firstName: firstName,
+            lastName: lastName,
+            countryCode: String(phoneNumberCountryCode),
+            phoneNumber: String(phoneNumberWithoutCountryCode),
+            email: email,
+          )
+          try await IASDK.setUserData(userData)
+          completionHandler(nil)
+        } catch {
+          completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+        }
+      }
+    }
+
+    public func transferPrescriptions(
+      images: [Data]? = nil,
+      pdfs: [Data]? = nil,
+      codes: [String]? = nil,
+      orderId: String? = nil,
+      finishAction: String,
+      completionHandler: @escaping (String?) -> Void,
+    ) {
+      Task.init {
+        do {
+          var specifiedFinishAction: TransferPrescriptionsFinishAction = .noAction
+          switch finishAction {
+            case "noAction":
+                specifiedFinishAction = TransferPrescriptionsFinishAction.noAction
+                break
+            case "openCart":
+                specifiedFinishAction = TransferPrescriptionsFinishAction.openCart
+                break
+            case "showBottomSheet":
+                specifiedFinishAction = TransferPrescriptionsFinishAction.showBottomSheet
+                break
+            default:
+                fatalError("Invalid finish action ID: \(finishAction)")
+          }
+          try await IAOrderingSDK.transferPrescriptions(
+            images: images,
+            pdfs: pdfs?.map { pdfBytes in PDFPrescription(data: pdfBytes) },
+            codes: codes,
+            orderID: orderId,
+            finishAction: specifiedFinishAction,
+          )
+          completionHandler(nil)
+        } catch {
+          completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+        }
+      }
+    }
+}
+
+class IaClientDelegate : SDKDelegate, OrderingDelegate, PrescriptionDelegate, CardLinkDelegate {
+  func orderingWillShowThankYouScreen(orders: [IAOrder], dismissable: (any Dismissable)?) -> HandlingDecision {
+    // if let order = orders.first {
+    //   order.orderCode
+    //   order.clientOrderID
+    // }
+    return .performDefault
+  }
+}
+
+/**
+ * Collection of views available for client display.
+ */
+enum IaClientViews : CaseIterable {
+  /**
+   * Dashboard screen displaying main app content.
+   */
+  case startScreen
+  
+  /**
+   * Product search and filtering screen.
+   */
+  case productSearchScreen
+  
+  /**
+   * String identifier getter definition.
+   */
+  var name: String {
+    return String(describing: self)
+  }
+  
+  /**
+   * Visual interface representation.
+   */
+  func view(navigationController: UINavigationController? = nil) -> AnyView {
+    switch self {
+    case IaClientViews.startScreen:
+      if navigationController == nil {
+        return AnyView(IAIntegrations.IAStartScreen())
+      } else {
+        return AnyView(
+          IAIntegrations.IAStartScreen().hostEmbedStyle(
+            .navigation(
+              onDismiss: {
+                navigationController?.dismiss(animated: true)
+                navigationController?.popViewController(animated: true)
+              }
+            )
+          )
+        )
+      }
+    case IaClientViews.productSearchScreen:
+      return AnyView(IAOverTheCounter.IAProductSearchScreen())
+    }
+  }
+}
+
+internal class IaClientViewUIKitViewController: UIViewController {
+  let viewId: String!
+  
+  init(viewId: String!) {
+    self.viewId = viewId
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    guard
+      let swiftUIView = IaClientViews.allCases.first(where: { view in view.name == viewId })?.view(
+        navigationController: self.navigationController
+      )
+    else {
+      fatalError("View ID \(viewId!) not defined for display.")
+    }
+    let hostingController = UIHostingController(
+      rootView: swiftUIView,
+    )
+    addChild(hostingController)
+    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(hostingController.view)
+    NSLayoutConstraint.activate([
+      hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+      hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
+    hostingController.didMove(toParent: self)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.setNavigationBarHidden(true, animated: false)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
+}

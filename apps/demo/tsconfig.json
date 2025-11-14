@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDirs": [
+      ".",
+      "../.."
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "@demo/shared": [
+        "../../tools/demo/index.ts"
+      ],
+      "@ia-sdk/*": [
+        "../../packages/*"
+      ],
+      "@ia-sdk/ia-sdk": [
+        "../../packages/ia-sdk/index.d.ts"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<Page 
+  xmlns="http://schemas.nativescript.org/tns.xsd" 
+  navigatingTo="navigatingTo" 
+  class="page"
+  backgroundSpanUnderStatusBar="false" >
+    <Page.actionBar>
+        <ActionBar title="ia.de AppSDK Demo" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    
+    <StackLayout class="p-20">
+        <Button text="Launch Dermanostic Experience" tap="{{ launchDermanosticExperience }}" class="-primary" />
+    </StackLayout>
+</Page>
