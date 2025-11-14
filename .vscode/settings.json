@@ -1,0 +1,14 @@
+{
+  "files.exclude": {
+    "**/apps/demo": false,
+    "**/packages/ia-sdk": false
+  },
+  "search.exclude": {
+    "**/apps/demo": false,
+    "**/packages/ia-sdk": false
+  },
+  "[swift]": {
+    "editor.rulers": [140],
+    "editor.formatOnSave": true
+  }
+}
