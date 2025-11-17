@@ -5,28 +5,6 @@ declare module de {
 		export module sdk {
 			export module client {
 				export module nativescript {
-					export class IaSdkCallback {
-						public static class: java.lang.Class<de.ihreapotheken.sdk.client.nativescript.IaSdkCallback>;
-						/**
-						 * Constructs a new instance of the de.ihreapotheken.sdk.client.nativescript.IaSdkCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-						 */
-						public constructor(implementation: {
-							onEvent(param0: string): void;
-						});
-						public constructor();
-						public onEvent(param0: string): void;
-					}
-				}
-			}
-		}
-	}
-}
-
-declare module de {
-	export module ihreapotheken {
-		export module sdk {
-			export module client {
-				export module nativescript {
 					export class IaSdk {
 						public static class: java.lang.Class<de.ihreapotheken.sdk.client.nativescript.IaSdk>;
 						public constructor();
@@ -35,6 +13,7 @@ declare module de {
 						public getOrderSignaturesListener(): androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>;
 						public transferPrescriptions(context: globalAndroid.content.Context, images: java.util.List<androidNative.Array<number>>, pdfs: java.util.List<androidNative.Array<number>>, codes: java.util.List<string>, orderId: string): void;
 						public setGuestUserData(context: globalAndroid.content.Context, this_: string, salutation: string, firstName: string, lastName: string, email: string, phoneNumberCountryCode: string): void;
+						public logout(this_: globalAndroid.content.Context): void;
 					}
 					export module IaSdk {
 						export class SignatureCodes {

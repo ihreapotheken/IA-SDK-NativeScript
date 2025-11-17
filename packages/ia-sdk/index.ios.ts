@@ -1,10 +1,19 @@
-import { IaSdkBase } from './types';
+import { IaSdkBase, OrderCodes, OrderSignatureListener } from './types';
 
 export class IaSdkIOS extends IaSdkBase {
     private static _instance: IaSdkIOS | null = null;
 
     private constructor() {
         super();
+        this.iaSdk.listenForSignatures((codes) => {
+            if (codes != null) {
+                IaClientViewUIKitViewController.finishAllActivities();
+                this.signatureListener.value = new OrderCodes(
+                    codes.iaOrderCode,
+                    codes.internalOrderCode,
+                );
+            }
+        });
     }
 
     public static get instance(): IaSdkIOS {
@@ -55,7 +64,6 @@ export class IaSdkIOS extends IaSdkBase {
         pdfs: Array<string> | null,
         codes: Array<string> | null,
         orderId: string | null,
-        finishAction: string,
         completionHandler: (e: any) => void,
     ): void {
         const nsDataImageArray = NSMutableArray.alloc().init();
@@ -79,8 +87,22 @@ export class IaSdkIOS extends IaSdkBase {
             nsDataPdfArray,
             codes.flat(),
             orderId,
-            finishAction,
+            "noAction",
             completionHandler,
         );
+    }
+
+    logout(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.logoutWithCompletionHandler(
+            completionHandler,
+        );
+    }
+
+    signatureListener = new OrderSignatureListener();
+
+    get orderSignatureListener(): OrderSignatureListener {
+        return this.signatureListener;
     }
 }

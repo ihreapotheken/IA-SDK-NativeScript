@@ -71,7 +71,7 @@ class IaSdk {
                 shouldFetchThemeFromRemote = true,
                 prerequisiteFlowConfiguration = PrerequisiteFlowConfiguration(
                     shouldRunLegal = true,
-                    shouldRunOnboarding = true,
+                    shouldRunOnboarding = false,
                 ),
             ),
             environmentType = serverEnv,
@@ -155,6 +155,11 @@ class IaSdk {
             intent.putExtra("data", message)
             context.sendBroadcast(intent)
         }
+        val clearedCart = sdkModule.ordering.clearCart()
+        if (!clearedCart) {
+            notifyJs("Error clearing cart.")
+            return 
+        }
         ClientComponentActivity.start(
             context,
             ClientViews.StartScreen,
@@ -194,5 +199,22 @@ class IaSdk {
 
     fun finishAllActivities() {
         ClientComponentActivity.finishAllActivities()
+    }
+
+    fun logout(
+        context: Context,
+    ) {
+        fun notifyJs(message: String) {
+            val intent = Intent("LOGOUT_EVENT")
+            intent.putExtra("data", message)
+            context.sendBroadcast(intent)
+        }
+
+        val success = sdkModule.core.clearAllData()
+        if (success) {
+            notifyJs("success")
+        } else {
+            notifyJs("Failed to logout.")
+        }
     }
 }

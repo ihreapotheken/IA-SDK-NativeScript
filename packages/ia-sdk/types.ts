@@ -23,9 +23,14 @@ export abstract class IaSdkBase extends Observable {
         pdfs: string[] | null,
         codes: string[] | null,
         orderId: string | null,
-        finishAction: any,
-        completionHandler: (e: any) => void
+        completionHandler: ((e: any) => void) | null
     ): void;
+
+    abstract logout(
+        completionHandler: ((e: any) => void) | null
+    ): void;
+
+    abstract get orderSignatureListener(): OrderSignatureListener;
 }
 
 export namespace IaSdkBase {
@@ -35,15 +40,45 @@ export namespace IaSdkBase {
         Production = "production",
     }
 
-    export enum TransferPrescriptionsFinishAction {
-        NoAction = "noAction",
-        OpenCart = "openCart",
-        ShowBottomSheet = "showBottomSheet",
-    }
-
     export enum Salutation {
         Male = "Herr",
         Female = "Frau",
         NotDisclosed = "Keine Angabe",
+    }
+}
+
+export class OrderCodes {
+    iaOrderCode: string;
+    hostAppOrderCode: string;
+
+    constructor(
+        iaOrderCode: string, 
+        hostAppOrderCode: string,
+    ) {
+        this.iaOrderCode = iaOrderCode;
+        this.hostAppOrderCode = hostAppOrderCode;
+    }
+}
+
+export class OrderSignatureListener extends Observable {
+    private _value: OrderCodes | null = null;
+
+    constructor() {
+        super();
+    }
+
+    get value(): OrderCodes | null {
+        return this._value;
+    }
+
+    set value(v: OrderCodes | null) {
+        this._value = v;
+        if (v != null) {
+            this.notify({ 
+                eventName: 'change', 
+                object: this, 
+                value: v,
+            });
+        }
     }
 }

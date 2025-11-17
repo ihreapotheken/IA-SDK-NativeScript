@@ -15,42 +15,53 @@ export class IaSdk extends Observable {
      * @param accessKey Authentication key used to identify the host app. 
      * @param clientId Client identifier used for pharmacy selection services.
      * @param serverEnvironment Specified server environment for the ia.de services.
-     * @param completionHandler Callback received on method execution completion with optional error parameter.
      */
     initIaSdk(
         accessKey: string | null,
         clientId: string | null,
         serverEnvironment: IaSdkBase.ServerEnvironment = IaSdkBase.ServerEnvironment.Staging,
-        completionHandler: (e: any) => void,
-    ) {
-        if (isAndroid) {
-            IaSdkAndroid.instance.initIaSdk(
-                accessKey,
-                clientId,
-                serverEnvironment,
-                completionHandler,
-            );
-        }
-        if (isIOS) {
-            IaSdkIOS.instance.initIaSdk(
-                accessKey,
-                clientId,
-                serverEnvironment.toString(),
-                completionHandler,
-            )
-        }
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.initIaSdk(
+                    accessKey,
+                    clientId,
+                    serverEnvironment,
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.initIaSdk(
+                    accessKey,
+                    clientId,
+                    serverEnvironment.toString(),
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                )
+            }
+        });
     }
 
     /**
      * Forwards the client personal information to the ia.de library for checkout purposes.
      * 
-     * @param salutation 
-     * @param firstName 
-     * @param lastName 
-     * @param email 
-     * @param phoneNumberCountryCode 
-     * @param phoneNumberWithoutCountryCode 
-     * @param completionHandler 
+     * @param salutation Customer pronouns.
+     * @param firstName First / personal customer name.
+     * @param lastName Last name or customer surname. 
+     * @param email Email address used for communication purposes.
+     * @param phoneNumberCountryCode Phone number country code (e.g., 49).
+     * @param phoneNumberWithoutCountryCode Phone number without country code.
      */
     setGuestUserData(
         salutation: IaSdkBase.Salutation,
@@ -59,30 +70,43 @@ export class IaSdk extends Observable {
         email: string,
         phoneNumberCountryCode: number,
         phoneNumberWithoutCountryCode: number,
-        completionHandler: (e: any) => void,
-    ) {
-        if (isAndroid) {
-            IaSdkAndroid.instance.setGuestUserData(
-                salutation,
-                firstName,
-                lastName,
-                email,
-                phoneNumberCountryCode,
-                phoneNumberWithoutCountryCode,
-                completionHandler,
-            )
-        }
-        if (isIOS) {
-            IaSdkIOS.instance.setGuestUserData(
-                salutation,
-                firstName,
-                lastName,
-                email,
-                phoneNumberCountryCode,
-                phoneNumberWithoutCountryCode,
-                completionHandler,
-            )
-        }
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.setGuestUserData(
+                    salutation,
+                    firstName,
+                    lastName,
+                    email,
+                    phoneNumberCountryCode,
+                    phoneNumberWithoutCountryCode,
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                )
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.setGuestUserData(
+                    salutation,
+                    firstName,
+                    lastName,
+                    email,
+                    phoneNumberCountryCode,
+                    phoneNumberWithoutCountryCode,
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                )
+            }
+        });
     }
 
     /**
@@ -93,35 +117,93 @@ export class IaSdk extends Observable {
      * @param codes JSON-encoded eRezept codes (e.g., `["{\"urls\":[\"Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9\"]}"]`).
      * @param orderId Client order identifier forwarded in order to differentiate between orders on 
      * @param finishAction Specification for the AppSDK handling of successful prescription transaction.
-     * @param completionHandler Callback invoked on method execution completion, with nullable error field.
      */
     transferPrescriptions(
         images: Array<string> | null,
         pdfs: Array<string> | null,
         codes: Array<string> | null,
         orderId: string | null,
-        finishAction: IaSdkBase.TransferPrescriptionsFinishAction = IaSdkBase.TransferPrescriptionsFinishAction.NoAction,
-        completionHandler: (e: any) => void,
-    ): void {
-        if (isAndroid) {
-            IaSdkAndroid.instance.transferPrescriptions(
-                images,
-                pdfs,
-                codes,
-                orderId,
-                null,
-                completionHandler,
-            );
-        }
-        if (isIOS) {
-            IaSdkIOS.instance.transferPrescriptions(
-                images,
-                pdfs,
-                codes,
-                orderId,
-                finishAction.toString(),
-                completionHandler,
-            );
-        }
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.transferPrescriptions(
+                    images,
+                    pdfs,
+                    codes,
+                    orderId,
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.transferPrescriptions(
+                    images,
+                    pdfs,
+                    codes,
+                    orderId,
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+        });
     }
+
+    /**
+     * Clears all user data and preferences.
+     */
+    logout(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.logout(
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.logout(
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+        });
+    }
+
+    /**
+     * [Observable] object notifying of any updates with the ia.de checkout process, 
+     * forwarding the SDK and any submitted order codes to listeners. 
+     * 
+     * The notifier value will be updated with "change" callback identifier:
+     * 
+     * ```ts
+     * signatureListener.addEventListener(
+	 *     "change",
+     *     (data: EventData) => {
+     *          const observable = (data.object as OrderSignatureListener)
+     *          console.log(observable.value.iaOrderCode);
+     *          console.log(observable.value.hostAppOrderCode);
+     *     }
+     * )
+     * ```
+     */
+    signatureListener = isAndroid ? IaSdkAndroid.instance.orderSignatureListener : IaSdkIOS.instance.orderSignatureListener;
 }

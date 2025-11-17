@@ -1,4 +1,4 @@
-import { IaSdkBase } from './types';
+import { IaSdkBase, OrderCodes, OrderSignatureListener } from './types';
 import { Application, Utils } from '@nativescript/core';
 
 export class IaSdkAndroid extends IaSdkBase {
@@ -7,11 +7,13 @@ export class IaSdkAndroid extends IaSdkBase {
     private constructor() {
         super();
         const observer = new androidx.lifecycle.Observer({
-            onChanged: (data: de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes | null) => {
-                if (data != null) {
-                    console.log(data.getIaOrderCode());
-                    console.log(data.getHostOrderCode());
+            onChanged: (codes: de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes | null) => {
+                if (codes != null) {
                     this.iaSdk.finishAllActivities();
+                    this.signatureListener.value = new OrderCodes(
+                        codes.getIaOrderCode(),
+                        codes.getHostOrderCode(),
+                    );
                 }
             }
         });
@@ -86,7 +88,6 @@ export class IaSdkAndroid extends IaSdkBase {
         pdfs: Array<string> | null,
         codes: Array<String> | null,
         orderId: string | null,
-        finishAction: IaSdkBase.TransferPrescriptionsFinishAction = IaSdkBase.TransferPrescriptionsFinishAction.NoAction,
         completionHandler: (e: any) => void,
     ): void {
         Application.android.registerBroadcastReceiver(
@@ -120,5 +121,29 @@ export class IaSdkAndroid extends IaSdkBase {
             codesArrayList,
             orderId,
         );
+    }
+
+    logout(
+        completionHandler: (e: any) => void,
+    ): void {
+        Application.android.registerBroadcastReceiver(
+            "LOGOUT_EVENT",
+            (context, intent) => {
+                const message = intent.getStringExtra("data");
+                Application.android.unregisterBroadcastReceiver("TRANSFER_PRESCRIPTIONS_EVENT");
+                setTimeout(() => {
+                    completionHandler(message); 
+                }, 0);
+            }
+        )
+        this.iaSdk.logout(
+            Utils.android.getCurrentActivity(),
+        );
+    }
+    
+    signatureListener = new OrderSignatureListener();
+
+    get orderSignatureListener(): OrderSignatureListener {
+        return this.signatureListener;
     }
 }

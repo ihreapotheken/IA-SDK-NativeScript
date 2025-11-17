@@ -3,7 +3,15 @@ declare class IaClientViewUIKitViewController extends UIViewController {
 
 	static alloc(): IaClientViewUIKitViewController; // inherited from NSObject
 
+	static finishAllActivities(): void;
+
 	static new(): IaClientViewUIKitViewController; // inherited from NSObject
+
+	readonly viewId: string;
+
+	constructor(o: { viewId: string; });
+
+	initWithViewId(viewId: string): this;
 }
 
 declare class NSCIaSdk extends NSObject {
@@ -13,6 +21,10 @@ declare class NSCIaSdk extends NSObject {
 	static new(): NSCIaSdk; // inherited from NSObject
 
 	initIaSdkWithAccessKeyClientIdServerEnvironmentCompletionHandler(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (p1: string) => void): void;
+
+	listenForSignatures(callback: (p1: SignatureCodes) => void): void;
+
+	logoutWithCompletionHandler(completionHandler: (p1: string) => void): void;
 
 	setGuestUserDataWithSalutationFirstNameLastNameEmailPhoneNumberCountryCodePhoneNumberWithoutCountryCodeCompletionHandler(salutation: string, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: (p1: string) => void): void;
 
@@ -61,4 +73,19 @@ declare class NativeScriptViewFactory extends NSObject implements NativeScriptEm
 	getViewById(id: string): UIView;
 
 	presentNativeScriptApp(vc: UIViewController): any;
+}
+
+declare class SignatureCodes extends NSObject {
+
+	static alloc(): SignatureCodes; // inherited from NSObject
+
+	static new(): SignatureCodes; // inherited from NSObject
+
+	iaOrderCode: string;
+
+	internalOrderCode: string;
+
+	constructor(o: { iaOrderCode: string; internalOrderCode: string; });
+
+	initWithIaOrderCodeInternalOrderCode(iaOrderCode: string, internalOrderCode: string): this;
 }
