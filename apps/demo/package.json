@@ -4,11 +4,12 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
-    "@nativescript/core": "*",
-    "@ia-sdk/ia-sdk": "file:../../packages/ia-sdk"
+    "@ia-sdk/ia-sdk": "file:../../packages/ia-sdk",
+    "@nativescript/core": "*"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.9.0",
-    "@nativescript/ios": "~8.9.0"
+    "@nativescript/android": "~9.0.0",
+    "@nativescript/ios": "~9.0.0",
+    "@nativescript/webpack": "~5.0.0"
   }
 }

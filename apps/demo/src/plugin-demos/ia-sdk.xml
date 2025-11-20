@@ -1,22 +1,60 @@
 <Page 
   xmlns="http://schemas.nativescript.org/tns.xsd" 
   navigatingTo="navigatingTo" 
-  class="page"
   backgroundSpanUnderStatusBar="false" >
     <Page.actionBar>
-        <ActionBar title="ia.de AppSDK Demo" icon="" class="action-bar">
+        <ActionBar title="ia.de AppSDK Demo" icon="">
         </ActionBar>
     </Page.actionBar>
     
-    <StackLayout class="p-20">
+    <StackLayout>
         <Button 
             text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}" 
-            class="-primary"
-            style="margin-bottom: 16;" />
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
         <Button 
             text="Logout" 
-            tap="{{ logout }}" 
-            class="-primary" />
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Launch Dermanostic Experience" 
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Logout" 
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Launch Dermanostic Experience" 
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Logout" 
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Launch Dermanostic Experience" 
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Logout" 
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Launch Dermanostic Experience" 
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Logout" 
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Launch Dermanostic Experience" 
+            tap="{{ launchDermanosticExperience }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Logout" 
+            tap="{{ logout }}"
+            style="margin-bottom:16" />
     </StackLayout>
 </Page>

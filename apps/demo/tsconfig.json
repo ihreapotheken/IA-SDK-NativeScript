@@ -1,24 +1,19 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDirs": [
-      ".",
-      "../.."
-    ],
+    "rootDirs": [".", "../.."],
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "@demo/shared": [
-        "../../tools/demo/index.ts"
-      ],
-      "@ia-sdk/*": [
-        "../../packages/*"
-      ],
-      "@ia-sdk/ia-sdk": [
-        "../../packages/ia-sdk/index.d.ts"
-      ]
-    }
+      "~/*": ["src/*"],
+      "@demo/shared": ["../../tools/demo/index.ts"],
+      "@ia-sdk/*": ["../../packages/*"],
+      "@ia-sdk/ia-sdk": ["../../packages/ia-sdk/index.d.ts"]
+    },
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "lib": ["ESNext"]
   }
 }
