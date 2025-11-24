@@ -20,17 +20,13 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to GitHub Packages
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
-          # Defaults to the user or organization that owns the workflow file
-          scope: '@organizationName'
-      - name: Install dependencies
-        run: yarn
+          scope: '@ihreapotheken'
       - name: Publish package
-        run: cd packages/ia-sdk && pwd && yarn publish --access restricted
+        run: cd packages/ia-sdk && pwd && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

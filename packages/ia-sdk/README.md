@@ -60,7 +60,7 @@ The library is accessed from Github as in below example:
 {
   "dependencies": {
     "@nativescript/core": "*",
-    "@ia-sdk/ia-sdk": "github:ihreapotheken/IA-SDK-NativeScript"
+    "@ihreapotheken/ia-sdk": "github:ihreapotheken/IA-SDK-NativeScript"
   }
 }
 ```
@@ -76,20 +76,20 @@ Methods and properties made available as public APIs implemented with the `IaSdk
 The client setup requires instantiation of this object for usage:
 
 ```ts
-import { IaSdk } from '@ia-sdk/ia-sdk/common';
+import { IaSdk } from '@ihreapotheken/ia-sdk/common';
 
 export class MyAppClass {
   iaSdk = new IaSdk();
 }
 ```
 
-You may then proceed with API usages on this object: 
+You may then proceed with API usages on this object:
 
 ```ts
 	async initialize() {
 		try {
 			await this.iaSdk.initIaSdk(
-				isAndroid 
+				isAndroid
 					? "a1f4b6e3c7d58f9032eeaa1bc02b4f44f9863d1e5c7a49f7d23e0c96b17af5cd"
 					: "e9f3d6a12c4b8f75d1e0a93c5b7d6e2f3c1a9b8e7f4d2c0a1b6e5d3f8c7a1b9e",
 				"5004",
