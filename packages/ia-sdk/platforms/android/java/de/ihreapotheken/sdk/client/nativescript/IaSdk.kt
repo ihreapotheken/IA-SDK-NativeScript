@@ -12,7 +12,6 @@ import de.ihreapotheken.sdk.integrations.ui.composables.ClientViews
 import de.ihreapotheken.sdk.ordering.OrderingModule
 import de.ihreapotheken.sdk.otc.OtcModule
 import de.ihreapotheken.sdk.pharmacy.PharmacyModule
-import de.ihreapotheken.sdk.rx.RxModule
 import de.ihreapotheken.sdk.core.data.EnvironmentType
 import de.ihreapotheken.sdk.core.data.PrerequisiteFlowConfiguration
 import de.ihreapotheken.sdk.core.data.model.sdk.SdkEvent
@@ -46,7 +45,6 @@ class IaSdk {
             OtcModule,
             OrderingModule,
             PharmacyModule,
-            RxModule,
             ApofinderModule,
         )
         val serverEnv = when (serverEnvironmentId) {
@@ -162,7 +160,7 @@ class IaSdk {
         }
         ClientComponentActivity.start(
             context,
-            ClientViews.StartScreen,
+            ClientViews.CartScreen,
         )
         IaSdk.ordering.setCheckoutListener(
             object : CheckoutListener {

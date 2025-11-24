@@ -1,7 +1,9 @@
 <Page 
   xmlns="http://schemas.nativescript.org/tns.xsd" 
   navigatingTo="navigatingTo" 
-  backgroundSpanUnderStatusBar="false" >
+  backgroundSpanUnderStatusBar="false"
+  backgroundColor="white" 
+  color="black" >
     <Page.actionBar>
         <ActionBar title="ia.de AppSDK Demo" icon="">
         </ActionBar>

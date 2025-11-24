@@ -24,7 +24,6 @@ dependencies {
             "de.ihreapotheken.sdk:otc",
             "de.ihreapotheken.sdk:ordering",
             "de.ihreapotheken.sdk:pharmacy",
-            "de.ihreapotheken.sdk:rx",
             "de.ihreapotheken.sdk:apofinder"
     ]
     iaDeSdkDeps.each { dep ->
