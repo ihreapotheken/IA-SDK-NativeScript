@@ -30,9 +30,7 @@ jobs:
           scope: '@organizationName'
       - name: Install dependencies
         run: yarn
-      - name: Change directory
-        run: cd packages/ia-sdk
       - name: Publish package
-        run: yarn publish --access restricted
+        run: cd packages/ia-sdk && pwd && yarn publish --access restricted
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
