@@ -18,12 +18,10 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@ihreapotheken'
-      - name: Update version number
+      - name: Publish package
         run: |
           VERSION=${{ github.ref_name }}
           sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" packages/ia-sdk/package.json
-      - name: Publish package
-        run: |
           cd packages/ia-sdk
           npm publish
         env:
