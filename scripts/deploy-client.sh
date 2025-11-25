@@ -8,9 +8,18 @@
 
 # Declare script and project paths.
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+PROJECT_DIR="$SCRIPT_DIR/.."
 
 # Setup the environment variables.
 source $SCRIPT_DIR/dev-env-setup.sh
+
+# Change current working directory.
+cd "$PROJECT_DIR" 
+
+# Add latest updates to source control.
+git add packages/ tools/ apps/ README.md package.json
+git commit -m "NativeScript library deploy version $APP_SDK_VERSION"
+git push
 
 # Tag the current release.
 git tag "$APP_SDK_BUILD_VERSION-$APP_SDK_BUILD_NUMBER"
