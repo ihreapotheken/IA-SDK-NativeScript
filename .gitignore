@@ -46,3 +46,5 @@ packages/**/angular/dist
 .nx/workspace-data
 
 docs/
+
+packages/ia-sdk/platforms/android/ia_sdk.aar
