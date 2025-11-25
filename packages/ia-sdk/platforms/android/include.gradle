@@ -22,6 +22,12 @@ dependencies {
     while (!envFile.exists()) {
         index++
         envFile = rootProject.file(("../" * index) + "packages/ia-sdk/.env")
+        if (!envFile.exists()) {
+            envFile = rootProject.file(("../" * index) + "node_modules/@ihreapotheken/ia-sdk/.env")
+            if (envFile.exists()) {
+                break
+            }
+        }
     }
     def env = [:]
     envFile.eachLine { line ->

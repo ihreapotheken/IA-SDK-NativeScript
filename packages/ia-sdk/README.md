@@ -50,20 +50,25 @@ on using plugins.
 
 ### 4.1. Add the dependency to the `package.json` file
 
-The library is accessed from Github as in below example:
+The library is accessed from Github NPM Package Registry.
 
-```json
-{
-  "dependencies": {
-    "@nativescript/core": "*",
-    "@ihreapotheken/ia-sdk": "github:ihreapotheken/IA-SDK-NativeScript"
-  }
-}
+Firstly, the location must be defined in your app's `.npmrc` file, located in the root of your project:
+
+```
+@ihreapotheken:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT
 ```
 
-You may reference specific branch, tag, or commit hash by specifying the reference with `#`:
+Make sure to replace `YOUR_GITHUB_PAT` with the actual value of your Github Personal Access Token.
 
-`github:ihreapotheken/IA-SDK-NativeScript#myCustomReference`
+Afterwards, the library can be installed from the command line:
+
+```sh
+npm install @ihreapotheken/ia-sdk@VERSION_NUMBER
+```
+
+The `VERSION_NUMBER` value can be referenced from the 
+[package release page](https://github.com/ihreapotheken/IA-SDK-NativeScript/pkgs/npm/ia-sdk).
 
 ### 4.2. Plugin usage
 
