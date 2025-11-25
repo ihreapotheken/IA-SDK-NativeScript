@@ -1,5 +1,5 @@
 import { DemoSharedBase } from '../utils';
-import {  } from '@ia-sdk/ia-sdk';
+import {  } from '@ihreapotheken/ia-sdk';
 
 export class DemoSharedIaSdk extends DemoSharedBase {
 

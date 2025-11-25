@@ -10,17 +10,6 @@
     <ScrollView class="h-full">
       <StackLayout>
         <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
-        <Button text="ia-sdk" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

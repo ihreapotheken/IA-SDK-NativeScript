@@ -7,7 +7,7 @@ export default {
         name: 'IA-SDK-iOS',
         libs: ['IAOverTheCounter', 'IAOrdering', 'IAPharmacy', 'IACardLink', 'IAIntegrations', 'IAPrescription'],
         repositoryURL: 'https://github.com/ihreapotheken/IA-SDK-iOS',
-        version: '0.18.5-beta',
+        version: '0.18.8-beta',
       },
     ]
   }

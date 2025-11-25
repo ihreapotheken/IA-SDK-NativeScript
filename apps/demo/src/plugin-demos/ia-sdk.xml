@@ -5,51 +5,11 @@
   backgroundColor="white" 
   color="black" >
     <Page.actionBar>
-        <ActionBar title="ia.de AppSDK Demo" icon="">
+        <ActionBar title="ia.de AppSDK Demo" icon="" class="action-bar">
         </ActionBar>
     </Page.actionBar>
     
     <StackLayout>
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
         <Button 
             text="Launch Dermanostic Experience" 
             tap="{{ launchDermanosticExperience }}"

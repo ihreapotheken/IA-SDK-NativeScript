@@ -1,7 +1,7 @@
 {
   "name": "@ihreapotheken/ia-sdk",
   "version": "1.0.0",
-  "description": "Add a plugin description",
+  "description": "Ihre Apotheken NativeScript SDK",
   "main": "index",
   "types": "index.d.ts",
   "nativescript": {
@@ -15,10 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ihreapotheken/IA-SDK-NativeScript.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "url": "https://github.com/ihreapotheken/IA-SDK-NativeScript.git"
   },
   "keywords": [
     "NativeScript",

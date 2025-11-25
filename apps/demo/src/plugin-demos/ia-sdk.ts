@@ -1,7 +1,7 @@
 import { isAndroid, isIOS, EventData, Page } from '@nativescript/core';
 import { DemoSharedIaSdk } from '@demo/shared';
-import { IaSdk } from '@ia-sdk/ia-sdk/common';
-import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ia-sdk/ia-sdk/types';
+import { IaSdk } from '@ihreapotheken/ia-sdk/common';
+import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ihreapotheken/ia-sdk/types';
 
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object;
@@ -22,7 +22,11 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async initialize() {
     try {
-      await this.iaSdk.initIaSdk(isAndroid ? 'a1f4b6e3c7d58f9032eeaa1bc02b4f44f9863d1e5c7a49f7d23e0c96b17af5cd' : 'e9f3d6a12c4b8f75d1e0a93c5b7d6e2f3c1a9b8e7f4d2c0a1b6e5d3f8c7a1b9e', '5004', IaSdkBase.ServerEnvironment.Staging);
+      await this.iaSdk.initIaSdk(
+        isAndroid ? 'a1f4b6e3c7d58f9032eeaa1bc02b4f44f9863d1e5c7a49f7d23e0c96b17af5cd' : 'e9f3d6a12c4b8f75d1e0a93c5b7d6e2f3c1a9b8e7f4d2c0a1b6e5d3f8c7a1b9e', 
+        '5004', 
+        IaSdkBase.ServerEnvironment.Staging,
+      );
     } catch (error) {
       console.error('Init failed:', error);
     }
@@ -30,7 +34,14 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async setUserData() {
     try {
-      await this.iaSdk.setGuestUserData(IaSdkBase.Salutation.NotDisclosed, 'First', 'Last', 'Email@email.com', 49, 24332442);
+      await this.iaSdk.setGuestUserData(
+        IaSdkBase.Salutation.NotDisclosed, 
+        'First', 
+        'Last', 
+        'Email@email.com', 
+        49, 
+        24332442,
+      );
     } catch (error) {
       console.error('Setting user data failed:', error);
     }
@@ -38,7 +49,12 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async transferPrescriptions() {
     try {
-      await this.iaSdk.transferPrescriptions(this.images, this.pdfs, ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 'AAAAAA');
+      await this.iaSdk.transferPrescriptions(
+        this.images, 
+        this.pdfs, 
+        ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 
+        'AAAAAA',
+      );
     } catch (error) {
       console.error('Transferring prescriptions failed:', error);
     }

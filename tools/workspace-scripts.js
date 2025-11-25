@@ -43,11 +43,11 @@ module.exports = {
     // packages
     // build output is always in dist/packages
     '@ia-sdk': {
-      // @ia-sdk/ia-sdk
+      // @ihreapotheken/ia-sdk
 			'ia-sdk': {
 				build: {
 					script: 'nx run ia-sdk:build.all',
-					description: '@ia-sdk/ia-sdk: Build',
+					description: '@ihreapotheken/ia-sdk: Build',
 				},
 			},
 			'build-all': {
@@ -62,7 +62,7 @@ module.exports = {
     focus: {
       'ia-sdk': {
 				script: 'nx run ia-sdk:focus',
-				description: 'Focus on @ia-sdk/ia-sdk',
+				description: 'Focus on @ihreapotheken/ia-sdk',
 			},
 			reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',
