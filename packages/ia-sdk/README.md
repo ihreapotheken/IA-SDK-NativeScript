@@ -48,11 +48,7 @@ For official reference, please see
 [the NativeScript SDK documentation](https://docs.nativescript.org/plugins/)
 on using plugins.
 
-### 4.1. Source control access
-
-TODO
-
-### 4.2. Add the dependency to the `package.json` file
+### 4.1. Add the dependency to the `package.json` file
 
 The library is accessed from Github as in below example:
 
@@ -69,7 +65,7 @@ You may reference specific branch, tag, or commit hash by specifying the referen
 
 `github:ihreapotheken/IA-SDK-NativeScript#myCustomReference`
 
-### 4.3. Plugin usage
+### 4.2. Plugin usage
 
 Methods and properties made available as public APIs implemented with the `IaSdk` object.
 
