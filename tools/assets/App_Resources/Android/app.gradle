@@ -1,18 +1,46 @@
-// Add additional native dependencies here, for example:
+repositories {
+    google()
+    mavenCentral()
+}
 
-// dependencies {
-//   implementation 'com.google.android.gms:play-services-location:+'
-// }
+dependencies {
+  implementation 'com.google.firebase:firebase-appdistribution-gradle:5.2.0'
+}
 
 android {
   compileSdkVersion 36
+
   buildToolsVersion "36"
+
   defaultConfig {
     minSdkVersion 30
     targetSdkVersion 36
     generatedDensities = []
   }
+
   aaptOptions {
     additionalParameters "--no-version-vectors"
+  }
+
+  packaging {
+    resources {
+        excludes += "META-INF/INDEX.LIST"
+        excludes += "META-INF/DEPENDENCIES"
+        excludes += "META-INF/io.netty.versions.properties"
+    }
+  }
+
+  buildTypes {
+    release {
+      signingConfig signingConfigs.debug
+      firebaseAppDistribution {
+          appId = "1:805028679903:android:18a9287f80a3feaf24d96a"
+          artifactType = "APK"
+          group = "Internal"
+          artifactPath = rootProject.file("../build/app/outputs/apk/release/app-release.apk").path
+          serviceCredentialsFile = rootProject.file("fb-distribution-service-credentials.json").path
+          testers = "cvitaman@gmail.com, 4ot.testing@gmail.com, julia.schindel@ihreapotheken.de, lorenathiel2@gmail.com"
+      }
+    }
   }
 }
