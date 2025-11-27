@@ -36,6 +36,16 @@ declare class AEAssessmentConfiguration extends NSObject implements NSCopying {
 	static new(): AEAssessmentConfiguration; // inherited from NSObject
 
 	/**
+	 * @since 26.1
+	 */
+	allowsAccessibilityLiveCaptions: boolean;
+
+	/**
+	 * @since 26.1
+	 */
+	allowsAccessibilityReader: boolean;
+
+	/**
 	 * @since 14.0
 	 */
 	allowsAccessibilitySpeech: boolean;

@@ -113,9 +113,21 @@ declare function ColorSyncProfileCreateWithName(name: string): any;
 declare function ColorSyncProfileCreateWithURL(url: NSURL, error: interop.Pointer | interop.Reference<NSError>): any;
 
 /**
+ * @since 19.0
+ */
+declare function ColorSyncProfileCreateWithURLAndOptions(url: NSURL, options: NSDictionary<any, any>, error: interop.Pointer | interop.Reference<NSError>): any;
+
+/**
+ * @since 16.0
+ */
+declare function ColorSyncProfileEstimateGamma(prof: any, error: interop.Pointer | interop.Reference<NSError>): number;
+
+/**
  * @since 16.0
  */
 declare function ColorSyncProfileGetMD5(prof: any): ColorSyncMD5;
+
+declare function ColorSyncProfileGetTagCount(p1: any): number;
 
 /**
  * @since 16.0
@@ -320,6 +332,11 @@ declare var kColorSyncDCIP3Profile: string;
  * @since 16.0
  */
 declare var kColorSyncDisplayP3Profile: string;
+
+/**
+ * @since 19.0
+ */
+declare var kColorSyncDoNotSubstituteProfiles: string;
 
 /**
  * @since 16.0

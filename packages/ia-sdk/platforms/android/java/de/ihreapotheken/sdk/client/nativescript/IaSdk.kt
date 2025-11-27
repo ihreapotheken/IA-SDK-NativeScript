@@ -29,18 +29,23 @@ import de.ihreapotheken.sdk.core.domain.model.GuestUser
 class IaSdk {
     private lateinit var sdkModule: IaSdk
 
+    fun notifyJs(
+        id: String,
+        message: String,
+        context: Context,
+    ) {
+        val intent = Intent(id)
+        intent.putExtra("data", message)
+        context.sendBroadcast(intent)
+    }
+
     fun initIaSdk(
         applicationContext: Context,
         accessKey: String,
         clientId: String,
         serverEnvironmentId: String,
     ) {
-        fun notifyJs(message: String) {
-            val intent = Intent("INIT_EVENT")
-            intent.putExtra("data", message)
-            applicationContext.sendBroadcast(intent)
-        }
-
+        val channelId = "INIT_EVENT"
         sdkModule = IaSdk.register(
             OtcModule,
             OrderingModule,
@@ -76,10 +81,10 @@ class IaSdk {
             sdkEventListener = object : SdkEventListener {
                 override fun onSdkEvent(event: SdkEvent) {
                     if (event is SdkEvent.InitStatus && event !is SdkEvent.InitStatus.Initializing) {
-                        notifyJs("success")
+                        notifyJs(channelId, "success", applicationContext)
                     }
                     if (event is SdkEvent.InitError) {
-                        notifyJs(event.message)
+                        notifyJs(channelId, event.message, applicationContext)
                     }
                 }
             }
@@ -95,11 +100,7 @@ class IaSdk {
         phoneNumberCountryCode: String?,
         phoneNumberWithoutCountryCode: String?,
     ) {
-        fun notifyJs(message: String) {
-            val intent = Intent("SET_GUEST_DATA_EVENT")
-            intent.putExtra("data", message)
-            context.sendBroadcast(intent)
-        }
+        val channelId = "SET_GUEST_DATA_EVENT"
         val guestUserData = GuestUser(
             salutation,
             firstName,
@@ -115,7 +116,7 @@ class IaSdk {
         sdkModule.setGuestUser(
             guestUserData
         )
-        notifyJs("success")
+        notifyJs(channelId, "success", context)
     }
 
     /**
@@ -148,14 +149,10 @@ class IaSdk {
         codes: List<String>?,
         orderId: String?,
     ) {
-        fun notifyJs(message: String) {
-            val intent = Intent("TRANSFER_PRESCRIPTIONS_EVENT")
-            intent.putExtra("data", message)
-            context.sendBroadcast(intent)
-        }
+        val channelId = "TRANSFER_PRESCRIPTIONS_EVENT"
         val clearedCart = sdkModule.ordering.clearCart()
         if (!clearedCart) {
-            notifyJs("Error clearing cart.")
+            notifyJs(channelId, "Error clearing cart.", context)
             return 
         }
         ClientComponentActivity.start(
@@ -184,15 +181,24 @@ class IaSdk {
                 transferPrescriptionListener = object : TransferPrescriptionListener {
                     override fun onTransferPrescriptionEvent(event: TransferPrescriptionEvent) {
                         if (event is TransferPrescriptionEvent.Success) {
-                            notifyJs("success")
+                            notifyJs(channelId, "success", context)
                         }
                         if (event is TransferPrescriptionEvent.Failed) {
-                            notifyJs(event.errorMessage)
+                            notifyJs(channelId, event.errorMessage, context)
                         }
                     }
                 },
             )
         }, 2000)
+    }
+
+    fun startDashboardActivity(
+        context: Context,
+    ) {
+        ClientComponentActivity.start(
+            context,
+            ClientViews.StartScreen,
+        )
     }
 
     fun finishAllActivities() {
@@ -202,17 +208,26 @@ class IaSdk {
     fun logout(
         context: Context,
     ) {
-        fun notifyJs(message: String) {
-            val intent = Intent("LOGOUT_EVENT")
-            intent.putExtra("data", message)
-            context.sendBroadcast(intent)
-        }
+        val channelId = "LOGOUT_EVENT"
 
         val success = sdkModule.core.clearAllData()
         if (success) {
-            notifyJs("success")
+            notifyJs(channelId, "success", context)
         } else {
-            notifyJs("Failed to logout.")
+            notifyJs(channelId, "Failed to logout.", context)
+        }
+    }
+
+    fun clearCart(
+        context: Context,
+    ) {
+        val channelId = "CLEAR_CART_EVENT"
+
+        val success = sdkModule.ordering.clearCart()
+        if (success) {
+            notifyJs(channelId, "success", context)
+        } else {
+            notifyJs(channelId, "Error clearing cart.", context)
         }
     }
 }

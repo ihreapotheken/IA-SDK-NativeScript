@@ -26,7 +26,19 @@ export abstract class IaSdkBase extends Observable {
         completionHandler: ((e: any) => void) | null
     ): void;
 
+    abstract startDashboardActivity(
+        completionHandler: ((e: any) => void) | null
+    ): void;
+
+    abstract finishAllActivities(
+        completionHandler: ((e: any) => void) | null
+    ): void;
+
     abstract logout(
+        completionHandler: ((e: any) => void) | null
+    ): void;
+
+    abstract clearCart(
         completionHandler: ((e: any) => void) | null
     ): void;
 

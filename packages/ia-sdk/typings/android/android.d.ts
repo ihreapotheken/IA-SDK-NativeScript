@@ -8,12 +8,14 @@ declare module de {
 					export class IaSdk {
 						public static class: java.lang.Class<de.ihreapotheken.sdk.client.nativescript.IaSdk>;
 						public constructor();
-						public initIaSdk(this_: globalAndroid.content.Context, applicationContext: string, accessKey: string, clientId: string): void;
+						public initIaSdk(context: globalAndroid.content.Context, accessKey: string, clientId: string, serverEnvironment: string): void;
+						public startDashboardActivity(context: globalAndroid.content.Context): void;
 						public finishAllActivities(): void;
 						public getOrderSignaturesListener(): androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>;
 						public transferPrescriptions(context: globalAndroid.content.Context, images: java.util.List<androidNative.Array<number>>, pdfs: java.util.List<androidNative.Array<number>>, codes: java.util.List<string>, orderId: string): void;
 						public setGuestUserData(context: globalAndroid.content.Context, this_: string, salutation: string, firstName: string, lastName: string, email: string, phoneNumberCountryCode: string): void;
-						public logout(this_: globalAndroid.content.Context): void;
+						public logout(context: globalAndroid.content.Context): void;
+						public clearCart(context: globalAndroid.content.Context): void;
 					}
 					export module IaSdk {
 						export class SignatureCodes {

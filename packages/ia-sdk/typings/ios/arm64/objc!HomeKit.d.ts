@@ -18,9 +18,19 @@ declare class HMAccessory extends NSObject {
 
 	static new(): HMAccessory; // inherited from NSObject
 
+	/**
+	 * @since 26.1
+	 */
+	readonly HAPInstanceID: number;
+
 	readonly blocked: boolean;
 
 	readonly bridged: boolean;
+
+	/**
+	 * @since 13.0
+	 */
+	readonly bridgedAccessories: NSArray<HMAccessory>;
 
 	/**
 	 * @since 10.0
@@ -38,6 +48,11 @@ declare class HMAccessory extends NSObject {
 	 * @since 11.0
 	 */
 	readonly firmwareVersion: string;
+
+	/**
+	 * @since 10.0
+	 */
+	readonly home: HMHome;
 
 	/**
 	 * @since 8.0
@@ -93,6 +108,11 @@ declare class HMAccessory extends NSObject {
 	 * @since 9.0
 	 */
 	readonly uniqueIdentifiersForBridgedAccessories: NSArray<NSUUID>;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly vendorAccessory: boolean;
 
 	identifyWithCompletionHandler(completion: (p1: NSError) => void): void;
 
@@ -2812,7 +2832,9 @@ declare const enum HMErrorCode {
 
 	PartialCommunicationFailure = 104,
 
-	HomeUpgradeRequired = 105
+	HomeUpgradeRequired = 105,
+
+	QuotaExceeded = 106
 }
 
 /**
@@ -3253,6 +3275,11 @@ declare class HMHomeManager extends NSObject {
 	readonly primaryHome: HMHome;
 
 	addHomeWithNameCompletionHandler(homeName: string, completion: (p1: HMHome, p2: NSError) => void): void;
+
+	/**
+	 * @since 26.1
+	 */
+	findVendorAccessoryWithHAPPublicKeyCompletionHandler(hapPublicKey: NSData, completion: (p1: HMAccessory, p2: NSError) => void): void;
 
 	removeHomeCompletionHandler(home: HMHome, completion: (p1: NSError) => void): void;
 

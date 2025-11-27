@@ -159,6 +159,66 @@ export class IaSdk extends Observable {
     }
 
     /**
+     * Launches the dashboard screen on top of the navigation stack.
+     */
+    startDashboardActivity(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.startDashboardActivity(
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.startDashboardActivity(
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+        });
+    }
+
+    /**
+     * Launches the dashboard screen on top of the navigation stack.
+     */
+    finishAllActivities(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.finishAllActivities(
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.finishAllActivities(
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+        });
+    }
+
+    /**
      * Clears all user data and preferences.
      */
     logout(): Promise<void> {
@@ -176,6 +236,36 @@ export class IaSdk extends Observable {
             }
             if (isIOS) {
                 IaSdkIOS.instance.logout(
+                    (e: any) => {
+                        if (e == null) {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+        });
+    }
+
+    /**
+     * Clears the user cart.
+     */
+    clearCart(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            if (isAndroid) {
+                IaSdkAndroid.instance.clearCart(
+                    (e: any) => {
+                        if (e == "success") {
+                            resolve();
+                        } else {
+                            reject(e);
+                        }
+                    },
+                );
+            }
+            if (isIOS) {
+                IaSdkIOS.instance.clearCart(
                     (e: any) => {
                         if (e == null) {
                             resolve();

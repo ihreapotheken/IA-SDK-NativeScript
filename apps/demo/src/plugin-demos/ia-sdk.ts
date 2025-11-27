@@ -70,6 +70,22 @@ export class DemoModel extends DemoSharedIaSdk {
     }
   }
 
+  async startDashboardActivity() {
+    try {
+      this.iaSdk.startDashboardActivity();
+    } catch (error) {
+      console.error('Start dashboard activity failed:', error);
+    }
+  }
+
+  async clearCart() {
+    try {
+      this.iaSdk.clearCart();
+    } catch (error) {
+      console.error('Clear cart failed:', error);
+    }
+  }
+
   async logout() {
     try {
       this.iaSdk.logout();

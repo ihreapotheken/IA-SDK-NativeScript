@@ -6620,7 +6620,7 @@ declare const enum MTRAttributeIDType {
 
 	AttributeIDTypeClusterCameraAVStreamManagementAttributeNightVisionUsesInfraredID = 3,
 
-	AttributeIDTypeClusterCameraAVStreamManagementAttributeMinViewportID = 4,
+	AttributeIDTypeClusterCameraAVStreamManagementAttributeMinViewportResolutionID = 4,
 
 	AttributeIDTypeClusterCameraAVStreamManagementAttributeRateDistortionTradeOffPointsID = 5,
 
@@ -6721,6 +6721,8 @@ declare const enum MTRAttributeIDType {
 	AttributeIDTypeClusterCameraAVSettingsUserLevelManagementAttributePanMinID = 7,
 
 	AttributeIDTypeClusterCameraAVSettingsUserLevelManagementAttributePanMaxID = 8,
+
+	AttributeIDTypeClusterCameraAVSettingsUserLevelManagementAttributeMovementStateID = 9,
 
 	AttributeIDTypeClusterCameraAVSettingsUserLevelManagementAttributeGeneratedCommandListID = 65528,
 
@@ -6966,7 +6968,7 @@ declare const enum MTRAttributeIDType {
 
 	AttributeIDTypeClusterCommodityMeteringAttributeMeteredQuantityTimestampID = 1,
 
-	AttributeIDTypeClusterCommodityMeteringAttributeMeasurementTypeID = 2,
+	AttributeIDTypeClusterCommodityMeteringAttributeTariffUnitID = 2,
 
 	AttributeIDTypeClusterCommodityMeteringAttributeMaximumMeteredQuantitiesID = 3,
 
@@ -18959,6 +18961,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBIntensityWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -18970,6 +18973,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBIntensityWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -18981,6 +18985,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBXWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -18992,6 +18997,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBXWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19003,6 +19009,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBYWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19014,6 +19021,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBYWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19025,6 +19033,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGIntensityWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19036,6 +19045,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGIntensityWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19047,6 +19057,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGXWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19058,6 +19069,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGXWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19069,6 +19081,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGYWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19080,6 +19093,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGYWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19091,6 +19105,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRIntensityWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19102,6 +19117,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRIntensityWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19113,6 +19129,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRXWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19124,6 +19141,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRXWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19135,6 +19153,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRYWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19146,6 +19165,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRYWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19201,6 +19221,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointXWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19212,6 +19233,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointXWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -19223,6 +19245,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointYWithValueCompletion(value: number, completion: (p1: NSError) => void): void;
 
@@ -19234,6 +19257,7 @@ declare class MTRBaseClusterColorControl extends MTRGenericBaseCluster {
 
 	/**
 	 * @since 16.4
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointYWithValueParamsCompletion(value: number, params: MTRWriteParams, completion: (p1: NSError) => void): void;
 
@@ -69497,91 +69521,109 @@ declare class MTRClusterColorControl extends MTRGenericCluster {
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBIntensityWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBIntensityWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBXWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBXWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBYWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointBYWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGIntensityWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGIntensityWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGXWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGXWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGYWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointGYWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRIntensityWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRIntensityWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRXWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRXWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRYWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeColorPointRYWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
@@ -69607,21 +69649,25 @@ declare class MTRClusterColorControl extends MTRGenericCluster {
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointXWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointXWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointYWithValueExpectedValueInterval(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number): void;
 
 	/**
 	 * @since 16.1
+	 * @deprecated 26.1
 	 */
 	writeAttributeWhitePointYWithValueExpectedValueIntervalParams(dataValueDictionary: NSDictionary<string, any>, expectedValueIntervalMs: number, params: MTRWriteParams): void;
 }
@@ -86332,9 +86378,9 @@ declare const enum MTRCommandIDType {
 
 	CommandIDTypeClusterTLSCertificateManagementCommandRemoveRootCertificateID = 6,
 
-	CommandIDTypeClusterTLSCertificateManagementCommandTLSClientCSRID = 7,
+	CommandIDTypeClusterTLSCertificateManagementCommandClientCSRID = 7,
 
-	CommandIDTypeClusterTLSCertificateManagementCommandTLSClientCSRResponseID = 8,
+	CommandIDTypeClusterTLSCertificateManagementCommandClientCSRResponseID = 8,
 
 	CommandIDTypeClusterTLSCertificateManagementCommandProvisionClientCertificateID = 9,
 
@@ -87939,6 +87985,16 @@ declare class MTRDeviceAttestationDeviceInfo extends NSObject {
 	static new(): MTRDeviceAttestationDeviceInfo; // inherited from NSObject
 
 	/**
+	 * @since 26.1
+	 */
+	readonly attestationChallenge: NSData;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly attestationNonce: NSData;
+
+	/**
 	 * @since 16.6
 	 */
 	readonly basicInformationProductID: number;
@@ -87948,11 +88004,30 @@ declare class MTRDeviceAttestationDeviceInfo extends NSObject {
 	 */
 	readonly basicInformationVendorID: number;
 
+	/**
+	 * @since 16.1
+	 * @deprecated 26.1
+	 */
 	readonly certificateDeclaration: NSData;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly certificationDeclaration: NSData;
 
 	readonly dacCertificate: NSData;
 
 	readonly dacPAICertificate: NSData;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly elementsSignature: NSData;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly elementsTLV: NSData;
 
 	/**
 	 * @since 16.4
@@ -96563,65 +96638,65 @@ declare const enum MTRIlluminanceMeasurementLightSensorType {
  */
 declare const enum MTRInteractionErrorCode {
 
-	InteractionErrorCodeFailure = 1,
+	Failure = 1,
 
-	InteractionErrorCodeInvalidSubscription = 125,
+	InvalidSubscription = 125,
 
-	InteractionErrorCodeUnsupportedAccess = 126,
+	UnsupportedAccess = 126,
 
-	InteractionErrorCodeUnsupportedEndpoint = 127,
+	UnsupportedEndpoint = 127,
 
-	InteractionErrorCodeInvalidAction = 128,
+	InvalidAction = 128,
 
-	InteractionErrorCodeUnsupportedCommand = 129,
+	UnsupportedCommand = 129,
 
-	InteractionErrorCodeInvalidCommand = 133,
+	InvalidCommand = 133,
 
-	InteractionErrorCodeUnsupportedAttribute = 134,
+	UnsupportedAttribute = 134,
 
-	InteractionErrorCodeConstraintError = 135,
+	ConstraintError = 135,
 
-	InteractionErrorCodeUnsupportedWrite = 136,
+	UnsupportedWrite = 136,
 
-	InteractionErrorCodeResourceExhausted = 137,
+	ResourceExhausted = 137,
 
-	InteractionErrorCodeNotFound = 139,
+	NotFound = 139,
 
-	InteractionErrorCodeUnreportableAttribute = 140,
+	UnreportableAttribute = 140,
 
-	InteractionErrorCodeInvalidDataType = 141,
+	InvalidDataType = 141,
 
-	InteractionErrorCodeUnsupportedRead = 143,
+	UnsupportedRead = 143,
 
-	InteractionErrorCodeDataVersionMismatch = 146,
+	DataVersionMismatch = 146,
 
-	InteractionErrorCodeTimeout = 148,
+	Timeout = 148,
 
-	InteractionErrorCodeBusy = 156,
+	Busy = 156,
 
-	InteractionErrorCodeAccessRestricted = 157,
+	AccessRestricted = 157,
 
-	InteractionErrorCodeUnsupportedCluster = 195,
+	UnsupportedCluster = 195,
 
-	InteractionErrorCodeNoUpstreamSubscription = 197,
+	NoUpstreamSubscription = 197,
 
-	InteractionErrorCodeNeedsTimedInteraction = 198,
+	NeedsTimedInteraction = 198,
 
-	InteractionErrorCodeUnsupportedEvent = 199,
+	UnsupportedEvent = 199,
 
-	InteractionErrorCodePathsExhausted = 200,
+	PathsExhausted = 200,
 
-	InteractionErrorCodeTimedRequestMismatch = 201,
+	TimedRequestMismatch = 201,
 
-	InteractionErrorCodeFailsafeRequired = 202,
+	FailsafeRequired = 202,
 
-	InteractionErrorCodeInvalidInState = 203,
+	InvalidInState = 203,
 
-	InteractionErrorCodeNoCommandResponse = 204,
+	NoCommandResponse = 204,
 
 	DynamicConstraintError = 207,
 
-	InteractionErrorCodeInvalidTransportType = 209
+	InvalidTransportType = 209
 }
 
 /**
@@ -99630,7 +99705,16 @@ interface MTROTAProviderDelegate extends NSObjectProtocol {
 	 */
 	handleBDXTransferSessionBeginForNodeIDControllerFileDesignatorOffsetCompletionHandler?(nodeID: number, controller: MTRDeviceController, fileDesignator: string, offset: number, completionHandler: (p1: NSError) => void): void;
 
+	/**
+	 * @since 16.1
+	 * @deprecated 26.1
+	 */
 	handleBDXTransferSessionEndForNodeIDControllerError?(nodeID: number, controller: MTRDeviceController, error: NSError): void;
+
+	/**
+	 * @since 26.1
+	 */
+	handleBDXTransferSessionEndForNodeIDControllerMetricsError?(nodeID: number, controller: MTRDeviceController, metrics: MTRMetrics, error: NSError): void;
 
 	/**
 	 * @since 16.4

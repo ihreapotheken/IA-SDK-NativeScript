@@ -814,6 +814,68 @@ declare const enum PHAssetResourceType {
 }
 
 /**
+ * @since 26.1
+ */
+declare class PHAssetResourceUploadJob extends PHObject {
+
+	static alloc(): PHAssetResourceUploadJob; // inherited from NSObject
+
+	static fetchJobsWithActionOptions(action: PHAssetResourceUploadJobAction, options: PHFetchOptions): PHFetchResult<PHAssetResourceUploadJob>;
+
+	static new(): PHAssetResourceUploadJob; // inherited from NSObject
+
+	readonly destination: NSURLRequest;
+
+	readonly resource: PHAssetResource;
+
+	readonly state: PHAssetResourceUploadJobState;
+
+	static readonly jobLimit: number;
+}
+
+/**
+ * @since 26.1
+ */
+declare const enum PHAssetResourceUploadJobAction {
+
+	Acknowledge = 1,
+
+	Retry = 2
+}
+
+/**
+ * @since 26.1
+ */
+declare class PHAssetResourceUploadJobChangeRequest extends PHChangeRequest {
+
+	static alloc(): PHAssetResourceUploadJobChangeRequest; // inherited from NSObject
+
+	static changeRequestForUploadJob(job: PHAssetResourceUploadJob): PHAssetResourceUploadJobChangeRequest;
+
+	static createJobWithDestinationResource(destination: NSURLRequest, resource: PHAssetResource): void;
+
+	static new(): PHAssetResourceUploadJobChangeRequest; // inherited from NSObject
+
+	acknowledge(): void;
+
+	retryWithDestination(destination: NSURLRequest): void;
+}
+
+/**
+ * @since 26.1
+ */
+declare const enum PHAssetResourceUploadJobState {
+
+	Registered = 1,
+
+	Pending = 2,
+
+	Failed = 3,
+
+	Succeeded = 4
+}
+
+/**
  * @since 9
  */
 declare const enum PHAssetSourceType {
@@ -2205,6 +2267,11 @@ declare class PHPhotoLibrary extends NSObject {
 	readonly unavailabilityReason: NSError;
 
 	/**
+	 * @since 26.1
+	 */
+	readonly uploadJobExtensionEnabled: boolean;
+
+	/**
 	 * @since 15
 	 */
 	cloudIdentifierMappingsForLocalIdentifiers(localIdentifiers: NSArray<string> | string[]): NSDictionary<string, PHCloudIdentifierMapping>;
@@ -2248,6 +2315,11 @@ declare class PHPhotoLibrary extends NSObject {
 	 * @since 8
 	 */
 	registerChangeObserver(observer: PHPhotoLibraryChangeObserver): void;
+
+	/**
+	 * @since 26.1
+	 */
+	setUploadJobExtensionEnabledError(enable: boolean): boolean;
 
 	/**
 	 * @since 13
@@ -2324,6 +2396,8 @@ declare const enum PHPhotosError {
 	NotEnoughSpace = 3305,
 
 	RequestNotSupportedForAsset = 3306,
+
+	LimitExceeded = 3307,
 
 	AccessRestricted = 3310,
 

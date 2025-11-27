@@ -151,6 +151,32 @@ class NSCIaSdk: NSObject {
     }
   }
 
+  public func startDashboardActivity(
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    IaClientViews.startScreen.start()
+  }
+
+  public func finishAllActivities(
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    IaClientViewUIKitViewController.finishAllActivities()
+    completionHandler(nil)
+  }
+
+  public func clearCart(
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    Task.init {
+      do {
+        try await IAOrderingSDK.deleteCart()
+        completionHandler(nil)
+      } catch {
+        completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+      }
+    }
+  }
+
   public func logout(
     completionHandler: @escaping (String?) -> Void,
   ) {
@@ -267,6 +293,7 @@ enum IaClientViews: CaseIterable {
   public func start(
     viewId: String? = nil,
   ) {
+
     let baseViewController: UIViewController? = UIApplication.shared.connectedScenes
       .compactMap { ($0 as? UIWindowScene)?.keyWindow }
       .first?.rootViewController

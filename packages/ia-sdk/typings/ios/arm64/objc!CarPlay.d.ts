@@ -3682,3 +3682,23 @@ declare class CPWindow extends UIWindow {
 }
 
 declare var CarPlayErrorDomain: string;
+
+/**
+ * @since 17.4
+ */
+declare function NSStringFromCPJunctionType(junctionType: CPJunctionType): string;
+
+/**
+ * @since 17.4
+ */
+declare function NSStringFromCPLaneStatus(laneStatus: CPLaneStatus): string;
+
+/**
+ * @since 17.4
+ */
+declare function NSStringFromCPManeuverType(maneuverType: CPManeuverType): string;
+
+/**
+ * @since 17.4
+ */
+declare function NSStringFromCPTrafficSide(trafficSide: CPTrafficSide): string;

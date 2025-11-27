@@ -92,10 +92,34 @@ export class IaSdkIOS extends IaSdkBase {
         );
     }
 
+    startDashboardActivity(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.startDashboardActivityWithCompletionHandler(
+            completionHandler,
+        );
+    }
+
+    finishAllActivities(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.finishAllActivitiesWithCompletionHandler(
+            completionHandler,
+        );
+    }
+
     logout(
         completionHandler: (e: any) => void,
     ): void {
         this.iaSdk.logoutWithCompletionHandler(
+            completionHandler,
+        );
+    }
+
+    clearCart(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.clearCartWithCompletionHandler(
             completionHandler,
         );
     }

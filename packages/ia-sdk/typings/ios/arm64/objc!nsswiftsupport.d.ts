@@ -20,6 +20,10 @@ declare class NSCIaSdk extends NSObject {
 
 	static new(): NSCIaSdk; // inherited from NSObject
 
+	clearCartWithCompletionHandler(completionHandler: (p1: string) => void): void;
+
+	finishAllActivitiesWithCompletionHandler(completionHandler: (p1: string) => void): void;
+
 	initIaSdkWithAccessKeyClientIdServerEnvironmentCompletionHandler(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (p1: string) => void): void;
 
 	listenForSignatures(callback: (p1: SignatureCodes) => void): void;
@@ -27,6 +31,8 @@ declare class NSCIaSdk extends NSObject {
 	logoutWithCompletionHandler(completionHandler: (p1: string) => void): void;
 
 	setGuestUserDataWithSalutationFirstNameLastNameEmailPhoneNumberCountryCodePhoneNumberWithoutCountryCodeCompletionHandler(salutation: string, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: (p1: string) => void): void;
+
+	startDashboardActivityWithCompletionHandler(completionHandler: (p1: string) => void): void;
 
 	transferPrescriptionsWithImagesPdfsCodesOrderIdFinishActionCompletionHandler(images: NSArray<NSData> | NSData[], pdfs: NSArray<NSData> | NSData[], codes: NSArray<string> | string[], orderId: string, finishAction: string, completionHandler: (p1: string) => void): void;
 }

@@ -123,6 +123,22 @@ export class IaSdkAndroid extends IaSdkBase {
         );
     }
 
+    startDashboardActivity(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.startDashboardActivity(
+            Utils.android.getCurrentActivity(),
+        );
+        completionHandler("success");
+    }
+
+    finishAllActivities(
+        completionHandler: (e: any) => void,
+    ): void {
+        this.iaSdk.finishAllActivities();
+        completionHandler("success");
+    }
+
     logout(
         completionHandler: (e: any) => void,
     ): void {
@@ -137,6 +153,24 @@ export class IaSdkAndroid extends IaSdkBase {
             }
         )
         this.iaSdk.logout(
+            Utils.android.getCurrentActivity(),
+        );
+    }
+
+    clearCart(
+        completionHandler: (e: any) => void,
+    ): void {
+        Application.android.registerBroadcastReceiver(
+            "CLEAR_CART_EVENT",
+            (context, intent) => {
+                const message = intent.getStringExtra("data");
+                Application.android.unregisterBroadcastReceiver("CLEAR_CART_EVENT");
+                setTimeout(() => {
+                    completionHandler(message); 
+                }, 0);
+            }
+        )
+        this.iaSdk.clearCart(
             Utils.android.getCurrentActivity(),
         );
     }

@@ -25,7 +25,7 @@ declare class BAAppExtensionInfo extends NSObject implements NSSecureCoding {
 }
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare class BAAssetPack extends NSObject {
 
@@ -47,12 +47,12 @@ declare class BAAssetPack extends NSObject {
 }
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare var BAAssetPackIdentifierErrorKey: string;
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare class BAAssetPackManager extends NSObject {
 
@@ -84,7 +84,7 @@ declare class BAAssetPackManager extends NSObject {
 }
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare class BAAssetPackManifest extends NSObject {
 
@@ -108,7 +108,7 @@ declare class BAAssetPackManifest extends NSObject {
 }
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare const enum BAAssetPackStatus {
 
@@ -361,7 +361,7 @@ declare const enum BAErrorCode {
 declare var BAErrorDomain: string;
 
 /**
- * @since 26.0
+ * @since 26
  */
 interface BAManagedAssetPackDownloadDelegate extends NSObjectProtocol {
 
@@ -381,7 +381,7 @@ declare var BAManagedAssetPackDownloadDelegate: {
 };
 
 /**
- * @since 26.0
+ * @since 26
  */
 interface BAManagedDownloaderExtension extends BADownloaderExtension {
 
@@ -393,7 +393,7 @@ declare var BAManagedDownloaderExtension: {
 };
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare const enum BAManagedErrorCode {
 
@@ -403,7 +403,7 @@ declare const enum BAManagedErrorCode {
 }
 
 /**
- * @since 26.0
+ * @since 26
  */
 declare var BAManagedErrorDomain: string;
 

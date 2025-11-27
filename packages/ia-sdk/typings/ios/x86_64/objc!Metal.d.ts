@@ -3007,6 +3007,11 @@ interface MTLDevice extends NSObjectProtocol {
 	 */
 	maxThreadsPerThreadgroup: MTLSize;
 
+	/**
+	 * @since 26.0
+	 */
+	maximumConcurrentCompilationTaskCount: number;
+
 	name: string;
 
 	/**

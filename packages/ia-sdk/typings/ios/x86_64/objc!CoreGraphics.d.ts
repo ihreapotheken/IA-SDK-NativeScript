@@ -493,7 +493,7 @@ declare function CGColorSpaceCreateCalibratedRGB(whitePoint: interop.Reference<n
 /**
  * @since 16.0
  */
-declare function CGColorSpaceCreateCopyWithStandardRange(s: any): any;
+declare function CGColorSpaceCreateCopyWithStandardRange(space: any): any;
 
 /**
  * @since 2.0

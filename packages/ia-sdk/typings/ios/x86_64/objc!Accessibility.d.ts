@@ -824,6 +824,16 @@ declare const enum AXNumericDataAxisDescriptorScale {
 declare function AXOpenSettingsFeature(feature: AXSettingsFeature, completionHandler: (p1: NSError) => void): void;
 
 /**
+ * @since 26.1
+ */
+declare function AXPrefersActionSliderAlternative(): boolean;
+
+/**
+ * @since 26.1
+ */
+declare var AXPrefersActionSliderAlternativeDidChangeNotification: string;
+
+/**
  * @since 17.0
  */
 declare function AXPrefersHorizontalTextLayout(): boolean;
@@ -882,6 +892,16 @@ declare const enum AXSettingsFeature {
 
 	DwellControl = 5
 }
+
+/**
+ * @since 26.1
+ */
+declare function AXShowBordersEnabled(): boolean;
+
+/**
+ * @since 26.1
+ */
+declare var AXShowBordersEnabledStatusDidChangeNotification: string;
 
 /**
  * @since 15.0

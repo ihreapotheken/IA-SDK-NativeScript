@@ -2171,6 +2171,11 @@ declare class ASAuthorizationWebBrowserPublicKeyCredentialManager extends NSObje
 
 	readonly authorizationStateForPlatformCredentials: ASAuthorizationWebBrowserPublicKeyCredentialManagerAuthorizationState;
 
+	/**
+	 * @since 26.2
+	 */
+	static readonly isDeviceConfiguredForPasskeys: boolean;
+
 	platformCredentialsForRelyingPartyCompletionHandler(relyingParty: string, completionHandler: (p1: NSArray<ASAuthorizationWebBrowserPlatformPublicKeyCredential>) => void): void;
 
 	requestAuthorizationForPublicKeyCredentials(completionHandler: (p1: ASAuthorizationWebBrowserPublicKeyCredentialManagerAuthorizationState) => void): void;

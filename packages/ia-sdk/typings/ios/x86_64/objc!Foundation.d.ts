@@ -9674,6 +9674,11 @@ declare class NSMutableURLRequest extends NSURLRequest {
 	allowsPersistentDNS: boolean;
 
 	/**
+	 * @since 26.1
+	 */
+	allowsUltraConstrainedNetworkAccess: boolean;
+
+	/**
 	 * @since 14.5
 	 */
 	assumesHTTP3Capable: boolean;
@@ -11633,6 +11638,11 @@ declare class NSProcessInfo extends NSObject {
 	 * @since 14.0
 	 */
 	readonly iOSAppOnMac: boolean;
+
+	/**
+	 * @since 26.1
+	 */
+	readonly iOSAppOnVision: boolean;
 
 	/**
 	 * @since 9.0
@@ -15749,7 +15759,9 @@ declare const enum NSURLErrorNetworkUnavailableReason {
 
 	Expensive = 1,
 
-	Constrained = 2
+	Constrained = 2,
+
+	UltraConstrained = 3
 }
 
 /**
@@ -16332,6 +16344,11 @@ declare class NSURLRequest extends NSObject implements NSCopying, NSMutableCopyi
 	readonly allowsPersistentDNS: boolean;
 
 	/**
+	 * @since 26.1
+	 */
+	readonly allowsUltraConstrainedNetworkAccess: boolean;
+
+	/**
 	 * @since 14.5
 	 */
 	readonly assumesHTTP3Capable: boolean;
@@ -16659,6 +16676,11 @@ declare class NSURLSessionConfiguration extends NSObject implements NSCopying {
 	 * @since 13.0
 	 */
 	allowsExpensiveNetworkAccess: boolean;
+
+	/**
+	 * @since 26.1
+	 */
+	allowsUltraConstrainedNetworkAccess: boolean;
 
 	connectionProxyDictionary: NSDictionary<any, any>;
 

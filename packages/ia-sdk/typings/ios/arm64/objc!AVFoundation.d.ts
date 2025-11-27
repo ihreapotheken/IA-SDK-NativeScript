@@ -8500,6 +8500,11 @@ declare var AVFileTypeProfileMPEG4AppleHLS: string;
 declare var AVFileTypeProfileMPEG4CMAFCompliant: string;
 
 /**
+ * @since 26.0
+ */
+declare var AVFileTypeQuickTimeAudio: string;
+
+/**
  * @since 4.0
  */
 declare var AVFileTypeQuickTimeMovie: string;

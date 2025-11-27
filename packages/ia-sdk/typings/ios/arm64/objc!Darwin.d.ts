@@ -5206,7 +5206,9 @@ declare const enum cryptex_auth_type_t {
 
 	CRYPTEX_AUTH_MOBILE_ASSET = 8,
 
-	CRYPTEX_AUTH_MAX = 8
+	CRYPTEX_AUTH_MOBILE_ASSET_WITH_CODE = 9,
+
+	CRYPTEX_AUTH_MAX = 9
 }
 
 interface ctlname {
@@ -5890,7 +5892,9 @@ declare const enum graftdmg_type_t {
 
 	GRAFTDMG_CRYPTEX_MOBILE_ASSET = 8,
 
-	GRAFTDMG_CRYPTEX_MAX = 8
+	GRAFTDMG_CRYPTEX_MOBILE_ASSET_WITH_CODE = 9,
+
+	GRAFTDMG_CRYPTEX_MAX = 9
 }
 
 interface group {
@@ -10647,6 +10651,8 @@ interface tcpstat {
 	tcps_ka_offload_drops: number;
 	tcps_mptcp_triggered_cell: number;
 	tcps_fin_timeout_drops: number;
+	tcps_rst_dup_suppressed: number;
+	tcps_rst_not_suppressed: number;
 }
 declare var tcpstat: interop.StructType<tcpstat>;
 
@@ -11073,7 +11079,13 @@ declare const enum virtual_memory_guard_exception_code_t {
 
 	kGUARD_EXC_SEC_COPY_DENIED = 100,
 
-	kGUARD_EXC_SEC_SHARING_DENIED = 101
+	kGUARD_EXC_SEC_SHARING_DENIED = 101,
+
+	kGUARD_EXC_MTE_SYNC_FAULT = 200,
+
+	kGUARD_EXC_MTE_ASYNC_USER_FAULT = 201,
+
+	kGUARD_EXC_MTE_ASYNC_KERN_FAULT = 202
 }
 
 declare function vm_allocate(target_task: number, address: interop.Pointer | interop.Reference<number>, size: number, flags: number): number;

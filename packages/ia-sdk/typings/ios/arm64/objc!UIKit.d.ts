@@ -3741,11 +3741,13 @@ declare var UIAccessibilityBoldTextStatusDidChangeNotification: string;
 
 /**
  * @since 14.0
+ * @deprecated 26.1
  */
 declare function UIAccessibilityButtonShapesEnabled(): boolean;
 
 /**
  * @since 14.0
+ * @deprecated 26.1
  */
 declare var UIAccessibilityButtonShapesEnabledStatusDidChangeNotification: string;
 
@@ -12423,6 +12425,21 @@ declare class UIColor extends NSObject implements NSCopying, NSItemProviderReadi
 }
 
 /**
+ * @since 11.0
+ */
+declare class UIColorEffect extends UIVisualEffect {
+
+	static alloc(): UIColorEffect; // inherited from NSObject
+
+	/**
+	 * @since 26.1
+	 */
+	static effectWithColor(color: UIColor): UIColorEffect;
+
+	static new(): UIColorEffect; // inherited from NSObject
+}
+
+/**
  * @since 14.0
  */
 declare class UIColorPickerViewController extends UIViewController {
@@ -14485,8 +14502,6 @@ declare class UIDocumentBrowserAction extends NSObject {
 	readonly identifier: string;
 
 	image: UIImage;
-
-	imageOnlyForContextMenu: UIImage;
 
 	readonly localizedTitle: string;
 
@@ -25577,6 +25592,11 @@ declare class UIPresentationController extends NSObject implements UIAppearanceC
 
 	readonly adaptivePresentationStyle: UIModalPresentationStyle;
 
+	/**
+	 * @since 26.1
+	 */
+	backgroundEffect: UIVisualEffect;
+
 	readonly containerView: UIView;
 
 	delegate: UIAdaptivePresentationControllerDelegate;
@@ -28921,6 +28941,9 @@ declare class UISearchBar extends UIView implements UIBarPositioning, UILookToDi
 	 */
 	allowedWritingToolsResultOptions: UIWritingToolsResultOptions; // inherited from UITextInputTraits
 
+	/**
+	 * @since 26.0
+	 */
 	allowsNumberPadPopover: boolean; // inherited from UITextInputTraits
 
 	autocapitalizationType: UITextAutocapitalizationType; // inherited from UITextInputTraits
@@ -30254,6 +30277,11 @@ declare class UISheetPresentationControllerDetent extends NSObject {
 	static mediumDetent(): UISheetPresentationControllerDetent;
 
 	static new(): UISheetPresentationControllerDetent; // inherited from NSObject
+
+	/**
+	 * @since 26.1
+	 */
+	backgroundEffect: UIVisualEffect;
 
 	/**
 	 * @since 16.0
@@ -32820,6 +32848,11 @@ declare class UITabGroup extends UITab {
 	readonly displayOrder: NSArray<UITab>;
 
 	displayOrderIdentifiers: NSArray<string>;
+
+	/**
+	 * @since 26.0
+	 */
+	isSidebarDestination: boolean;
 
 	managingNavigationController: UINavigationController;
 
@@ -35714,6 +35747,9 @@ declare class UITextField extends UIControl implements NSCoding, UIContentSizeCa
 	 */
 	allowedWritingToolsResultOptions: UIWritingToolsResultOptions; // inherited from UITextInputTraits
 
+	/**
+	 * @since 26.0
+	 */
 	allowsNumberPadPopover: boolean; // inherited from UITextInputTraits
 
 	autocapitalizationType: UITextAutocapitalizationType; // inherited from UITextInputTraits
@@ -37126,6 +37162,9 @@ interface UITextInputTraits extends NSObjectProtocol {
 	 */
 	allowedWritingToolsResultOptions?: UIWritingToolsResultOptions;
 
+	/**
+	 * @since 26.0
+	 */
 	allowsNumberPadPopover?: boolean;
 
 	autocapitalizationType?: UITextAutocapitalizationType;
@@ -37979,6 +38018,9 @@ declare class UITextView extends UIScrollView implements UIContentSizeCategoryAd
 	 */
 	allowedWritingToolsResultOptions: UIWritingToolsResultOptions; // inherited from UITextInputTraits
 
+	/**
+	 * @since 26.0
+	 */
 	allowsNumberPadPopover: boolean; // inherited from UITextInputTraits
 
 	autocapitalizationType: UITextAutocapitalizationType; // inherited from UITextInputTraits

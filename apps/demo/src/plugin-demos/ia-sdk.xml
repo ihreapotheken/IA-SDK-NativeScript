@@ -15,6 +15,18 @@
             tap="{{ launchDermanosticExperience }}"
             style="margin-bottom:16" />
         <Button 
+            text="Initialize" 
+            tap="{{ initialize }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Start Dashboard Activity" 
+            tap="{{ startDashboardActivity }}"
+            style="margin-bottom:16" />
+        <Button 
+            text="Clear Cart" 
+            tap="{{ clearCart }}"
+            style="margin-bottom:16" />
+        <Button 
             text="Logout" 
             tap="{{ logout }}"
             style="margin-bottom:16" />
