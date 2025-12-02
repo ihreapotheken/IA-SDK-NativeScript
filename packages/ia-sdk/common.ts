@@ -7,6 +7,12 @@ import { IaSdkBase } from './types';
  * Base definitions for the ia.de SDK service, including any relevant methods, fields, and callbacks.
  */
 export class IaSdk extends Observable {
+    private static accessKey: string | null = null
+
+    private static clientId: string | null = null
+
+    private static serverEnv: IaSdkBase.ServerEnvironment | null = null
+
     /**
      * Allocate the resources required for the ia.de SDK runtime execution.
      * 
@@ -21,6 +27,9 @@ export class IaSdk extends Observable {
         clientId: string | null,
         serverEnvironment: IaSdkBase.ServerEnvironment = IaSdkBase.ServerEnvironment.Staging,
     ): Promise<void> {
+        IaSdk.accessKey = accessKey
+        IaSdk.clientId = clientId
+        IaSdk.serverEnv = serverEnvironment
         return new Promise((resolve, reject) => {
             if (isAndroid) {
                 IaSdkAndroid.instance.initIaSdk(
@@ -163,6 +172,9 @@ export class IaSdk extends Observable {
      */
     startDashboardActivity(): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (IaSdk.accessKey == null) {
+                return reject("initIaSdk method not invoked.");
+            }
             if (isAndroid) {
                 IaSdkAndroid.instance.startDashboardActivity(
                     (e: any) => {
@@ -175,13 +187,24 @@ export class IaSdk extends Observable {
                 );
             }
             if (isIOS) {
-                IaSdkIOS.instance.startDashboardActivity(
-                    (e: any) => {
-                        if (e == null) {
-                            resolve();
-                        } else {
-                            reject(e);
-                        }
+                this.initIaSdk(
+                    IaSdk.accessKey,
+                    IaSdk.clientId,
+                    IaSdk.serverEnv,
+                ).then(
+                    (_) => {
+                        IaSdkIOS.instance.startDashboardActivity(
+                            (e: any) => {
+                                if (e == null) {
+                                    resolve();
+                                } else {
+                                    reject(e);
+                                }
+                            },
+                        );
+                    },
+                    (e) => {
+                        reject(e);
                     },
                 );
             }

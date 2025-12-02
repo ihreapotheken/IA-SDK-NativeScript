@@ -11,6 +11,8 @@ import UIKit
 @objcMembers
 @objc(NSCIaSdk)
 class NSCIaSdk: NSObject {
+  static var isRegistered: Bool = false
+
   public func initIaSdk(
     accessKey: String,
     clientId: String,
@@ -34,12 +36,14 @@ class NSCIaSdk: NSObject {
       fatalError("Invalid environment ID: \(serverEnvironment)")
     }
     IASDK.setEnvironment(specifiedServerEnvironment)
-    IASDK.register([
-      .integrations,
-      .overTheCounter,
-      .ordering,
-      .apofinder,
-    ])
+    if !Self.isRegistered {
+      IASDK.register([
+        .integrations,
+        .overTheCounter,
+        .ordering,
+        .apofinder,
+      ])
+    }
     let masterDelegate = IaClientDelegate()
     IASDK.setDelegates(
       sdk: masterDelegate,
@@ -143,7 +147,7 @@ class NSCIaSdk: NSObject {
           orderID: orderId,
           finishAction: .noAction,
         )
-        IaClientViews.cartScreen.start()
+        IaClientViews.cartScreen.iaScreen().present()
         completionHandler(nil)
       } catch {
         completionHandler("\(String(describing: error)) \(error.localizedDescription)")
@@ -154,13 +158,13 @@ class NSCIaSdk: NSObject {
   public func startDashboardActivity(
     completionHandler: @escaping (String?) -> Void,
   ) {
-    IaClientViews.startScreen.start()
+    IaClientViews.startScreen.iaScreen().present()
   }
 
   public func finishAllActivities(
     completionHandler: @escaping (String?) -> Void,
   ) {
-    IaClientViewUIKitViewController.finishAllActivities()
+    UIApplication.shared.rootViewController?.dismiss(animated: true)
     completionHandler(nil)
   }
 
@@ -255,146 +259,13 @@ enum IaClientViews: CaseIterable {
   /**
    * Visual interface representation.
    */
-  func view(navigationController: UINavigationController? = nil) -> AnyView {
+  func iaScreen() -> any IAScreen {
     switch self {
     case IaClientViews.startScreen:
-      if navigationController == nil {
-        return AnyView(IAIntegrations.IAStartScreen())
-      } else {
-        return AnyView(
-          IAIntegrations.IAStartScreen().hostEmbedStyle(
-            .navigation(
-              onDismiss: {
-                navigationController?.dismiss(animated: true)
-                navigationController?.popViewController(animated: true)
-              }
-            )
-          )
-        )
-      }
+      IAStartScreen()
+
     case IaClientViews.cartScreen:
-      if navigationController == nil {
-        return AnyView(IAOrdering.IACartScreen())
-      } else {
-        return AnyView(
-          IAOrdering.IACartScreen().hostEmbedStyle(
-            .navigation(
-              onDismiss: {
-                navigationController?.dismiss(animated: true)
-                navigationController?.popViewController(animated: true)
-              }
-            )
-          )
-        )
-      }
-    }
-  }
-
-  public func start(
-    viewId: String? = nil,
-  ) {
-
-    let baseViewController: UIViewController? = UIApplication.shared.connectedScenes
-      .compactMap { ($0 as? UIWindowScene)?.keyWindow }
-      .first?.rootViewController
-    func getTopViewController(base: UIViewController? = baseViewController) -> UIViewController? {
-      if let nav = base as? UINavigationController {
-        return getTopViewController(base: nav.visibleViewController)
-      }
-      if let tab = base as? UITabBarController,
-        let selected = tab.selectedViewController
-      {
-        return getTopViewController(base: selected)
-      }
-      if let presented = base?.presentedViewController {
-        return getTopViewController(base: presented)
-      }
-      return base
-    }
-    guard
-      let topViewController = getTopViewController()
-    else {
-      fatalError("No UIViewController object found.")
-    }
-    let viewController = IaClientViewUIKitViewController(
-      viewId: viewId ?? name,
-    )
-    let navController = UINavigationController(
-      rootViewController: viewController,
-    )
-    navController.addChild(viewController)
-    navController.modalPresentationStyle = .fullScreen
-    topViewController.present(navController, animated: true)
-  }
-}
-
-@objcMembers
-@objc(IaClientViewUIKitViewController)
-public class IaClientViewUIKitViewController: UIViewController {
-  static private var controllers: [IaClientViewUIKitViewController] = []
-
-  let viewId: String!
-
-  init(
-    viewId: String!,
-  ) {
-    self.viewId = viewId
-    super.init(nibName: nil, bundle: nil)
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  public override func viewDidLoad() {
-    super.viewDidLoad()
-    guard
-      let swiftUIView = IaClientViews.allCases.first(where: { view in view.name == viewId })?.view(
-        navigationController: self.navigationController
-      )
-    else {
-      fatalError("View ID \(viewId!) not defined for display.")
-    }
-    let hostingController = UIHostingController(
-      rootView: swiftUIView,
-    )
-    addChild(hostingController)
-    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(hostingController.view)
-    NSLayoutConstraint.activate([
-      hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-      hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-    ])
-    hostingController.didMove(toParent: self)
-    if !Self.controllers.contains(self) {
-      Self.controllers.append(self)
-    }
-  }
-
-  public override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    navigationController?.setNavigationBarHidden(true, animated: false)
-  }
-
-  public override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    navigationController?.setNavigationBarHidden(false, animated: animated)
-    if isMovingFromParent || isBeingDismissed {
-      Self.controllers.removeAll(where: { it in it == self })
-    }
-  }
-
-  public static func finishAllActivities() {
-    Task.init {
-      for controller in controllers.reversed() {
-        controller.dismiss(animated: true)
-        controller.navigationController?.popToRootViewController(animated: true)
-        controller.navigationController?.popViewController(animated: true)
-        controller.navigationController?.dismiss(animated: true)
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-      }
+      IACartScreen()
     }
   }
 }

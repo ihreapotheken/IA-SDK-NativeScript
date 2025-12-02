@@ -1,6 +1,6 @@
-repositories {
+repositories { 
     google()
-    mavenCentral()
+    mavenCentral() 
     gradlePluginPortal()
     mavenLocal()
     maven {

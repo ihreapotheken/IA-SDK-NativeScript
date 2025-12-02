@@ -1,3 +1,5 @@
+apply plugin: "com.google.firebase.appdistribution"
+
 android {
   compileSdkVersion 36
 
@@ -29,8 +31,20 @@ android {
   }
 
   buildTypes {
-    release {
+    getByName("release") {
       signingConfig signingConfigs.debug
+      firebaseAppDistribution {
+          appId = "1:805028679903:android:a37833dadbcacbdf24d96a"
+          artifactType = "APK"
+          artifactPath = rootProject.file("./app/build/outputs/apk/release/app-release.apk").path
+          serviceCredentialsFile = rootProject.file("../../../../tools/assets/App_Resources/Android/fb-distribution-service-credentials.json").path
+          testers = [
+              "cvitaman@gmail.com",
+              "4ot.testing@gmail.com",
+              "julia.schindel@ihreapotheken.de",
+              "lorenathiel2@gmail.com",
+          ].join(", ")
+      }
     }
-  }
+  }  
 }

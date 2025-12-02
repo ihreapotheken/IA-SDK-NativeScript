@@ -7,7 +7,9 @@ export class IaSdkIOS extends IaSdkBase {
         super();
         this.iaSdk.listenForSignatures((codes) => {
             if (codes != null) {
-                IaClientViewUIKitViewController.finishAllActivities();
+                this.iaSdk.finishAllActivitiesWithCompletionHandler(
+                    (e: any) => {},
+                );
                 this.signatureListener.value = new OrderCodes(
                     codes.iaOrderCode,
                     codes.internalOrderCode,

@@ -1,0 +1,9 @@
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    classpath "com.google.firebase:firebase-appdistribution-gradle:5.2.0"
+}

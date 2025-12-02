@@ -44,11 +44,5 @@ xcodebuild -exportArchive \
 set -a # Automatically export all variables
 source $PROJECT_DIR/packages/ia-sdk/.env
 set +a
-echo
-echo
-echo "------------------------"
-echo
-echo
-echo "iOS NativeScript demo app version $APP_SDK_VERSION has been deployed with AppSDK version $IOS_APPSDK_VERSION."
-echo
-echo
+sh $SCRIPT_DIR/info.sh \
+    "iOS NativeScript demo app version $APP_SDK_VERSION has been deployed with AppSDK version $IOS_APPSDK_VERSION."

@@ -23,7 +23,7 @@ ns clean
 ns prepare android --release
 
 # Move to native project location.
-cd platforms/android
+cd "$PROJECT_DIR/apps/demo/platforms/android"
 
 # Build the Android project.
 ./gradlew assembleRelease
@@ -37,28 +37,23 @@ zipalign -v -p 4 \
   "$APK_OUTPUT_DIR/app-release-aligned.apk"
 
 # Once the app is aligned, it needs to be signed.
-# apksigner sign \
-#   --ks "$PROJECT_DIR/demo/android/release_key.jks" \
-#   --ks-key-alias ialib \
-#   --ks-pass pass:h?b3kFwQD. \
-#   --out "$APK_OUTPUT_DIR/app-release.apk" \
-#   "$APK_OUTPUT_DIR/app-release-unsigned-aligned.apk"
+apksigner sign \
+  --ks "$PROJECT_DIR/tools/assets/App_Resources/Android/demo.jks" \
+  --ks-key-alias demo \
+  --ks-pass pass:Password1! \
+  --out "$APK_OUTPUT_DIR/app-release.apk" \
+  "$APK_OUTPUT_DIR/app-release-aligned.apk"
 
 # Verify the signing process has completed successfully.
-# apksigner verify "$APK_OUTPUT_DIR/app-release.apk"
+apksigner verify "$APK_OUTPUT_DIR/app-release.apk"
 
 # Upload the APK to the Firebase app distribution service.
-# ./gradlew appDistributionUploadRelease
+cd $PROJECT_DIR/apps/demo/platforms/android
+./gradlew appDistributionUploadRelease
 
 # Display an informative message.
 set -a # Automatically export all variables
 source $PROJECT_DIR/packages/ia-sdk/.env
 set +a
-echo
-echo
-echo "------------------------"
-echo
-echo
-echo "Android NativeScript demo app version $APP_SDK_VERSION has been deployed with AppSDK version $ANDROID_APPSDK_VERSION."
-echo
-echo
+sh $SCRIPT_DIR/info.sh \
+    "Android NativeScript demo app version $APP_SDK_VERSION has been deployed with AppSDK version $ANDROID_APPSDK_VERSION."
