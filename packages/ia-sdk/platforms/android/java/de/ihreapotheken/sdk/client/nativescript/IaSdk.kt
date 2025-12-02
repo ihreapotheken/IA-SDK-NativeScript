@@ -1,12 +1,13 @@
 package de.ihreapotheken.sdk.client.nativescript
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavOptionsBuilder
 import de.ihreapotheken.sdk.integrations.api.IaSdk
+import de.ihreapotheken.sdk.core.api.PresentationMode
+import de.ihreapotheken.sdk.core.api.listener.HandlingDecision
 import de.ihreapotheken.sdk.integrations.ui.composables.ClientComponentActivity
 import de.ihreapotheken.sdk.integrations.ui.composables.ClientViews
 import de.ihreapotheken.sdk.ordering.OrderingModule
@@ -155,10 +156,6 @@ class IaSdk {
             notifyJs(channelId, "Error clearing cart.", context)
             return 
         }
-        ClientComponentActivity.start(
-            context,
-            ClientViews.CartScreen,
-        )
         IaSdk.ordering.setCheckoutListener(
             object : CheckoutListener {
                 override fun onCheckoutCompleted(hostOrderId: String, sdkOrderId: String) {
@@ -169,27 +166,27 @@ class IaSdk {
                 }
             }
         )
-        val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-            sdkModule.ordering.transferPrescriptions(
-                transferPrescriptionRequest = TransferPrescriptionRequest(
-                    images,
-                    pdfs,
-                    codes,
-                    orderId,
-                ),
-                transferPrescriptionListener = object : TransferPrescriptionListener {
-                    override fun onTransferPrescriptionEvent(event: TransferPrescriptionEvent) {
-                        if (event is TransferPrescriptionEvent.Success) {
-                            notifyJs(channelId, "success", context)
-                        }
-                        if (event is TransferPrescriptionEvent.Failed) {
-                            notifyJs(channelId, event.errorMessage, context)
-                        }
+        sdkModule.ordering.transferPrescriptions(
+            context = context as Activity,
+            transferPrescriptionRequest = TransferPrescriptionRequest(
+                images,
+                pdfs,
+                codes,
+                orderId,
+            ),
+            transferPrescriptionListener = object : TransferPrescriptionListener {
+                override fun onTransferPrescriptionEvent(event: TransferPrescriptionEvent): HandlingDecision {
+                    if (event is TransferPrescriptionEvent.Success) {
+                        notifyJs(channelId, "success", context)
                     }
-                },
-            )
-        }, 2000)
+                    if (event is TransferPrescriptionEvent.Failed) {
+                        notifyJs(channelId, event.errorMessage, context)
+                    }
+                    return HandlingDecision.PERFORM_DEFAULT
+                }
+            },
+            presentationMode = PresentationMode.FULL_FLOW,
+        )
     }
 
     fun startDashboardActivity(
