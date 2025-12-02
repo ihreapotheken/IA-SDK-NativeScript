@@ -38,10 +38,6 @@ jobs:
           security set-key-partition-list \
             -S apple-tool:,apple:,codesign: \
             -s -k "$APPLE_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
-        env:
-          APPLE_CERT_P12_BASE64: ${{ secrets.APPLE_CERT_P12_BASE64 }}
-          APPLE_CERT_PASSWORD: ${{ secrets.APPLE_CERT_PASSWORD }}
-          APPLE_KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
       - name: Install Provisioning Profile
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
@@ -49,8 +45,7 @@ jobs:
             ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
         env:
           APPLE_PROVISIONING_PROFILE: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
-      - run: echo "${{ secrets.ANDROID_SIGNING_KEY_PROPERTIES }}"
-      - run: echo "${{ secrets.ANDROID_FIREBASE_DISTRIBUTION_SERVICE_CREDENTIALS }}" | base64 --decode > tools/assets/App_Resources/Android/fb-distribution-service-credentials.json
-      - run: echo "${{ secrets.ANDROID_SIGNING_KEY_DATA_BASE64 }}" | base64 --decode > tools/assets/App_Resources/Android/demo.jks
-      - run: echo "${{ secrets.ANDROID_SIGNING_KEY_PROPERTIES }}" > tools/assets/App_Resources/Android/key.properties
+      - run: echo ${{ secrets.ANDROID_FIREBASE_DISTRIBUTION_SERVICE_CREDENTIALS }} | base64 --decode > tools/assets/App_Resources/Android/fb-distribution-service-credentials.json
+      - run: echo ${{ secrets.ANDROID_SIGNING_KEY_DATA_BASE64 }} | base64 --decode > tools/assets/App_Resources/Android/demo.jks
+      - run: echo ${{ secrets.ANDROID_SIGNING_KEY_PROPERTIES }} > tools/assets/App_Resources/Android/key.properties
       - run: sh scripts/deploy-demo.sh
