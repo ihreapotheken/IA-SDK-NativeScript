@@ -10,7 +10,6 @@ jobs:
     runs-on: macos-26
     permissions:
       contents: read
-      packages: write
     
     steps:
       - uses: actions/checkout@v4
@@ -45,8 +44,9 @@ jobs:
             ~/Library/MobileDevice/Provisioning\ Profiles/profile.mobileprovision
         env:
           APPLE_PROVISIONING_PROFILE: ${{ secrets.APPLE_PROVISIONING_PROFILE }}
-      - run: echo "${{ secrets.ANDROID_FIREBASE_DISTRIBUTION_SERVICE_CREDENTIALS }}" > tools/assets/App_Resources/Android/fb-distribution-service-credentials.json
+      - run: echo "${{ secrets.ANDROID_FIREBASE_DISTRIBUTION_SERVICE_CREDENTIALS }}" | base64 --decode > example/android/fb-distribution-service-credentials.json
       - run: echo "${{ secrets.ANDROID_SIGNING_KEY_DATA_BASE64 }}" | base64 --decode > tools/assets/App_Resources/Android/demo.jks
       - run: echo "${{ secrets.ANDROID_SIGNING_KEY_PROPERTIES }}" > tools/assets/App_Resources/Android/key.properties
       - run: npm install
+      - run: gem install xcodeproj
       - run: sh scripts/deploy-demo.sh
