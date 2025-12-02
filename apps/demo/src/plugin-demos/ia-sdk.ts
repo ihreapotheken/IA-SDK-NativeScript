@@ -22,11 +22,7 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async initialize() {
     try {
-      await this.iaSdk.initIaSdk(
-        '4a0f1b625a0694ef52d0d41fdd273db262404a622fc12cee8074679e944cc88c', 
-        '6001', 
-        IaSdkBase.ServerEnvironment.Staging,
-      );
+      await this.iaSdk.initIaSdk('c33b7d2757ff7b24613b78c9dc69950aad1588c8d519706fb69b91fcedec65d7', '5004', IaSdkBase.ServerEnvironment.Staging);
     } catch (error) {
       console.error('Init failed:', error);
     }
@@ -34,14 +30,7 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async setUserData() {
     try {
-      await this.iaSdk.setGuestUserData(
-        IaSdkBase.Salutation.NotDisclosed, 
-        'First', 
-        'Last', 
-        'Email@email.com', 
-        49, 
-        24332442,
-      );
+      await this.iaSdk.setGuestUserData(IaSdkBase.Salutation.NotDisclosed, 'First', 'Last', 'Email@email.com', 49, 24332442);
     } catch (error) {
       console.error('Setting user data failed:', error);
     }
@@ -49,12 +38,7 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async transferPrescriptions() {
     try {
-      await this.iaSdk.transferPrescriptions(
-        this.images, 
-        this.pdfs, 
-        ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 
-        'AAAAAA',
-      );
+      await this.iaSdk.transferPrescriptions(this.images, this.pdfs, ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 'AAAAAA');
     } catch (error) {
       console.error('Transferring prescriptions failed:', error);
     }

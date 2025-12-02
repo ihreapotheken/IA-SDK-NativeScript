@@ -151,11 +151,7 @@ class IaSdk {
         orderId: String?,
     ) {
         val channelId = "TRANSFER_PRESCRIPTIONS_EVENT"
-        val clearedCart = sdkModule.ordering.clearCart()
-        if (!clearedCart) {
-            notifyJs(channelId, "Error clearing cart.", context)
-            return 
-        }
+        sdkModule.ordering.clearCart()
         IaSdk.ordering.setCheckoutListener(
             object : CheckoutListener {
                 override fun onCheckoutCompleted(hostOrderId: String, sdkOrderId: String) {
