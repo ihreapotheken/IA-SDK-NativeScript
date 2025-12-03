@@ -49,22 +49,6 @@ export class IaSdk extends Observable {
   }
 
   /**
-   * Configures the ia.de SDK settings.
-   *
-   * @param options Configuration options object:
-   *   - footerShouldShowDataProcessing: Whether to show data processing information in the footer
-   *   - Add more options here as needed
-   */
-  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean }): void {
-    if (isAndroid) {
-      // @TODO android implementation
-    }
-    if (isIOS) {
-      IaSdkIOS.instance.configureIaSdk(options);
-    }
-  }
-
-  /**
    * Forwards the client personal information to the ia.de library for checkout purposes.
    *
    * @param salutation Customer pronouns.

@@ -26,15 +26,6 @@ export class IaSdkIOS extends IaSdkBase {
     this.iaSdk.initIaSdkWithAccessKeyClientIdServerEnvironmentCompletionHandler(accessKey, clientId, serverEnvironment, completionHandler);
   }
 
-  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean }): void {
-    // Convert TypeScript object to NSDictionary
-    const nativeOptions: any = {};
-    if (options.footerShouldShowDataProcessing !== undefined) {
-      nativeOptions.footerShouldShowDataProcessing = options.footerShouldShowDataProcessing;
-    }
-    this.iaSdk.configureIaSdk(nativeOptions);
-  }
-
   setGuestUserData(salutation: IaSdkBase.Salutation, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: (e: any) => void): void {
     this.iaSdk.setGuestUserDataWithSalutationFirstNameLastNameEmailPhoneNumberCountryCodePhoneNumberWithoutCountryCodeCompletionHandler(salutation, firstName, lastName, email, phoneNumberCountryCode, phoneNumberWithoutCountryCode, completionHandler);
   }
