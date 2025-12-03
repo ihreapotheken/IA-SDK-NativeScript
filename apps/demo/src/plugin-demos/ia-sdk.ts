@@ -22,6 +22,11 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async initialize() {
     try {
+      // Configure SDK settings before initialization
+      this.iaSdk.configureIaSdk({
+        footerShouldShowDataProcessing: false,
+      });
+
       await this.iaSdk.initIaSdk('c33b7d2757ff7b24613b78c9dc69950aad1588c8d519706fb69b91fcedec65d7', '5004', IaSdkBase.ServerEnvironment.Staging);
     } catch (error) {
       console.error('Init failed:', error);
