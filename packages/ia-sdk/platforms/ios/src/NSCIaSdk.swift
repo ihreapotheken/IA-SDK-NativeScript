@@ -75,6 +75,20 @@ class NSCIaSdk: NSObject {
   }
 
   /**
+   * Configures the ia.de SDK.
+   *
+   * @param options Dictionary with configuration keys:
+   *   - "footerShouldShowDataProcessing": Bool
+   */
+  public func configureIaSdk(
+    _ options: [String: Any]
+  ) {
+    if let footerShouldShowDataProcessing = options["footerShouldShowDataProcessing"] as? Bool {
+      IASDK.configuration.footer.shouldShowDataProcessing = footerShouldShowDataProcessing
+    }
+  }
+
+  /**
     * Forwards the client personal information to the ia.de library for checkout purposes.
     */
   public func setGuestUserData(
