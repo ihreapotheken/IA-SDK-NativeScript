@@ -48,3 +48,7 @@ packages/**/angular/dist
 docs/
 
 packages/ia-sdk/platforms/android/ia_sdk.aar
+
+tools/assets/App_Resources/Android/demo.jks
+tools/assets/App_Resources/Android/key.properties
+tools/assets/App_Resources/Android/fb-distribution-service-credentials.json
