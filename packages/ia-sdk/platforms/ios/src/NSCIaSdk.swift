@@ -227,13 +227,14 @@ class IaClientDelegate: SDKDelegate, OrderingDelegate, PrescriptionDelegate, Car
   func orderingWillShowThankYouScreen(orders: [IAOrder], dismissable: (any Dismissable)?)
     -> HandlingDecision
   {
-    if let order = orders.first {
+    if let order = orders.first, let clientOrderID = order.clientOrderID {
       NSCIaSdk.orderSignatureListener.value = NSCIaSdk.SignatureCodes(
         iaOrderCode: order.orderCode,
-        internalOrderCode: order.clientOrderID!,
+        internalOrderCode: clientOrderID,
       )
+      return .handled
     }
-    return .handled
+    return .performDefault
   }
 }
 
