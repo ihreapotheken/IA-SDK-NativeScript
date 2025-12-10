@@ -89,8 +89,8 @@ class NSCIaSdk: NSObject {
   }
 
   /**
-    * Forwards the client personal information to the ia.de library for checkout purposes.
-    */
+   * Forwards the client personal information to the ia.de library for checkout purposes.
+   */
   public func setGuestUserData(
     salutation: String,
     firstName: String,

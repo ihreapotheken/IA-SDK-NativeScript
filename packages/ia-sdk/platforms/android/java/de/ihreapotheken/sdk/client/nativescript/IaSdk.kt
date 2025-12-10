@@ -8,8 +8,8 @@ import androidx.navigation.NavOptionsBuilder
 import de.ihreapotheken.sdk.integrations.api.IaSdk
 import de.ihreapotheken.sdk.core.api.PresentationMode
 import de.ihreapotheken.sdk.core.api.listener.HandlingDecision
-import de.ihreapotheken.sdk.integrations.ui.composables.ClientComponentActivity
-import de.ihreapotheken.sdk.integrations.ui.composables.ClientViews
+import de.ihreapotheken.sdk.integrations.api.view.IaSdkActivity
+import de.ihreapotheken.sdk.integrations.api.view.SdkEntryPoint
 import de.ihreapotheken.sdk.ordering.OrderingModule
 import de.ihreapotheken.sdk.otc.OtcModule
 import de.ihreapotheken.sdk.pharmacy.PharmacyModule
@@ -114,7 +114,7 @@ class IaSdk {
             },
             phoneNumberWithoutCountryCode,
         )
-        sdkModule.setGuestUser(
+        sdkModule.setUserData(
             guestUserData
         )
         notifyJs(channelId, "success", context)
@@ -151,7 +151,7 @@ class IaSdk {
         orderId: String?,
     ) {
         val channelId = "TRANSFER_PRESCRIPTIONS_EVENT"
-        sdkModule.ordering.clearCart()
+        sdkModule.ordering.deleteCart()
         IaSdk.ordering.setCheckoutListener(
             object : CheckoutListener {
                 override fun onCheckoutCompleted(hostOrderId: String, sdkOrderId: String) {
@@ -188,14 +188,14 @@ class IaSdk {
     fun startDashboardActivity(
         context: Context,
     ) {
-        ClientComponentActivity.start(
+        IaSdkActivity.start(
             context,
-            ClientViews.StartScreen,
+            SdkEntryPoint.StartScreen,
         )
     }
 
     fun finishAllActivities() {
-        ClientComponentActivity.finishAllActivities()
+        IaSdkActivity.finishAllActivities()
     }
 
     fun logout(
@@ -203,7 +203,7 @@ class IaSdk {
     ) {
         val channelId = "LOGOUT_EVENT"
 
-        val success = sdkModule.core.clearAllData()
+        val success = sdkModule.clearAllData()
         if (success) {
             notifyJs(channelId, "success", context)
         } else {
@@ -216,7 +216,7 @@ class IaSdk {
     ) {
         val channelId = "CLEAR_CART_EVENT"
 
-        val success = sdkModule.ordering.clearCart()
+        val success = sdkModule.ordering.deleteCart()
         if (success) {
             notifyJs(channelId, "success", context)
         } else {
