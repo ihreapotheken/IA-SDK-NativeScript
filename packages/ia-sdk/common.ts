@@ -244,6 +244,27 @@ export class IaSdk extends Observable {
   }
 
   /**
+   * Shows the pharmacy ID screen.
+   */
+  showPharmacyId(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (isAndroid) {
+        IaSdkAndroid.instance.showPharmacyId((e: any) => {
+          if (e == 'success') {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+      if (isIOS) {
+        // TODO: iOS implementation
+        reject('Not implemented on iOS');
+      }
+    });
+  }
+
+  /**
    * [Observable] object notifying of any updates with the ia.de checkout process,
    * forwarding the SDK and any submitted order codes to listeners.
    *

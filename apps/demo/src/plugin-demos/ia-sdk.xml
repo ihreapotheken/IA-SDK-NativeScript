@@ -30,5 +30,10 @@
             text="Logout" 
             tap="{{ logout }}"
             style="margin-bottom:16" />
+
+        <Button 
+            text="Show Pharmacy ID" 
+            tap="{{ showPharmacyId }}"
+            style="margin-bottom:16" />
     </StackLayout>
 </Page>

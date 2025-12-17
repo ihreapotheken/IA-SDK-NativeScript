@@ -223,4 +223,10 @@ class IaSdk {
             notifyJs(channelId, "Error clearing cart.", context)
         }
     }
+
+    fun showPharmacyId(context: Context) {
+        val channelId = "SHOW_PHARMACY_ID_EVENT"
+        sdkModule.pharmacy.showPharmacyId()
+        notifyJs(channelId, "success", context)
+    }
 }
