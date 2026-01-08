@@ -9,7 +9,7 @@ import de.ihreapotheken.sdk.integrations.api.IaSdk
 import de.ihreapotheken.sdk.core.api.PresentationMode
 import de.ihreapotheken.sdk.core.api.listener.HandlingDecision
 import de.ihreapotheken.sdk.integrations.api.view.IaSdkActivity
-import de.ihreapotheken.sdk.integrations.api.view.SdkEntryPoint
+import de.ihreapotheken.sdk.integrations.api.view.IaScreen
 import de.ihreapotheken.sdk.ordering.OrderingModule
 import de.ihreapotheken.sdk.otc.OtcModule
 import de.ihreapotheken.sdk.pharmacy.PharmacyModule
@@ -190,7 +190,7 @@ class IaSdk {
     ) {
         IaSdkActivity.start(
             context,
-            SdkEntryPoint.StartScreen,
+            IaScreen.StartScreen,
         )
     }
 
