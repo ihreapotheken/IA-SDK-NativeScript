@@ -1,21 +1,19 @@
-
 declare function ColorSyncAPIVersion(): number;
 
 declare const enum ColorSyncAlphaInfo {
+  kColorSyncAlphaNone = 0,
 
-	kColorSyncAlphaNone = 0,
+  kColorSyncAlphaPremultipliedLast = 1,
 
-	kColorSyncAlphaPremultipliedLast = 1,
+  kColorSyncAlphaPremultipliedFirst = 2,
 
-	kColorSyncAlphaPremultipliedFirst = 2,
+  kColorSyncAlphaLast = 3,
 
-	kColorSyncAlphaLast = 3,
+  kColorSyncAlphaFirst = 4,
 
-	kColorSyncAlphaFirst = 4,
+  kColorSyncAlphaNoneSkipLast = 5,
 
-	kColorSyncAlphaNoneSkipLast = 5,
-
-	kColorSyncAlphaNoneSkipFirst = 6
+  kColorSyncAlphaNoneSkipFirst = 6,
 }
 
 /**
@@ -24,22 +22,21 @@ declare const enum ColorSyncAlphaInfo {
 declare function ColorSyncCreateCodeFragment(profileSequence: NSArray<any> | any[], options: NSDictionary<any, any>): any;
 
 declare const enum ColorSyncDataDepth {
+  kColorSync1BitGamut = 1,
 
-	kColorSync1BitGamut = 1,
+  kColorSync8BitInteger = 2,
 
-	kColorSync8BitInteger = 2,
+  kColorSync16BitInteger = 3,
 
-	kColorSync16BitInteger = 3,
+  kColorSync16BitFloat = 4,
 
-	kColorSync16BitFloat = 4,
+  kColorSync32BitInteger = 5,
 
-	kColorSync32BitInteger = 5,
+  kColorSync32BitNamedColorIndex = 6,
 
-	kColorSync32BitNamedColorIndex = 6,
+  kColorSync32BitFloat = 7,
 
-	kColorSync32BitFloat = 7,
-
-	kColorSync10BitInteger = 8
+  kColorSync10BitInteger = 8,
 }
 
 /**
@@ -48,7 +45,7 @@ declare const enum ColorSyncDataDepth {
 declare function ColorSyncIterateInstalledProfiles(callBack: interop.FunctionReference<(p1: NSDictionary<any, any>, p2: interop.Pointer | interop.Reference<any>) => boolean>, seed: interop.Pointer | interop.Reference<number>, userInfo: interop.Pointer | interop.Reference<any>, error: interop.Pointer | interop.Reference<NSError>): void;
 
 interface ColorSyncMD5 {
-	digest: interop.Reference<number>;
+  digest: interop.Reference<number>;
 }
 declare var ColorSyncMD5: interop.StructType<ColorSyncMD5>;
 
@@ -113,12 +110,12 @@ declare function ColorSyncProfileCreateWithName(name: string): any;
 declare function ColorSyncProfileCreateWithURL(url: NSURL, error: interop.Pointer | interop.Reference<NSError>): any;
 
 /**
- * @since 19.0
+ * @since 26.1
  */
 declare function ColorSyncProfileCreateWithURLAndOptions(url: NSURL, options: NSDictionary<any, any>, error: interop.Pointer | interop.Reference<NSError>): any;
 
 /**
- * @since 16.0
+ * @since 26.1
  */
 declare function ColorSyncProfileEstimateGamma(prof: any, error: interop.Pointer | interop.Reference<NSError>): number;
 
@@ -126,8 +123,6 @@ declare function ColorSyncProfileEstimateGamma(prof: any, error: interop.Pointer
  * @since 16.0
  */
 declare function ColorSyncProfileGetMD5(prof: any): ColorSyncMD5;
-
-declare function ColorSyncProfileGetTagCount(p1: any): number;
 
 /**
  * @since 16.0
@@ -334,7 +329,7 @@ declare var kColorSyncDCIP3Profile: string;
 declare var kColorSyncDisplayP3Profile: string;
 
 /**
- * @since 19.0
+ * @since 26.1
  */
 declare var kColorSyncDoNotSubstituteProfiles: string;
 

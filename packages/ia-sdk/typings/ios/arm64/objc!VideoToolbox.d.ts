@@ -1,4 +1,3 @@
-
 /**
  * @since 8.0
  */
@@ -63,8 +62,7 @@ declare function VTCompressionSessionInvalidate(session: any): void;
  * @since 8.0
  */
 declare const enum VTCompressionSessionOptionFlags {
-
-	kVTCompressionSessionBeginFinalPass = 1
+  kVTCompressionSessionBeginFinalPass = 1,
 }
 
 /**
@@ -88,35 +86,33 @@ declare function VTCopyVideoEncoderList(options: NSDictionary<any, any>, listOfV
 declare function VTCreateCGImageFromCVPixelBuffer(pixelBuffer: any, options: NSDictionary<any, any>, imageOut: interop.Pointer | interop.Reference<any>): number;
 
 declare const enum VTDecodeFrameFlags {
+  kVTDecodeFrame_EnableAsynchronousDecompression = 1,
 
-	kVTDecodeFrame_EnableAsynchronousDecompression = 1,
+  kVTDecodeFrame_DoNotOutputFrame = 2,
 
-	kVTDecodeFrame_DoNotOutputFrame = 2,
+  kVTDecodeFrame_1xRealTimePlayback = 4,
 
-	kVTDecodeFrame_1xRealTimePlayback = 4,
-
-	kVTDecodeFrame_EnableTemporalProcessing = 8
+  kVTDecodeFrame_EnableTemporalProcessing = 8,
 }
 
 declare const enum VTDecodeInfoFlags {
+  kVTDecodeInfo_Asynchronous = 1,
 
-	kVTDecodeInfo_Asynchronous = 1,
+  kVTDecodeInfo_FrameDropped = 2,
 
-	kVTDecodeInfo_FrameDropped = 2,
+  kVTDecodeInfo_ImageBufferModifiable = 4,
 
-	kVTDecodeInfo_ImageBufferModifiable = 4,
+  kVTDecodeInfo_SkippedLeadingFrameDropped = 8,
 
-	kVTDecodeInfo_SkippedLeadingFrameDropped = 8,
-
-	kVTDecodeInfo_FrameInterrupted = 16
+  kVTDecodeInfo_FrameInterrupted = 16,
 }
 
 /**
  * @since 8.0
  */
 interface VTDecompressionOutputCallbackRecord {
-	decompressionOutputCallback: interop.FunctionReference<(p1: interop.Pointer | interop.Reference<any>, p2: interop.Pointer | interop.Reference<any>, p3: number, p4: VTDecodeInfoFlags, p5: any, p6: CMTime, p7: CMTime) => void>;
-	decompressionOutputRefCon: interop.Pointer | interop.Reference<any>;
+  decompressionOutputCallback: interop.FunctionReference<(p1: interop.Pointer | interop.Reference<any>, p2: interop.Pointer | interop.Reference<any>, p3: number, p4: VTDecodeInfoFlags, p5: any, p6: CMTime, p7: CMTime) => void>;
+  decompressionOutputRefCon: interop.Pointer | interop.Reference<any>;
 }
 declare var VTDecompressionOutputCallbackRecord: interop.StructType<VTDecompressionOutputCallbackRecord>;
 
@@ -186,83 +182,78 @@ declare function VTDecompressionSessionSetMultiImageCallback(decompressionSessio
 declare function VTDecompressionSessionWaitForAsynchronousFrames(session: any): number;
 
 declare const enum VTEncodeInfoFlags {
+  kVTEncodeInfo_Asynchronous = 1,
 
-	kVTEncodeInfo_Asynchronous = 1,
-
-	kVTEncodeInfo_FrameDropped = 2
+  kVTEncodeInfo_FrameDropped = 2,
 }
 
 /**
  * @since 26.0
  */
 declare class VTFrameProcessor extends NSObject {
+  static alloc(): VTFrameProcessor; // inherited from NSObject
 
-	static alloc(): VTFrameProcessor; // inherited from NSObject
+  static new(): VTFrameProcessor; // inherited from NSObject
 
-	static new(): VTFrameProcessor; // inherited from NSObject
+  endSession(): void;
 
-	endSession(): void;
+  processWithCommandBufferParameters(commandBuffer: MTLCommandBuffer, parameters: VTFrameProcessorParameters): void;
 
-	processWithCommandBufferParameters(commandBuffer: MTLCommandBuffer, parameters: VTFrameProcessorParameters): void;
+  processWithParametersCompletionHandler(parameters: VTFrameProcessorParameters, completionHandler: (p1: VTFrameProcessorParameters, p2: NSError) => void): void;
 
-	processWithParametersCompletionHandler(parameters: VTFrameProcessorParameters, completionHandler: (p1: VTFrameProcessorParameters, p2: NSError) => void): void;
+  processWithParametersError(parameters: VTFrameProcessorParameters): boolean;
 
-	processWithParametersError(parameters: VTFrameProcessorParameters): boolean;
+  processWithParametersFrameOutputHandler(parameters: VTFrameProcessorParameters, frameOutputHandler: (p1: VTFrameProcessorParameters, p2: CMTime, p3: boolean, p4: NSError) => void): void;
 
-	processWithParametersFrameOutputHandler(parameters: VTFrameProcessorParameters, frameOutputHandler: (p1: VTFrameProcessorParameters, p2: CMTime, p3: boolean, p4: NSError) => void): void;
-
-	startSessionWithConfigurationError(configuration: VTFrameProcessorConfiguration): boolean;
+  startSessionWithConfigurationError(configuration: VTFrameProcessorConfiguration): boolean;
 }
 
 /**
  * @since 26.0
  */
 interface VTFrameProcessorConfiguration extends NSObjectProtocol {
+  destinationPixelBufferAttributes: NSDictionary<string, any>;
 
-	destinationPixelBufferAttributes: NSDictionary<string, any>;
+  frameSupportedPixelFormats: NSArray<number>;
 
-	frameSupportedPixelFormats: NSArray<number>;
+  nextFrameCount?: number;
 
-	nextFrameCount?: number;
+  previousFrameCount?: number;
 
-	previousFrameCount?: number;
-
-	sourcePixelBufferAttributes: NSDictionary<string, any>;
+  sourcePixelBufferAttributes: NSDictionary<string, any>;
 }
 declare var VTFrameProcessorConfiguration: {
-
-	prototype: VTFrameProcessorConfiguration;
+  prototype: VTFrameProcessorConfiguration;
 };
 
 declare const enum VTFrameProcessorError {
+  UnknownError = -19730,
 
-	UnknownError = -19730,
+  UnsupportedResolution = -19731,
 
-	UnsupportedResolution = -19731,
+  SessionNotStarted = -19732,
 
-	SessionNotStarted = -19732,
+  SessionAlreadyActive = -19733,
 
-	SessionAlreadyActive = -19733,
+  FatalError = -19734,
 
-	FatalError = -19734,
+  SessionLevelError = -19735,
 
-	SessionLevelError = -19735,
+  InitializationFailed = -19736,
 
-	InitializationFailed = -19736,
+  UnsupportedInput = -19737,
 
-	UnsupportedInput = -19737,
+  MemoryAllocationFailure = -19738,
 
-	MemoryAllocationFailure = -19738,
+  RevisionNotSupported = -19739,
 
-	RevisionNotSupported = -19739,
+  ProcessingError = -19740,
 
-	ProcessingError = -19740,
+  InvalidParameterError = -19741,
 
-	InvalidParameterError = -19741,
+  InvalidFrameTiming = -19742,
 
-	InvalidFrameTiming = -19742,
-
-	AssetDownloadFailed = -19743
+  AssetDownloadFailed = -19743,
 }
 
 /**
@@ -274,52 +265,48 @@ declare var VTFrameProcessorErrorDomain: string;
  * @since 26.0
  */
 declare class VTFrameProcessorFrame extends NSObject {
+  static alloc(): VTFrameProcessorFrame; // inherited from NSObject
 
-	static alloc(): VTFrameProcessorFrame; // inherited from NSObject
+  static new(): VTFrameProcessorFrame; // inherited from NSObject
 
-	static new(): VTFrameProcessorFrame; // inherited from NSObject
+  readonly buffer: any;
 
-	readonly buffer: any;
+  readonly presentationTimeStamp: CMTime;
 
-	readonly presentationTimeStamp: CMTime;
+  constructor(o: { buffer: any; presentationTimeStamp: CMTime });
 
-	constructor(o: { buffer: any; presentationTimeStamp: CMTime; });
-
-	initWithBufferPresentationTimeStamp(buffer: any, presentationTimeStamp: CMTime): this;
+  initWithBufferPresentationTimeStamp(buffer: any, presentationTimeStamp: CMTime): this;
 }
 
 /**
  * @since 26.0
  */
 declare class VTFrameProcessorOpticalFlow extends NSObject {
+  static alloc(): VTFrameProcessorOpticalFlow; // inherited from NSObject
 
-	static alloc(): VTFrameProcessorOpticalFlow; // inherited from NSObject
+  static new(): VTFrameProcessorOpticalFlow; // inherited from NSObject
 
-	static new(): VTFrameProcessorOpticalFlow; // inherited from NSObject
+  readonly backwardFlow: any;
 
-	readonly backwardFlow: any;
+  readonly forwardFlow: any;
 
-	readonly forwardFlow: any;
+  constructor(o: { forwardFlow: any; backwardFlow: any });
 
-	constructor(o: { forwardFlow: any; backwardFlow: any; });
-
-	initWithForwardFlowBackwardFlow(forwardFlow: any, backwardFlow: any): this;
+  initWithForwardFlowBackwardFlow(forwardFlow: any, backwardFlow: any): this;
 }
 
 /**
  * @since 26.0
  */
 interface VTFrameProcessorParameters extends NSObjectProtocol {
+  destinationFrame?: VTFrameProcessorFrame;
 
-	destinationFrame?: VTFrameProcessorFrame;
+  destinationFrames?: NSArray<VTFrameProcessorFrame>;
 
-	destinationFrames?: NSArray<VTFrameProcessorFrame>;
-
-	sourceFrame: VTFrameProcessorFrame;
+  sourceFrame: VTFrameProcessorFrame;
 }
 declare var VTFrameProcessorParameters: {
-
-	prototype: VTFrameProcessorParameters;
+  prototype: VTFrameProcessorParameters;
 };
 
 /**
@@ -373,14 +360,14 @@ declare function VTHDRPerFrameMetadataGenerationSessionCreate(allocator: any, fr
 declare function VTHDRPerFrameMetadataGenerationSessionGetTypeID(): number;
 
 interface VTInt32Point {
-	x: number;
-	y: number;
+  x: number;
+  y: number;
 }
 declare var VTInt32Point: interop.StructType<VTInt32Point>;
 
 interface VTInt32Size {
-	width: number;
-	height: number;
+  width: number;
+  height: number;
 }
 declare var VTInt32Size: interop.StructType<VTInt32Size>;
 
@@ -400,13 +387,11 @@ declare function VTIsStereoMVHEVCDecodeSupported(): boolean;
 declare function VTIsStereoMVHEVCEncodeSupported(): boolean;
 
 declare const enum VTMotionEstimationFrameFlags {
-
-	kVTMotionEstimationFrameFlags_CurrentBufferWillBeNextReferenceBuffer = 1
+  kVTMotionEstimationFrameFlags_CurrentBufferWillBeNextReferenceBuffer = 1,
 }
 
 declare const enum VTMotionEstimationInfoFlags {
-
-	kVTMotionEstimationInfoFlags_Reserved0 = 1
+  kVTMotionEstimationInfoFlags_Reserved0 = 1,
 }
 
 /**
@@ -493,6 +478,11 @@ declare function VTPixelTransferSessionInvalidate(session: any): void;
  * @since 16.0
  */
 declare function VTPixelTransferSessionTransferImage(session: any, sourceBuffer: any, destinationBuffer: any): number;
+
+/**
+ * @since 26.2
+ */
+declare function VTRegisterSupplementalVideoDecoderIfAvailable(codecType: number): void;
 
 /**
  * @since 8.0

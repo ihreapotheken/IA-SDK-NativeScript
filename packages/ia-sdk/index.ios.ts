@@ -1,7 +1,5 @@
 import { IaSdkBase, OrderCodes, OrderSignatureListener } from './types';
 
-declare const NSCIaSdk: any;
-
 export class IaSdkIOS extends IaSdkBase {
   private static _instance: IaSdkIOS | null = null;
 

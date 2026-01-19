@@ -1,8 +1,6 @@
 import { IaSdkBase, OrderCodes, OrderSignatureListener } from './types';
 import { Application, Utils } from '@nativescript/core';
 
-declare const de: any;
-
 export class IaSdkAndroid extends IaSdkBase {
   private static _instance: IaSdkAndroid | null = null;
 

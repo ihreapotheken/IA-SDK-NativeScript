@@ -1,78 +1,73 @@
-
 /**
  * @since 18.0
  */
 declare const enum BEAccessibilityContainerType {
+  None = 0,
 
-	None = 0,
+  Landmark = 1,
 
-	Landmark = 1,
+  Table = 2,
 
-	Table = 2,
+  List = 4,
 
-	List = 4,
+  Fieldset = 8,
 
-	Fieldset = 8,
+  Dialog = 16,
 
-	Dialog = 16,
+  Tree = 32,
 
-	Tree = 32,
+  Frame = 64,
 
-	Frame = 64,
+  Article = 128,
 
-	Article = 128,
+  SemanticGroup = 256,
 
-	SemanticGroup = 256,
+  ScrollArea = 512,
 
-	ScrollArea = 512,
+  Alert = 1024,
 
-	Alert = 1024,
-
-	DescriptionList = 2048
+  DescriptionList = 2048,
 }
 
 /**
  * @since 18.0
  */
 declare const enum BEAccessibilityPressedState {
+  Undefined = 0,
 
-	Undefined = 0,
+  False = 1,
 
-	False = 1,
+  True = 2,
 
-	True = 2,
-
-	Mixed = 3
+  Mixed = 3,
 }
 
 /**
  * @since 26.0
  */
 declare class BEAccessibilityRemoteElement extends NSObject {
+  static alloc(): BEAccessibilityRemoteElement; // inherited from NSObject
 
-	static alloc(): BEAccessibilityRemoteElement; // inherited from NSObject
+  static new(): BEAccessibilityRemoteElement; // inherited from NSObject
 
-	static new(): BEAccessibilityRemoteElement; // inherited from NSObject
+  constructor(o: { identifier: string; hostPid: number });
 
-	constructor(o: { identifier: string; hostPid: number; });
-
-	initWithIdentifierHostPid(identifier: string, hostPid: number): this;
+  initWithIdentifierHostPid(identifier: string, hostPid: number): this;
 }
 
 /**
  * @since 26.0
  */
 declare class BEAccessibilityRemoteHostElement extends NSObject {
+  static alloc(): BEAccessibilityRemoteHostElement; // inherited from NSObject
 
-	static alloc(): BEAccessibilityRemoteHostElement; // inherited from NSObject
+  static new(): BEAccessibilityRemoteHostElement; // inherited from NSObject
 
-	static new(): BEAccessibilityRemoteHostElement; // inherited from NSObject
+  accessibilityContainer: any;
 
-	accessibilityContainer: any;
+  constructor(o: { identifier: string; remotePid: number });
 
-	constructor(o: { identifier: string; remotePid: number; });
-
-	initWithIdentifierRemotePid(identifier: string, remotePid: number): this;
+  initWithIdentifierRemotePid(identifier: string, remotePid: number): this;
 }
 
 /**
@@ -84,78 +79,74 @@ declare var BEAccessibilitySelectionChangedNotification: number;
  * @since 18.2
  */
 declare class BEAccessibilityTextMarker extends NSObject implements NSCopying, NSSecureCoding {
+  static alloc(): BEAccessibilityTextMarker; // inherited from NSObject
 
-	static alloc(): BEAccessibilityTextMarker; // inherited from NSObject
+  static new(): BEAccessibilityTextMarker; // inherited from NSObject
 
-	static new(): BEAccessibilityTextMarker; // inherited from NSObject
+  static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
 
-	static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
+  constructor(o: { coder: NSCoder }); // inherited from NSCoding
 
-	constructor(o: { coder: NSCoder; }); // inherited from NSCoding
+  copyWithZone(zone: interop.Pointer | interop.Reference<any>): any;
 
-	copyWithZone(zone: interop.Pointer | interop.Reference<any>): any;
+  encodeWithCoder(coder: NSCoder): void;
 
-	encodeWithCoder(coder: NSCoder): void;
-
-	initWithCoder(coder: NSCoder): this;
+  initWithCoder(coder: NSCoder): this;
 }
 
 /**
  * @since 18.2
  */
 declare class BEAccessibilityTextMarkerRange extends NSObject implements NSCopying, NSSecureCoding {
+  static alloc(): BEAccessibilityTextMarkerRange; // inherited from NSObject
 
-	static alloc(): BEAccessibilityTextMarkerRange; // inherited from NSObject
+  static new(): BEAccessibilityTextMarkerRange; // inherited from NSObject
 
-	static new(): BEAccessibilityTextMarkerRange; // inherited from NSObject
+  endMarker: BEAccessibilityTextMarker;
 
-	endMarker: BEAccessibilityTextMarker;
+  startMarker: BEAccessibilityTextMarker;
 
-	startMarker: BEAccessibilityTextMarker;
+  static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
 
-	static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
+  constructor(o: { coder: NSCoder }); // inherited from NSCoding
 
-	constructor(o: { coder: NSCoder; }); // inherited from NSCoding
+  copyWithZone(zone: interop.Pointer | interop.Reference<any>): any;
 
-	copyWithZone(zone: interop.Pointer | interop.Reference<any>): any;
+  encodeWithCoder(coder: NSCoder): void;
 
-	encodeWithCoder(coder: NSCoder): void;
-
-	initWithCoder(coder: NSCoder): this;
+  initWithCoder(coder: NSCoder): this;
 }
 
 /**
  * @since 18.2
  */
 interface BEAccessibilityTextMarkerSupport extends NSObjectProtocol {
+  accessibilityBoundsForTextMarkerRange(range: BEAccessibilityTextMarkerRange): CGRect;
 
-	accessibilityBoundsForTextMarkerRange(range: BEAccessibilityTextMarkerRange): CGRect;
+  accessibilityContentForTextMarkerRange(range: BEAccessibilityTextMarkerRange): string;
 
-	accessibilityContentForTextMarkerRange(range: BEAccessibilityTextMarkerRange): string;
+  accessibilityLineEndMarkerForMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
 
-	accessibilityLineEndMarkerForMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
+  accessibilityLineStartMarkerForMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
 
-	accessibilityLineStartMarkerForMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
+  accessibilityMarkerForPoint(point: CGPoint): BEAccessibilityTextMarker;
 
-	accessibilityMarkerForPoint(point: CGPoint): BEAccessibilityTextMarker;
+  accessibilityNextTextMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
 
-	accessibilityNextTextMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
+  accessibilityPreviousTextMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
 
-	accessibilityPreviousTextMarker(marker: BEAccessibilityTextMarker): BEAccessibilityTextMarker;
+  accessibilityRangeForTextMarkerRange(range: BEAccessibilityTextMarkerRange): NSRange;
 
-	accessibilityRangeForTextMarkerRange(range: BEAccessibilityTextMarkerRange): NSRange;
+  accessibilityTextMarkerForPosition(position: number): BEAccessibilityTextMarker;
 
-	accessibilityTextMarkerForPosition(position: number): BEAccessibilityTextMarker;
+  accessibilityTextMarkerRange(): BEAccessibilityTextMarkerRange;
 
-	accessibilityTextMarkerRange(): BEAccessibilityTextMarkerRange;
+  accessibilityTextMarkerRangeForCurrentSelection(): BEAccessibilityTextMarkerRange;
 
-	accessibilityTextMarkerRangeForCurrentSelection(): BEAccessibilityTextMarkerRange;
-
-	accessibilityTextMarkerRangeForRange(range: NSRange): BEAccessibilityTextMarkerRange;
+  accessibilityTextMarkerRangeForRange(range: NSRange): BEAccessibilityTextMarkerRange;
 }
 declare var BEAccessibilityTextMarkerSupport: {
-
-	prototype: BEAccessibilityTextMarkerSupport;
+  prototype: BEAccessibilityTextMarkerSupport;
 };
 
 /**
@@ -192,31 +183,29 @@ declare var BEAccessibilityValueChangedNotification: number;
  * @since 17.4
  */
 declare class BEAutoFillTextSuggestion extends BETextSuggestion {
+  static alloc(): BEAutoFillTextSuggestion; // inherited from NSObject
 
-	static alloc(): BEAutoFillTextSuggestion; // inherited from NSObject
+  static new(): BEAutoFillTextSuggestion; // inherited from NSObject
 
-	static new(): BEAutoFillTextSuggestion; // inherited from NSObject
-
-	readonly contents: NSDictionary<string, string>;
+  readonly contents: NSDictionary<string, string>;
 }
 
 /**
  * @since 17.4
  */
 declare class BEContextMenuConfiguration extends UIContextMenuConfiguration {
+  static alloc(): BEContextMenuConfiguration; // inherited from NSObject
 
-	static alloc(): BEContextMenuConfiguration; // inherited from NSObject
+  static configurationWithIdentifierPreviewProviderActionProvider(identifier: any, previewProvider: () => UIViewController, actionProvider: (p1: NSArray<UIMenuElement>) => UIMenu): BEContextMenuConfiguration; // inherited from UIContextMenuConfiguration
 
-	static configurationWithIdentifierPreviewProviderActionProvider(identifier: any, previewProvider: () => UIViewController, actionProvider: (p1: NSArray<UIMenuElement>) => UIMenu): BEContextMenuConfiguration; // inherited from UIContextMenuConfiguration
+  static new(): BEContextMenuConfiguration; // inherited from NSObject
 
-	static new(): BEContextMenuConfiguration; // inherited from NSObject
-
-	fulfillUsingConfiguration(configuration: UIContextMenuConfiguration): boolean;
+  fulfillUsingConfiguration(configuration: UIContextMenuConfiguration): boolean;
 }
 
 interface BEDirectionalTextRange {
-	offset: number;
-	length: number;
+  offset: number;
+  length: number;
 }
 declare var BEDirectionalTextRange: interop.StructType<BEDirectionalTextRange>;
 
@@ -224,1119 +213,1084 @@ declare var BEDirectionalTextRange: interop.StructType<BEDirectionalTextRange>;
  * @since 18.2
  */
 declare class BEDownloadMonitor extends NSObject {
+  static alloc(): BEDownloadMonitor; // inherited from NSObject
 
-	static alloc(): BEDownloadMonitor; // inherited from NSObject
+  static createAccessToken(): NSData;
 
-	static createAccessToken(): NSData;
+  static new(): BEDownloadMonitor; // inherited from NSObject
 
-	static new(): BEDownloadMonitor; // inherited from NSObject
+  readonly destinationURL: NSURL;
 
-	readonly destinationURL: NSURL;
+  readonly identifier: NSUUID;
 
-	readonly identifier: NSUUID;
+  readonly sourceURL: NSURL;
 
-	readonly sourceURL: NSURL;
+  constructor(o: { sourceURL: NSURL; destinationURL: NSURL; observedProgress: NSProgress; liveActivityAccessToken: NSData });
 
-	constructor(o: { sourceURL: NSURL; destinationURL: NSURL; observedProgress: NSProgress; liveActivityAccessToken: NSData; });
+  beginMonitoring(completion: (p1: BEDownloadMonitorLocation, p2: NSError) => void): void;
 
-	beginMonitoring(completion: (p1: BEDownloadMonitorLocation, p2: NSError) => void): void;
+  initWithSourceURLDestinationURLObservedProgressLiveActivityAccessToken(sourceURL: NSURL, destinationURL: NSURL, observedProgress: NSProgress, liveActivityAccessToken: NSData): this;
 
-	initWithSourceURLDestinationURLObservedProgressLiveActivityAccessToken(sourceURL: NSURL, destinationURL: NSURL, observedProgress: NSProgress, liveActivityAccessToken: NSData): this;
+  resumeMonitoringCompletionHandler(url: NSURL, completionHandler: (p1: NSError) => void): void;
 
-	resumeMonitoringCompletionHandler(url: NSURL, completionHandler: (p1: NSError) => void): void;
-
-	useDownloadsFolderWithPlaceholderTypeFinalFileCreatedHandler(type: UTType, finalFileCreatedHandler: (p1: BEDownloadMonitorLocation) => void): void;
+  useDownloadsFolderWithPlaceholderTypeFinalFileCreatedHandler(type: UTType, finalFileCreatedHandler: (p1: BEDownloadMonitorLocation) => void): void;
 }
 
 /**
  * @since 18.2
  */
 declare class BEDownloadMonitorLocation extends NSObject {
+  static alloc(): BEDownloadMonitorLocation; // inherited from NSObject
 
-	static alloc(): BEDownloadMonitorLocation; // inherited from NSObject
+  static new(): BEDownloadMonitorLocation; // inherited from NSObject
 
-	static new(): BEDownloadMonitorLocation; // inherited from NSObject
+  readonly bookmarkData: NSData;
 
-	readonly bookmarkData: NSData;
-
-	readonly url: NSURL;
+  readonly url: NSURL;
 }
 
 /**
  * @since 17.4
  */
 declare class BEDragInteraction extends UIDragInteraction {
+  static alloc(): BEDragInteraction; // inherited from NSObject
 
-	static alloc(): BEDragInteraction; // inherited from NSObject
+  static new(): BEDragInteraction; // inherited from NSObject
 
-	static new(): BEDragInteraction; // inherited from NSObject
+  readonly delegate: BEDragInteractionDelegate;
 
-	readonly delegate: BEDragInteractionDelegate;
+  constructor(o: { delegate: BEDragInteractionDelegate });
 
-	constructor(o: { delegate: BEDragInteractionDelegate; });
-
-	initWithDelegate(delegate: BEDragInteractionDelegate): this;
+  initWithDelegate(delegate: BEDragInteractionDelegate): this;
 }
 
 /**
  * @since 17.4
  */
 interface BEDragInteractionDelegate extends UIDragInteractionDelegate {
+  dragInteractionItemsForAddingToSessionForTouchAtPointCompletion?(dragInteraction: BEDragInteraction, session: UIDragSession, point: CGPoint, completion: (p1: NSArray<UIDragItem>) => boolean): void;
 
-	dragInteractionItemsForAddingToSessionForTouchAtPointCompletion?(dragInteraction: BEDragInteraction, session: UIDragSession, point: CGPoint, completion: (p1: NSArray<UIDragItem>) => boolean): void;
-
-	dragInteractionPrepareDragSessionCompletion?(dragInteraction: BEDragInteraction, session: UIDragSession, completion: () => boolean): void;
+  dragInteractionPrepareDragSessionCompletion?(dragInteraction: BEDragInteraction, session: UIDragSession, completion: () => boolean): void;
 }
 declare var BEDragInteractionDelegate: {
-
-	prototype: BEDragInteractionDelegate;
+  prototype: BEDragInteractionDelegate;
 };
 
 /**
  * @since 17.4
  */
 interface BEExtendedTextInputTraits extends UITextInputTraits {
+  insertionPointColor?: UIColor;
 
-	insertionPointColor?: UIColor;
+  selectionHandleColor?: UIColor;
 
-	selectionHandleColor?: UIColor;
+  selectionHighlightColor?: UIColor;
 
-	selectionHighlightColor?: UIColor;
+  singleLineDocument?: boolean;
 
-	singleLineDocument?: boolean;
-
-	typingAdaptationEnabled?: boolean;
+  typingAdaptationEnabled?: boolean;
 }
 declare var BEExtendedTextInputTraits: {
-
-	prototype: BEExtendedTextInputTraits;
+  prototype: BEExtendedTextInputTraits;
 };
 
 /**
  * @since 26.0
  */
 interface BEExtensionProcess extends NSObjectProtocol {
+  invalidate(): void;
 
-	invalidate(): void;
-
-	makeLibXPCConnectionError(): NSObject & OS_xpc_object;
+  makeLibXPCConnectionError(): NSObject & OS_xpc_object;
 }
 declare var BEExtensionProcess: {
-
-	prototype: BEExtensionProcess;
+  prototype: BEExtensionProcess;
 };
 
 /**
  * @since 17.4
  */
 declare const enum BEGestureType {
+  Loupe = 0,
 
-	Loupe = 0,
+  OneFingerTap = 1,
 
-	OneFingerTap = 1,
+  DoubleTapAndHold = 2,
 
-	DoubleTapAndHold = 2,
+  DoubleTap = 3,
 
-	DoubleTap = 3,
+  OneFingerDoubleTap = 8,
 
-	OneFingerDoubleTap = 8,
+  OneFingerTripleTap = 9,
 
-	OneFingerTripleTap = 9,
+  TwoFingerSingleTap = 10,
 
-	TwoFingerSingleTap = 10,
+  TwoFingerRangedSelectGesture = 11,
 
-	TwoFingerRangedSelectGesture = 11,
+  IMPhraseBoundaryDrag = 14,
 
-	IMPhraseBoundaryDrag = 14,
-
-	ForceTouch = 15
+  ForceTouch = 15,
 }
 
 /**
  * @since 17.4
  */
 declare class BEKeyEntry extends NSObject {
+  static alloc(): BEKeyEntry; // inherited from NSObject
 
-	static alloc(): BEKeyEntry; // inherited from NSObject
+  static new(): BEKeyEntry; // inherited from NSObject
 
-	static new(): BEKeyEntry; // inherited from NSObject
+  readonly key: UIKey;
 
-	readonly key: UIKey;
+  readonly keyRepeating: boolean;
 
-	readonly keyRepeating: boolean;
+  readonly state: BEKeyPressState;
 
-	readonly state: BEKeyPressState;
-
-	readonly timestamp: number;
+  readonly timestamp: number;
 }
 
 /**
  * @since 17.4
  */
 declare class BEKeyEntryContext extends NSObject {
+  static alloc(): BEKeyEntryContext; // inherited from NSObject
 
-	static alloc(): BEKeyEntryContext; // inherited from NSObject
+  static new(): BEKeyEntryContext; // inherited from NSObject
 
-	static new(): BEKeyEntryContext; // inherited from NSObject
+  documentEditable: boolean;
 
-	documentEditable: boolean;
+  readonly keyEntry: BEKeyEntry;
 
-	readonly keyEntry: BEKeyEntry;
+  shouldEvaluateForInputSystemHandling: boolean;
 
-	shouldEvaluateForInputSystemHandling: boolean;
+  shouldInsertCharacter: boolean;
 
-	shouldInsertCharacter: boolean;
+  constructor(o: { keyEntry: BEKeyEntry });
 
-	constructor(o: { keyEntry: BEKeyEntry; });
-
-	initWithKeyEntry(keyEntry: BEKeyEntry): this;
+  initWithKeyEntry(keyEntry: BEKeyEntry): this;
 }
 
 /**
  * @since 17.4
  */
 declare const enum BEKeyModifierFlags {
+  None = 0,
 
-	None = 0,
+  Shift = 1,
 
-	Shift = 1,
-
-	CapsLock = 2
+  CapsLock = 2,
 }
 
 /**
  * @since 17.4
  */
 declare const enum BEKeyPressState {
+  Down = 1,
 
-	Down = 1,
-
-	Up = 2
+  Up = 2,
 }
 
 /**
  * @since 17.4
  */
 declare class BELayerHierarchy extends NSObject {
+  static alloc(): BELayerHierarchy; // inherited from NSObject
 
-	static alloc(): BELayerHierarchy; // inherited from NSObject
+  static layerHierarchyWithError(): BELayerHierarchy;
 
-	static layerHierarchyWithError(): BELayerHierarchy;
+  static new(): BELayerHierarchy; // inherited from NSObject
 
-	static new(): BELayerHierarchy; // inherited from NSObject
+  readonly handle: BELayerHierarchyHandle;
 
-	readonly handle: BELayerHierarchyHandle;
+  layer: CALayer;
 
-	layer: CALayer;
-
-	invalidate(): void;
+  invalidate(): void;
 }
 
 /**
  * @since 17.4
  */
 declare class BELayerHierarchyHandle extends NSObject implements NSSecureCoding {
+  static alloc(): BELayerHierarchyHandle; // inherited from NSObject
 
-	static alloc(): BELayerHierarchyHandle; // inherited from NSObject
+  /**
+   * @since 26.0
+   */
+  static handleWithPortDataError(port: number, data: NSData): BELayerHierarchyHandle;
 
-	/**
-	 * @since 26.0
-	 */
-	static handleWithPortDataError(port: number, data: NSData): BELayerHierarchyHandle;
+  static handleWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): BELayerHierarchyHandle;
 
-	static handleWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): BELayerHierarchyHandle;
+  static new(): BELayerHierarchyHandle; // inherited from NSObject
 
-	static new(): BELayerHierarchyHandle; // inherited from NSObject
+  static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
 
-	static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
+  constructor(o: { coder: NSCoder }); // inherited from NSCoding
 
-	constructor(o: { coder: NSCoder; }); // inherited from NSCoding
+  createXPCRepresentation(): NSObject & OS_xpc_object;
 
-	createXPCRepresentation(): NSObject & OS_xpc_object;
+  /**
+   * @since 26.0
+   */
+  encodeWithBlock(block: (p1: number, p2: NSData) => void): void;
 
-	/**
-	 * @since 26.0
-	 */
-	encodeWithBlock(block: (p1: number, p2: NSData) => void): void;
+  encodeWithCoder(coder: NSCoder): void;
 
-	encodeWithCoder(coder: NSCoder): void;
-
-	initWithCoder(coder: NSCoder): this;
+  initWithCoder(coder: NSCoder): this;
 }
 
 /**
  * @since 17.4
  */
 declare class BELayerHierarchyHostingTransactionCoordinator extends NSObject implements NSSecureCoding {
+  static alloc(): BELayerHierarchyHostingTransactionCoordinator; // inherited from NSObject
 
-	static alloc(): BELayerHierarchyHostingTransactionCoordinator; // inherited from NSObject
+  static coordinatorWithError(): BELayerHierarchyHostingTransactionCoordinator;
 
-	static coordinatorWithError(): BELayerHierarchyHostingTransactionCoordinator;
+  /**
+   * @since 26.0
+   */
+  static coordinatorWithPortDataError(port: number, data: NSData): BELayerHierarchyHostingTransactionCoordinator;
 
-	/**
-	 * @since 26.0
-	 */
-	static coordinatorWithPortDataError(port: number, data: NSData): BELayerHierarchyHostingTransactionCoordinator;
+  static coordinatorWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): BELayerHierarchyHostingTransactionCoordinator;
 
-	static coordinatorWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): BELayerHierarchyHostingTransactionCoordinator;
+  static new(): BELayerHierarchyHostingTransactionCoordinator; // inherited from NSObject
 
-	static new(): BELayerHierarchyHostingTransactionCoordinator; // inherited from NSObject
+  static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
 
-	static readonly supportsSecureCoding: boolean; // inherited from NSSecureCoding
+  constructor(o: { coder: NSCoder }); // inherited from NSCoding
 
-	constructor(o: { coder: NSCoder; }); // inherited from NSCoding
+  addLayerHierarchy(layerHierarchy: BELayerHierarchy): void;
 
-	addLayerHierarchy(layerHierarchy: BELayerHierarchy): void;
+  addLayerHierarchyHostingView(hostingView: BELayerHierarchyHostingView): void;
 
-	addLayerHierarchyHostingView(hostingView: BELayerHierarchyHostingView): void;
+  commit(): void;
 
-	commit(): void;
+  createXPCRepresentation(): NSObject & OS_xpc_object;
 
-	createXPCRepresentation(): NSObject & OS_xpc_object;
+  /**
+   * @since 26.0
+   */
+  encodeWithBlock(block: (p1: number, p2: NSData) => void): void;
 
-	/**
-	 * @since 26.0
-	 */
-	encodeWithBlock(block: (p1: number, p2: NSData) => void): void;
+  encodeWithCoder(coder: NSCoder): void;
 
-	encodeWithCoder(coder: NSCoder): void;
-
-	initWithCoder(coder: NSCoder): this;
+  initWithCoder(coder: NSCoder): this;
 }
 
 /**
  * @since 17.4
  */
 declare class BELayerHierarchyHostingView extends UIView {
+  static alloc(): BELayerHierarchyHostingView; // inherited from NSObject
 
-	static alloc(): BELayerHierarchyHostingView; // inherited from NSObject
+  static appearance(): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	static appearance(): BELayerHierarchyHostingView; // inherited from UIAppearance
+  /**
+   * @since 8.0
+   */
+  static appearanceForTraitCollection(trait: UITraitCollection): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	/**
-	 * @since 8.0
-	 */
-	static appearanceForTraitCollection(trait: UITraitCollection): BELayerHierarchyHostingView; // inherited from UIAppearance
+  /**
+   * @since 8.0
+   * @deprecated 9.0
+   */
+  static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	/**
-	 * @since 8.0
-	 * @deprecated 9.0
-	 */
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): BELayerHierarchyHostingView; // inherited from UIAppearance
+  /**
+   * @since 9.0
+   */
+  static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	/**
-	 * @since 9.0
-	 */
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): BELayerHierarchyHostingView; // inherited from UIAppearance
+  /**
+   * @since 5.0
+   * @deprecated 9.0
+   */
+  static appearanceWhenContainedIn(ContainerClass: typeof NSObject): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	/**
-	 * @since 5.0
-	 * @deprecated 9.0
-	 */
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): BELayerHierarchyHostingView; // inherited from UIAppearance
+  /**
+   * @since 9.0
+   */
+  static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): BELayerHierarchyHostingView; // inherited from UIAppearance
 
-	/**
-	 * @since 9.0
-	 */
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): BELayerHierarchyHostingView; // inherited from UIAppearance
+  static new(): BELayerHierarchyHostingView; // inherited from NSObject
 
-	static new(): BELayerHierarchyHostingView; // inherited from NSObject
-
-	handle: BELayerHierarchyHandle;
+  handle: BELayerHierarchyHandle;
 }
 
 /**
  * @since 17.4
  */
 declare class BEMediaEnvironment extends NSObject {
+  static alloc(): BEMediaEnvironment; // inherited from NSObject
 
-	static alloc(): BEMediaEnvironment; // inherited from NSObject
+  static new(): BEMediaEnvironment; // inherited from NSObject
 
-	static new(): BEMediaEnvironment; // inherited from NSObject
+  constructor(o: { webPageURL: NSURL });
 
-	constructor(o: { webPageURL: NSURL; });
+  constructor(o: { XPCRepresentation: NSObject & OS_xpc_object });
 
-	constructor(o: { XPCRepresentation: NSObject & OS_xpc_object; });
+  activateWithError(): boolean;
 
-	activateWithError(): boolean;
+  createXPCRepresentation(): NSObject & OS_xpc_object;
 
-	createXPCRepresentation(): NSObject & OS_xpc_object;
+  initWithWebPageURL(url: NSURL): this;
 
-	initWithWebPageURL(url: NSURL): this;
+  initWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): this;
 
-	initWithXPCRepresentationError(xpcRepresentation: NSObject & OS_xpc_object): this;
+  makeCaptureSessionWithError(): AVCaptureSession;
 
-	makeCaptureSessionWithError(): AVCaptureSession;
-
-	suspendWithError(): boolean;
+  suspendWithError(): boolean;
 }
 
 /**
  * @since 17.4
  */
 declare class BENetworkingProcess extends NSObject implements BEExtensionProcess {
+  static alloc(): BENetworkingProcess; // inherited from NSObject
 
-	static alloc(): BENetworkingProcess; // inherited from NSObject
+  /**
+   * @since 18.2
+   */
+  static networkProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BENetworkingProcess, p2: NSError) => void): void;
 
-	/**
-	 * @since 18.2
-	 */
-	static networkProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BENetworkingProcess, p2: NSError) => void): void;
+  static networkProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BENetworkingProcess, p2: NSError) => void): void;
 
-	static networkProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BENetworkingProcess, p2: NSError) => void): void;
+  static new(): BENetworkingProcess; // inherited from NSObject
 
-	static new(): BENetworkingProcess; // inherited from NSObject
+  readonly debugDescription: string; // inherited from NSObjectProtocol
 
-	readonly debugDescription: string; // inherited from NSObjectProtocol
+  readonly description: string; // inherited from NSObjectProtocol
 
-	readonly description: string; // inherited from NSObjectProtocol
+  readonly hash: number; // inherited from NSObjectProtocol
 
-	readonly hash: number; // inherited from NSObjectProtocol
+  readonly isProxy: boolean; // inherited from NSObjectProtocol
 
-	readonly isProxy: boolean; // inherited from NSObjectProtocol
+  readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
 
-	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
+  readonly; // inherited from NSObjectProtocol
 
-	readonly  // inherited from NSObjectProtocol
+  class(): typeof NSObject;
 
-	class(): typeof NSObject;
+  conformsToProtocol(aProtocol: any /* Protocol */): boolean;
 
-	conformsToProtocol(aProtocol: any /* Protocol */): boolean;
+  grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
 
-	grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
+  grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
 
-	grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
+  invalidate(): void;
 
-	invalidate(): void;
+  isEqual(object: any): boolean;
 
-	isEqual(object: any): boolean;
+  isKindOfClass(aClass: typeof NSObject): boolean;
 
-	isKindOfClass(aClass: typeof NSObject): boolean;
+  isMemberOfClass(aClass: typeof NSObject): boolean;
 
-	isMemberOfClass(aClass: typeof NSObject): boolean;
+  makeLibXPCConnectionError(): NSObject & OS_xpc_object;
 
-	makeLibXPCConnectionError(): NSObject & OS_xpc_object;
+  performSelector(aSelector: string): any;
 
-	performSelector(aSelector: string): any;
+  performSelectorWithObject(aSelector: string, object: any): any;
 
-	performSelectorWithObject(aSelector: string, object: any): any;
+  performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
 
-	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
+  respondsToSelector(aSelector: string): boolean;
 
-	respondsToSelector(aSelector: string): boolean;
+  retainCount(): number;
 
-	retainCount(): number;
-
-	self(): this;
+  self(): this;
 }
 
 /**
  * @since 17.4
  */
 declare class BEProcessCapability extends NSObject {
+  static alloc(): BEProcessCapability; // inherited from NSObject
 
-	static alloc(): BEProcessCapability; // inherited from NSObject
+  static background(): BEProcessCapability;
 
-	static background(): BEProcessCapability;
+  static foreground(): BEProcessCapability;
 
-	static foreground(): BEProcessCapability;
+  static mediaPlaybackAndCaptureWithEnvironment(environment: BEMediaEnvironment): BEProcessCapability;
 
-	static mediaPlaybackAndCaptureWithEnvironment(environment: BEMediaEnvironment): BEProcessCapability;
+  static new(): BEProcessCapability; // inherited from NSObject
 
-	static new(): BEProcessCapability; // inherited from NSObject
+  static suspended(): BEProcessCapability;
 
-	static suspended(): BEProcessCapability;
-
-	requestWithError(): BEProcessCapabilityGrant;
+  requestWithError(): BEProcessCapabilityGrant;
 }
 
 /**
  * @since 17.4
  */
 interface BEProcessCapabilityGrant extends NSObjectProtocol {
+  valid: boolean;
 
-	valid: boolean;
-
-	invalidate(): boolean;
+  invalidate(): boolean;
 }
 declare var BEProcessCapabilityGrant: {
-
-	prototype: BEProcessCapabilityGrant;
+  prototype: BEProcessCapabilityGrant;
 };
 
 /**
  * @since 17.4
  */
 declare class BERenderingProcess extends NSObject implements BEExtensionProcess {
+  static alloc(): BERenderingProcess; // inherited from NSObject
 
-	static alloc(): BERenderingProcess; // inherited from NSObject
+  static new(): BERenderingProcess; // inherited from NSObject
 
-	static new(): BERenderingProcess; // inherited from NSObject
+  /**
+   * @since 18.2
+   */
+  static renderingProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BERenderingProcess, p2: NSError) => void): void;
 
-	/**
-	 * @since 18.2
-	 */
-	static renderingProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BERenderingProcess, p2: NSError) => void): void;
+  static renderingProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BERenderingProcess, p2: NSError) => void): void;
 
-	static renderingProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BERenderingProcess, p2: NSError) => void): void;
+  readonly debugDescription: string; // inherited from NSObjectProtocol
 
-	readonly debugDescription: string; // inherited from NSObjectProtocol
+  readonly description: string; // inherited from NSObjectProtocol
 
-	readonly description: string; // inherited from NSObjectProtocol
+  readonly hash: number; // inherited from NSObjectProtocol
 
-	readonly hash: number; // inherited from NSObjectProtocol
+  readonly isProxy: boolean; // inherited from NSObjectProtocol
 
-	readonly isProxy: boolean; // inherited from NSObjectProtocol
+  readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
 
-	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
+  readonly; // inherited from NSObjectProtocol
 
-	readonly  // inherited from NSObjectProtocol
+  class(): typeof NSObject;
 
-	class(): typeof NSObject;
+  conformsToProtocol(aProtocol: any /* Protocol */): boolean;
 
-	conformsToProtocol(aProtocol: any /* Protocol */): boolean;
+  createVisibilityPropagationInteraction(): UIInteraction;
 
-	createVisibilityPropagationInteraction(): UIInteraction;
+  grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
 
-	grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
+  grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
 
-	grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
+  invalidate(): void;
 
-	invalidate(): void;
+  isEqual(object: any): boolean;
 
-	isEqual(object: any): boolean;
+  isKindOfClass(aClass: typeof NSObject): boolean;
 
-	isKindOfClass(aClass: typeof NSObject): boolean;
+  isMemberOfClass(aClass: typeof NSObject): boolean;
 
-	isMemberOfClass(aClass: typeof NSObject): boolean;
+  makeLibXPCConnectionError(): NSObject & OS_xpc_object;
 
-	makeLibXPCConnectionError(): NSObject & OS_xpc_object;
+  performSelector(aSelector: string): any;
 
-	performSelector(aSelector: string): any;
+  performSelectorWithObject(aSelector: string, object: any): any;
 
-	performSelectorWithObject(aSelector: string, object: any): any;
+  performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
 
-	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
+  respondsToSelector(aSelector: string): boolean;
 
-	respondsToSelector(aSelector: string): boolean;
+  retainCount(): number;
 
-	retainCount(): number;
-
-	self(): this;
+  self(): this;
 }
 
 /**
  * @since 17.4
  */
 interface BEResponderEditActions extends UIResponderStandardEditActions {
+  addShortcut?(sender: any): void;
 
-	addShortcut?(sender: any): void;
+  findSelected?(sender: any): void;
 
-	findSelected?(sender: any): void;
+  lookup?(sender: any): void;
 
-	lookup?(sender: any): void;
+  promptForReplace?(sender: any): void;
 
-	promptForReplace?(sender: any): void;
+  replace?(sender: any): void;
 
-	replace?(sender: any): void;
+  share?(sender: any): void;
 
-	share?(sender: any): void;
+  translate?(sender: any): void;
 
-	translate?(sender: any): void;
-
-	transliterateChinese?(sender: any): void;
+  transliterateChinese?(sender: any): void;
 }
 declare var BEResponderEditActions: {
-
-	prototype: BEResponderEditActions;
+  prototype: BEResponderEditActions;
 };
 
 /**
  * @since 17.4
  */
 declare class BEScrollView extends UIScrollView {
+  static alloc(): BEScrollView; // inherited from NSObject
 
-	static alloc(): BEScrollView; // inherited from NSObject
+  static appearance(): BEScrollView; // inherited from UIAppearance
 
-	static appearance(): BEScrollView; // inherited from UIAppearance
+  /**
+   * @since 8.0
+   */
+  static appearanceForTraitCollection(trait: UITraitCollection): BEScrollView; // inherited from UIAppearance
 
-	/**
-	 * @since 8.0
-	 */
-	static appearanceForTraitCollection(trait: UITraitCollection): BEScrollView; // inherited from UIAppearance
+  /**
+   * @since 8.0
+   * @deprecated 9.0
+   */
+  static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): BEScrollView; // inherited from UIAppearance
 
-	/**
-	 * @since 8.0
-	 * @deprecated 9.0
-	 */
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): BEScrollView; // inherited from UIAppearance
+  /**
+   * @since 9.0
+   */
+  static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): BEScrollView; // inherited from UIAppearance
 
-	/**
-	 * @since 9.0
-	 */
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): BEScrollView; // inherited from UIAppearance
+  /**
+   * @since 5.0
+   * @deprecated 9.0
+   */
+  static appearanceWhenContainedIn(ContainerClass: typeof NSObject): BEScrollView; // inherited from UIAppearance
 
-	/**
-	 * @since 5.0
-	 * @deprecated 9.0
-	 */
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): BEScrollView; // inherited from UIAppearance
+  /**
+   * @since 9.0
+   */
+  static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): BEScrollView; // inherited from UIAppearance
 
-	/**
-	 * @since 9.0
-	 */
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): BEScrollView; // inherited from UIAppearance
+  static new(): BEScrollView; // inherited from NSObject
 
-	static new(): BEScrollView; // inherited from NSObject
-
-	delegate: BEScrollViewDelegate;
+  delegate: BEScrollViewDelegate;
 }
 
 /**
  * @since 17.4
  */
 interface BEScrollViewDelegate extends UIScrollViewDelegate {
+  parentScrollViewForScrollView?(scrollView: BEScrollView): BEScrollView;
 
-	parentScrollViewForScrollView?(scrollView: BEScrollView): BEScrollView;
-
-	scrollViewHandleScrollUpdateCompletion?(scrollView: BEScrollView, scrollUpdate: BEScrollViewScrollUpdate, completion: (p1: boolean) => void): void;
+  scrollViewHandleScrollUpdateCompletion?(scrollView: BEScrollView, scrollUpdate: BEScrollViewScrollUpdate, completion: (p1: boolean) => void): void;
 }
 declare var BEScrollViewDelegate: {
-
-	prototype: BEScrollViewDelegate;
+  prototype: BEScrollViewDelegate;
 };
 
 /**
  * @since 17.4
  */
 declare class BEScrollViewScrollUpdate extends NSObject {
+  static alloc(): BEScrollViewScrollUpdate; // inherited from NSObject
 
-	static alloc(): BEScrollViewScrollUpdate; // inherited from NSObject
+  static new(): BEScrollViewScrollUpdate; // inherited from NSObject
 
-	static new(): BEScrollViewScrollUpdate; // inherited from NSObject
+  readonly phase: BEScrollViewScrollUpdatePhase;
 
-	readonly phase: BEScrollViewScrollUpdatePhase;
+  readonly timestamp: number;
 
-	readonly timestamp: number;
+  locationInView(view: UIView): CGPoint;
 
-	locationInView(view: UIView): CGPoint;
-
-	translationInView(view: UIView): CGPoint;
+  translationInView(view: UIView): CGPoint;
 }
 
 /**
  * @since 17.4
  */
 declare const enum BEScrollViewScrollUpdatePhase {
+  Began = 0,
 
-	Began = 0,
+  Changed = 1,
 
-	Changed = 1,
+  Ended = 2,
 
-	Ended = 2,
-
-	Cancelled = 3
+  Cancelled = 3,
 }
 
 /**
  * @since 17.4
  */
 declare const enum BESelectionFlags {
+  SelectionFlagsNone = 0,
 
-	SelectionFlagsNone = 0,
+  WordIsNearTap = 1,
 
-	WordIsNearTap = 1,
+  SelectionFlipped = 2,
 
-	SelectionFlipped = 2,
-
-	PhraseBoundaryChanged = 4
+  PhraseBoundaryChanged = 4,
 }
 
 /**
  * @since 17.4
  */
 declare const enum BESelectionTouchPhase {
+  Started = 0,
 
-	Started = 0,
+  Moved = 1,
 
-	Moved = 1,
+  Ended = 2,
 
-	Ended = 2,
+  EndedMovingForward = 3,
 
-	EndedMovingForward = 3,
+  EndedMovingBackward = 4,
 
-	EndedMovingBackward = 4,
-
-	EndedNotMoving = 5
+  EndedNotMoving = 5,
 }
 
 /**
  * @since 17.4
  */
 declare class BETextAlternatives extends NSObject {
+  static alloc(): BETextAlternatives; // inherited from NSObject
 
-	static alloc(): BETextAlternatives; // inherited from NSObject
+  static new(): BETextAlternatives; // inherited from NSObject
 
-	static new(): BETextAlternatives; // inherited from NSObject
+  readonly alternativeStrings: NSArray<string>;
 
-	readonly alternativeStrings: NSArray<string>;
-
-	readonly primaryString: string;
+  readonly primaryString: string;
 }
 
 /**
  * @since 17.4
  */
 declare class BETextDocumentContext extends NSObject {
+  static alloc(): BETextDocumentContext; // inherited from NSObject
 
-	static alloc(): BETextDocumentContext; // inherited from NSObject
+  static new(): BETextDocumentContext; // inherited from NSObject
 
-	static new(): BETextDocumentContext; // inherited from NSObject
+  autocorrectedRanges: NSArray<NSValue>;
 
-	autocorrectedRanges: NSArray<NSValue>;
+  constructor(o: { attributedSelectedText: NSAttributedString; contextBefore: NSAttributedString; contextAfter: NSAttributedString; markedText: NSAttributedString; selectedRangeInMarkedText: NSRange });
 
-	constructor(o: { attributedSelectedText: NSAttributedString; contextBefore: NSAttributedString; contextAfter: NSAttributedString; markedText: NSAttributedString; selectedRangeInMarkedText: NSRange; });
+  constructor(o: { selectedText: string; contextBefore: string; contextAfter: string; markedText: string; selectedRangeInMarkedText: NSRange });
 
-	constructor(o: { selectedText: string; contextBefore: string; contextAfter: string; markedText: string; selectedRangeInMarkedText: NSRange; });
+  addTextRectForCharacterRange(rect: CGRect, range: NSRange): void;
 
-	addTextRectForCharacterRange(rect: CGRect, range: NSRange): void;
+  initWithAttributedSelectedTextContextBeforeContextAfterMarkedTextSelectedRangeInMarkedText(selectedText: NSAttributedString, contextBefore: NSAttributedString, contextAfter: NSAttributedString, markedText: NSAttributedString, selectedRangeInMarkedText: NSRange): this;
 
-	initWithAttributedSelectedTextContextBeforeContextAfterMarkedTextSelectedRangeInMarkedText(selectedText: NSAttributedString, contextBefore: NSAttributedString, contextAfter: NSAttributedString, markedText: NSAttributedString, selectedRangeInMarkedText: NSRange): this;
-
-	initWithSelectedTextContextBeforeContextAfterMarkedTextSelectedRangeInMarkedText(selectedText: string, contextBefore: string, contextAfter: string, markedText: string, selectedRangeInMarkedText: NSRange): this;
+  initWithSelectedTextContextBeforeContextAfterMarkedTextSelectedRangeInMarkedText(selectedText: string, contextBefore: string, contextAfter: string, markedText: string, selectedRangeInMarkedText: NSRange): this;
 }
 
 /**
  * @since 17.4
  */
 declare class BETextDocumentRequest extends NSObject {
+  static alloc(): BETextDocumentRequest; // inherited from NSObject
 
-	static alloc(): BETextDocumentRequest; // inherited from NSObject
+  static new(): BETextDocumentRequest; // inherited from NSObject
 
-	static new(): BETextDocumentRequest; // inherited from NSObject
+  granularityCount: number;
 
-	granularityCount: number;
+  options: BETextDocumentRequestOptions;
 
-	options: BETextDocumentRequestOptions;
-
-	surroundingGranularity: UITextGranularity;
+  surroundingGranularity: UITextGranularity;
 }
 
 /**
  * @since 17.4
  */
 declare const enum BETextDocumentRequestOptions {
+  OptionNone = 0,
 
-	OptionNone = 0,
+  OptionText = 1,
 
-	OptionText = 1,
+  OptionAttributedText = 2,
 
-	OptionAttributedText = 2,
+  OptionTextRects = 4,
 
-	OptionTextRects = 4,
+  OptionMarkedTextRects = 32,
 
-	OptionMarkedTextRects = 32,
-
-	OptionAutocorrectedRanges = 128
+  OptionAutocorrectedRanges = 128,
 }
 
 /**
  * @since 17.4
  */
 interface BETextInput extends BEResponderEditActions, BETextSelectionDirectionNavigation, UIKeyInput {
+  asyncInputDelegate: BETextInputDelegate;
 
-	asyncInputDelegate: BETextInputDelegate;
+  attributedMarkedText: NSAttributedString;
 
-	attributedMarkedText: NSAttributedString;
+  automaticallyPresentEditMenu: boolean;
 
-	automaticallyPresentEditMenu: boolean;
+  editable: boolean;
 
-	editable: boolean;
+  extendedTextInputTraits: BEExtendedTextInputTraits;
 
-	extendedTextInputTraits: BEExtendedTextInputTraits;
+  hasMarkedText: boolean;
 
-	hasMarkedText: boolean;
+  markedText: string;
 
-	markedText: string;
+  markedTextRange: UITextRange;
 
-	markedTextRange: UITextRange;
+  replaceAllowed: boolean;
 
-	replaceAllowed: boolean;
+  selectedText: string;
 
-	selectedText: string;
+  selectedTextRange: UITextRange;
 
-	selectedTextRange: UITextRange;
+  selectionAtDocumentStart: boolean;
 
-	selectionAtDocumentStart: boolean;
+  selectionClipRect: CGRect;
 
-	selectionClipRect: CGRect;
+  /**
+   * @since 26.0
+   */
+  selectionContainerViewAboveText?: UIView;
 
-	/**
-	 * @since 26.0
-	 */
-	selectionContainerViewAboveText?: UIView;
+  /**
+   * @since 26.0
+   */
+  selectionContainerViewBelowText?: UIView;
 
-	/**
-	 * @since 26.0
-	 */
-	selectionContainerViewBelowText?: UIView;
+  textFirstRect: CGRect;
 
-	textFirstRect: CGRect;
+  textInputView: UIView;
 
-	textInputView: UIView;
+  textLastRect: CGRect;
 
-	textLastRect: CGRect;
+  unobscuredContentRect: CGRect;
 
-	unobscuredContentRect: CGRect;
+  unscaledView: UIView;
 
-	unscaledView: UIView;
+  addTextAlternatives(alternatives: BETextAlternatives): void;
 
-	addTextAlternatives(alternatives: BETextAlternatives): void;
+  adjustSelectionBoundaryToPointTouchPhaseBaseIsStartFlags(point: CGPoint, touch: BESelectionTouchPhase, boundaryIsStart: boolean, flags: BESelectionFlags): void;
 
-	adjustSelectionBoundaryToPointTouchPhaseBaseIsStartFlags(point: CGPoint, touch: BESelectionTouchPhase, boundaryIsStart: boolean, flags: BESelectionFlags): void;
+  adjustSelectionByRangeCompletionHandler(range: BEDirectionalTextRange, completionHandler: () => void): void;
 
-	adjustSelectionByRangeCompletionHandler(range: BEDirectionalTextRange, completionHandler: () => void): void;
+  alternativesForSelectedText(): NSArray<BETextAlternatives>;
 
-	alternativesForSelectedText(): NSArray<BETextAlternatives>;
+  autoscrollToPoint(point: CGPoint): void;
 
-	autoscrollToPoint(point: CGPoint): void;
+  canPerformActionWithSender(action: string, sender: any): boolean;
 
-	canPerformActionWithSender(action: string, sender: any): boolean;
+  cancelAutoscroll(): void;
 
-	cancelAutoscroll(): void;
+  caretRectForPosition(position: UITextPosition): CGRect;
 
-	caretRectForPosition(position: UITextPosition): CGRect;
+  deleteInDirectionToGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
 
-	deleteInDirectionToGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
+  didInsertFinalDictationResult(): void;
 
-	didInsertFinalDictationResult(): void;
+  handleKeyEntryWithCompletionHandler(entry: BEKeyEntry, completionHandler: (p1: BEKeyEntry, p2: boolean) => void): void;
 
-	handleKeyEntryWithCompletionHandler(entry: BEKeyEntry, completionHandler: (p1: BEKeyEntry, p2: boolean) => void): void;
+  insertTextAlternatives(alternatives: BETextAlternatives): void;
 
-	insertTextAlternatives(alternatives: BETextAlternatives): void;
+  insertTextPlaceholderWithSizeCompletionHandler(size: CGSize, completionHandler: (p1: UITextPlaceholder) => void): void;
 
-	insertTextPlaceholderWithSizeCompletionHandler(size: CGSize, completionHandler: (p1: UITextPlaceholder) => void): void;
+  insertTextSuggestion(textSuggestion: BETextSuggestion): void;
 
-	insertTextSuggestion(textSuggestion: BETextSuggestion): void;
+  isPointNearMarkedText(point: CGPoint): boolean;
 
-	isPointNearMarkedText(point: CGPoint): boolean;
+  /**
+   * @since 18.0
+   */
+  keyboardWillDismiss?(): void;
 
-	/**
-	 * @since 18.0
-	 */
-	keyboardWillDismiss?(): void;
+  moveByOffset(offset: number): void;
 
-	moveByOffset(offset: number): void;
+  moveSelectionAtBoundaryInStorageDirectionCompletionHandler(granularity: UITextGranularity, direction: UITextStorageDirection, completionHandler: () => void): void;
 
-	moveSelectionAtBoundaryInStorageDirectionCompletionHandler(granularity: UITextGranularity, direction: UITextStorageDirection, completionHandler: () => void): void;
+  offsetFromPositionToPosition(from: UITextPosition, toPosition: UITextPosition): number;
 
-	offsetFromPositionToPosition(from: UITextPosition, toPosition: UITextPosition): number;
+  /**
+   * @since 18.0
+   */
+  removeTextAlternatives?(): void;
 
-	/**
-	 * @since 18.0
-	 */
-	removeTextAlternatives?(): void;
+  removeTextPlaceholderWillInsertTextCompletionHandler(placeholder: UITextPlaceholder, willInsertText: boolean, completionHandler: () => void): void;
 
-	removeTextPlaceholderWillInsertTextCompletionHandler(placeholder: UITextPlaceholder, willInsertText: boolean, completionHandler: () => void): void;
+  replaceDictatedTextWithText(oldText: string, newText: string): void;
 
-	replaceDictatedTextWithText(oldText: string, newText: string): void;
+  replaceSelectedTextWithText(text: string, replacementText: string): void;
 
-	replaceSelectedTextWithText(text: string, replacementText: string): void;
+  replaceTextWithTextOptionsCompletionHandler(originalText: string, replacementText: string, options: BETextReplacementOptions, completionHandler: (p1: NSArray<UITextSelectionRect>) => void): void;
 
-	replaceTextWithTextOptionsCompletionHandler(originalText: string, replacementText: string, options: BETextReplacementOptions, completionHandler: (p1: NSArray<UITextSelectionRect>) => void): void;
+  requestDocumentContextCompletionHandler(request: BETextDocumentRequest, completionHandler: (p1: BETextDocumentContext) => void): void;
 
-	requestDocumentContextCompletionHandler(request: BETextDocumentRequest, completionHandler: (p1: BETextDocumentContext) => void): void;
+  requestPreferredArrowDirectionForEditMenuWithCompletionHandler(completionHandler: (p1: UIEditMenuArrowDirection) => void): void;
 
-	requestPreferredArrowDirectionForEditMenuWithCompletionHandler(completionHandler: (p1: UIEditMenuArrowDirection) => void): void;
+  requestTextContextForAutocorrectionWithCompletionHandler(completionHandler: (p1: BETextDocumentContext) => void): void;
 
-	requestTextContextForAutocorrectionWithCompletionHandler(completionHandler: (p1: BETextDocumentContext) => void): void;
+  requestTextRectsForStringWithCompletionHandler(input: string, completionHandler: (p1: NSArray<UITextSelectionRect>) => void): void;
 
-	requestTextRectsForStringWithCompletionHandler(input: string, completionHandler: (p1: NSArray<UITextSelectionRect>) => void): void;
+  selectPositionAtPointCompletionHandler(point: CGPoint, completionHandler: () => void): void;
 
-	selectPositionAtPointCompletionHandler(point: CGPoint, completionHandler: () => void): void;
+  selectPositionAtPointWithContextRequestCompletionHandler(point: CGPoint, request: BETextDocumentRequest, completionHandler: (p1: BETextDocumentContext) => void): void;
 
-	selectPositionAtPointWithContextRequestCompletionHandler(point: CGPoint, request: BETextDocumentRequest, completionHandler: (p1: BETextDocumentContext) => void): void;
+  selectTextForEditMenuWithLocationInViewCompletionHandler(locationInView: CGPoint, completionHandler: (p1: boolean, p2: string, p3: NSRange) => void): void;
 
-	selectTextForEditMenuWithLocationInViewCompletionHandler(locationInView: CGPoint, completionHandler: (p1: boolean, p2: string, p3: NSRange) => void): void;
+  selectTextInGranularityAtPointCompletionHandler(granularity: UITextGranularity, point: CGPoint, completionHandler: () => void): void;
 
-	selectTextInGranularityAtPointCompletionHandler(granularity: UITextGranularity, point: CGPoint, completionHandler: () => void): void;
+  selectWordForReplacement(): void;
 
-	selectWordForReplacement(): void;
+  selectionRectsForRange(range: UITextRange): NSArray<UITextSelectionRect>;
 
-	selectionRectsForRange(range: UITextRange): NSArray<UITextSelectionRect>;
+  setAttributedMarkedTextSelectedRange(markedText: NSAttributedString, selectedRange: NSRange): void;
 
-	setAttributedMarkedTextSelectedRange(markedText: NSAttributedString, selectedRange: NSRange): void;
+  setBaseWritingDirectionForRange(writingDirection: NSWritingDirection, range: UITextRange): void;
 
-	setBaseWritingDirectionForRange(writingDirection: NSWritingDirection, range: UITextRange): void;
+  setMarkedTextSelectedRange(markedText: string, selectedRange: NSRange): void;
 
-	setMarkedTextSelectedRange(markedText: string, selectedRange: NSRange): void;
+  setSelectionFromPointToPointGestureState(from: CGPoint, to: CGPoint, gesture: BEGestureType, state: UIGestureRecognizerState): void;
 
-	setSelectionFromPointToPointGestureState(from: CGPoint, to: CGPoint, gesture: BEGestureType, state: UIGestureRecognizerState): void;
+  shiftKeyStateChangedFromStateToState(oldState: BEKeyModifierFlags, newState: BEKeyModifierFlags): void;
 
-	shiftKeyStateChangedFromStateToState(oldState: BEKeyModifierFlags, newState: BEKeyModifierFlags): void;
+  systemWillDismissEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
 
-	systemWillDismissEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
+  systemWillPresentEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
 
-	systemWillPresentEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
+  textInRange(range: UITextRange): string;
 
-	textInRange(range: UITextRange): string;
+  textInteractionGestureShouldBeginAtPoint(gestureType: BEGestureType, point: CGPoint): boolean;
 
-	textInteractionGestureShouldBeginAtPoint(gestureType: BEGestureType, point: CGPoint): boolean;
+  textStylingAtPositionInDirection(position: UITextPosition, direction: UITextStorageDirection): NSDictionary<string, any>;
 
-	textStylingAtPositionInDirection(position: UITextPosition, direction: UITextStorageDirection): NSDictionary<string, any>;
+  transposeCharactersAroundSelection(): void;
 
-	transposeCharactersAroundSelection(): void;
+  unmarkText(): void;
 
-	unmarkText(): void;
+  updateCurrentSelectionToFromGestureInState(point: CGPoint, gestureType: BEGestureType, state: UIGestureRecognizerState): void;
 
-	updateCurrentSelectionToFromGestureInState(point: CGPoint, gestureType: BEGestureType, state: UIGestureRecognizerState): void;
+  updateSelectionWithExtentPointBoundaryCompletionHandler(point: CGPoint, granularity: UITextGranularity, completionHandler: (p1: boolean) => void): void;
 
-	updateSelectionWithExtentPointBoundaryCompletionHandler(point: CGPoint, granularity: UITextGranularity, completionHandler: (p1: boolean) => void): void;
-
-	willInsertFinalDictationResult(): void;
+  willInsertFinalDictationResult(): void;
 }
 declare var BETextInput: {
-
-	prototype: BETextInput;
+  prototype: BETextInput;
 };
 
 /**
  * @since 17.4
  */
 interface BETextInputDelegate {
+  invalidateTextEntryContextForTextInput(textInput: BETextInput): void;
 
-	invalidateTextEntryContextForTextInput(textInput: BETextInput): void;
+  selectionDidChangeForTextInput(textInput: BETextInput): void;
 
-	selectionDidChangeForTextInput(textInput: BETextInput): void;
+  selectionWillChangeForTextInput(textInput: BETextInput): void;
 
-	selectionWillChangeForTextInput(textInput: BETextInput): void;
+  shouldDeferEventHandlingToSystemForTextInputContext(textInput: BETextInput, keyEventContext: BEKeyEntryContext): boolean;
 
-	shouldDeferEventHandlingToSystemForTextInputContext(textInput: BETextInput, keyEventContext: BEKeyEntryContext): boolean;
+  textInputDeferReplaceTextActionToSystem(textInput: BETextInput, sender: any): void;
 
-	textInputDeferReplaceTextActionToSystem(textInput: BETextInput, sender: any): void;
-
-	textInputSetCandidateSuggestions(textInput: BETextInput, suggestions: NSArray<BETextSuggestion> | BETextSuggestion[]): void;
+  textInputSetCandidateSuggestions(textInput: BETextInput, suggestions: NSArray<BETextSuggestion> | BETextSuggestion[]): void;
 }
 declare var BETextInputDelegate: {
-
-	prototype: BETextInputDelegate;
+  prototype: BETextInputDelegate;
 };
 
 /**
  * @since 17.4
  */
 declare class BETextInteraction extends NSObject implements UIInteraction {
+  static alloc(): BETextInteraction; // inherited from NSObject
 
-	static alloc(): BETextInteraction; // inherited from NSObject
+  static new(): BETextInteraction; // inherited from NSObject
 
-	static new(): BETextInteraction; // inherited from NSObject
+  readonly contextMenuInteraction: UIContextMenuInteraction;
 
-	readonly contextMenuInteraction: UIContextMenuInteraction;
+  contextMenuInteractionDelegate: UIContextMenuInteractionDelegate;
 
-	contextMenuInteractionDelegate: UIContextMenuInteractionDelegate;
+  delegate: BETextInteractionDelegate;
 
-	delegate: BETextInteractionDelegate;
+  readonly textSelectionDisplayInteraction: UITextSelectionDisplayInteraction;
 
-	readonly textSelectionDisplayInteraction: UITextSelectionDisplayInteraction;
+  readonly debugDescription: string; // inherited from NSObjectProtocol
 
-	readonly debugDescription: string; // inherited from NSObjectProtocol
+  readonly description: string; // inherited from NSObjectProtocol
 
-	readonly description: string; // inherited from NSObjectProtocol
+  readonly hash: number; // inherited from NSObjectProtocol
 
-	readonly hash: number; // inherited from NSObjectProtocol
+  readonly isProxy: boolean; // inherited from NSObjectProtocol
 
-	readonly isProxy: boolean; // inherited from NSObjectProtocol
+  readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
 
-	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
+  readonly view: UIView; // inherited from UIInteraction
 
-	readonly view: UIView; // inherited from UIInteraction
+  readonly; // inherited from NSObjectProtocol
 
-	readonly  // inherited from NSObjectProtocol
+  addShortcutForTextFromRect(text: string, presentationRect: CGRect): void;
 
-	addShortcutForTextFromRect(text: string, presentationRect: CGRect): void;
+  class(): typeof NSObject;
 
-	class(): typeof NSObject;
+  conformsToProtocol(aProtocol: any /* Protocol */): boolean;
 
-	conformsToProtocol(aProtocol: any /* Protocol */): boolean;
+  didMoveToView(view: UIView): void;
 
-	didMoveToView(view: UIView): void;
+  dismissEditMenuForSelection(): void;
 
-	dismissEditMenuForSelection(): void;
+  editabilityChanged(): void;
 
-	editabilityChanged(): void;
+  isEqual(object: any): boolean;
 
-	isEqual(object: any): boolean;
+  isKindOfClass(aClass: typeof NSObject): boolean;
 
-	isKindOfClass(aClass: typeof NSObject): boolean;
+  isMemberOfClass(aClass: typeof NSObject): boolean;
 
-	isMemberOfClass(aClass: typeof NSObject): boolean;
+  performSelector(aSelector: string): any;
 
-	performSelector(aSelector: string): any;
+  performSelectorWithObject(aSelector: string, object: any): any;
 
-	performSelectorWithObject(aSelector: string, object: any): any;
+  performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
 
-	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
+  presentEditMenuForSelection(): void;
 
-	presentEditMenuForSelection(): void;
+  refreshKeyboardUI(): void;
 
-	refreshKeyboardUI(): void;
+  respondsToSelector(aSelector: string): boolean;
 
-	respondsToSelector(aSelector: string): boolean;
+  retainCount(): number;
 
-	retainCount(): number;
+  selectionBoundaryAdjustedToPointTouchPhaseFlags(point: CGPoint, touch: BESelectionTouchPhase, flags: BESelectionFlags): void;
 
-	selectionBoundaryAdjustedToPointTouchPhaseFlags(point: CGPoint, touch: BESelectionTouchPhase, flags: BESelectionFlags): void;
+  selectionChangedWithGestureAtPointGestureStateFlags(point: CGPoint, gestureType: BEGestureType, gestureState: UIGestureRecognizerState, flags: BESelectionFlags): void;
 
-	selectionChangedWithGestureAtPointGestureStateFlags(point: CGPoint, gestureType: BEGestureType, gestureState: UIGestureRecognizerState, flags: BESelectionFlags): void;
+  self(): this;
 
-	self(): this;
+  shareTextFromRect(text: string, presentationRect: CGRect): void;
 
-	shareTextFromRect(text: string, presentationRect: CGRect): void;
+  showDictionaryForTextInContextDefiningTextInRangeFromRect(textWithContext: string, range: NSRange, presentationRect: CGRect): void;
 
-	showDictionaryForTextInContextDefiningTextInRangeFromRect(textWithContext: string, range: NSRange, presentationRect: CGRect): void;
+  showReplacementsForText(text: string): void;
 
-	showReplacementsForText(text: string): void;
+  translateTextFromRect(text: string, presentationRect: CGRect): void;
 
-	translateTextFromRect(text: string, presentationRect: CGRect): void;
+  transliterateChineseForText(text: string): void;
 
-	transliterateChineseForText(text: string): void;
-
-	willMoveToView(view: UIView): void;
+  willMoveToView(view: UIView): void;
 }
 
 /**
  * @since 17.4
  */
 interface BETextInteractionDelegate {
+  systemDidChangeSelectionForInteraction(textInteraction: BETextInteraction): void;
 
-	systemDidChangeSelectionForInteraction(textInteraction: BETextInteraction): void;
-
-	systemWillChangeSelectionForInteraction(textInteraction: BETextInteraction): void;
+  systemWillChangeSelectionForInteraction(textInteraction: BETextInteraction): void;
 }
 declare var BETextInteractionDelegate: {
-
-	prototype: BETextInteractionDelegate;
+  prototype: BETextInteractionDelegate;
 };
 
 /**
  * @since 17.4
  */
 declare const enum BETextReplacementOptions {
+  None = 0,
 
-	None = 0,
-
-	AddUnderline = 1
+  AddUnderline = 1,
 }
 
 /**
  * @since 17.4
  */
 interface BETextSelectionDirectionNavigation {
+  extendInLayoutDirection(direction: UITextLayoutDirection): void;
 
-	extendInLayoutDirection(direction: UITextLayoutDirection): void;
+  extendInStorageDirectionByGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
 
-	extendInStorageDirectionByGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
+  moveInLayoutDirection(direction: UITextLayoutDirection): void;
 
-	moveInLayoutDirection(direction: UITextLayoutDirection): void;
-
-	moveInStorageDirectionByGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
+  moveInStorageDirectionByGranularity(direction: UITextStorageDirection, granularity: UITextGranularity): void;
 }
 declare var BETextSelectionDirectionNavigation: {
-
-	prototype: BETextSelectionDirectionNavigation;
+  prototype: BETextSelectionDirectionNavigation;
 };
 
 /**
  * @since 17.4
  */
 declare class BETextSuggestion extends NSObject {
+  static alloc(): BETextSuggestion; // inherited from NSObject
 
-	static alloc(): BETextSuggestion; // inherited from NSObject
+  static new(): BETextSuggestion; // inherited from NSObject
 
-	static new(): BETextSuggestion; // inherited from NSObject
+  readonly inputText: string;
 
-	readonly inputText: string;
+  constructor(o: { inputText: string });
 
-	constructor(o: { inputText: string; });
-
-	initWithInputText(inputText: string): this;
+  initWithInputText(inputText: string): this;
 }
 
 /**
  * @since 17.5
  */
 declare class BEWebAppManifest extends NSObject {
+  static alloc(): BEWebAppManifest; // inherited from NSObject
 
-	static alloc(): BEWebAppManifest; // inherited from NSObject
+  static new(): BEWebAppManifest; // inherited from NSObject
 
-	static new(): BEWebAppManifest; // inherited from NSObject
+  readonly jsonData: NSData;
 
-	readonly jsonData: NSData;
+  readonly manifestURL: NSURL;
 
-	readonly manifestURL: NSURL;
+  constructor(o: { JSONData: NSData; manifestURL: NSURL });
 
-	constructor(o: { JSONData: NSData; manifestURL: NSURL; });
+  initWithJSONDataManifestURL(jsonData: NSData, manifestURL: NSURL): this;
+}
 
-	initWithJSONDataManifestURL(jsonData: NSData, manifestURL: NSURL): this;
+/**
+ * @since 26.2
+ */
+declare class BEWebContentFilter extends NSObject {
+  static alloc(): BEWebContentFilter; // inherited from NSObject
+
+  static new(): BEWebContentFilter; // inherited from NSObject
+
+  static readonly shouldEvaluateURLs: boolean;
+
+  allowURLCompletionHandler(url: NSURL, completionHandler: (p1: boolean, p2: NSError) => void): void;
+
+  evaluateURLCompletionHandler(url: NSURL, completionHandler: (p1: boolean, p2: NSData) => void): void;
 }
 
 /**
  * @since 17.4
  */
 declare class BEWebContentProcess extends NSObject implements BEExtensionProcess {
+  static alloc(): BEWebContentProcess; // inherited from NSObject
 
-	static alloc(): BEWebContentProcess; // inherited from NSObject
+  static new(): BEWebContentProcess; // inherited from NSObject
 
-	static new(): BEWebContentProcess; // inherited from NSObject
+  /**
+   * @since 18.2
+   */
+  static webContentProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BEWebContentProcess, p2: NSError) => void): void;
 
-	/**
-	 * @since 18.2
-	 */
-	static webContentProcessWithBundleIDInterruptionHandlerCompletion(bundleID: string, interruptionHandler: () => void, completion: (p1: BEWebContentProcess, p2: NSError) => void): void;
+  static webContentProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BEWebContentProcess, p2: NSError) => void): void;
 
-	static webContentProcessWithInterruptionHandlerCompletion(interruptionHandler: () => void, completion: (p1: BEWebContentProcess, p2: NSError) => void): void;
+  readonly debugDescription: string; // inherited from NSObjectProtocol
 
-	readonly debugDescription: string; // inherited from NSObjectProtocol
+  readonly description: string; // inherited from NSObjectProtocol
 
-	readonly description: string; // inherited from NSObjectProtocol
+  readonly hash: number; // inherited from NSObjectProtocol
 
-	readonly hash: number; // inherited from NSObjectProtocol
+  readonly isProxy: boolean; // inherited from NSObjectProtocol
 
-	readonly isProxy: boolean; // inherited from NSObjectProtocol
+  readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
 
-	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
+  readonly; // inherited from NSObjectProtocol
 
-	readonly  // inherited from NSObjectProtocol
+  class(): typeof NSObject;
 
-	class(): typeof NSObject;
+  conformsToProtocol(aProtocol: any /* Protocol */): boolean;
 
-	conformsToProtocol(aProtocol: any /* Protocol */): boolean;
+  createVisibilityPropagationInteraction(): UIInteraction;
 
-	createVisibilityPropagationInteraction(): UIInteraction;
+  grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
 
-	grantCapabilityError(capability: BEProcessCapability): BEProcessCapabilityGrant;
+  grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
 
-	grantCapabilityErrorInvalidationHandler(capability: BEProcessCapability, error: interop.Pointer | interop.Reference<NSError>, invalidationHandler: () => void): BEProcessCapabilityGrant;
+  invalidate(): void;
 
-	invalidate(): void;
+  isEqual(object: any): boolean;
 
-	isEqual(object: any): boolean;
+  isKindOfClass(aClass: typeof NSObject): boolean;
 
-	isKindOfClass(aClass: typeof NSObject): boolean;
+  isMemberOfClass(aClass: typeof NSObject): boolean;
 
-	isMemberOfClass(aClass: typeof NSObject): boolean;
+  makeLibXPCConnectionError(): NSObject & OS_xpc_object;
 
-	makeLibXPCConnectionError(): NSObject & OS_xpc_object;
+  performSelector(aSelector: string): any;
 
-	performSelector(aSelector: string): any;
+  performSelectorWithObject(aSelector: string, object: any): any;
 
-	performSelectorWithObject(aSelector: string, object: any): any;
+  performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
 
-	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
+  respondsToSelector(aSelector: string): boolean;
 
-	respondsToSelector(aSelector: string): boolean;
+  retainCount(): number;
 
-	retainCount(): number;
-
-	self(): this;
+  self(): this;
 }
