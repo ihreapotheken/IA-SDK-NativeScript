@@ -1,4 +1,4 @@
-import { isAndroid, isIOS, EventData, Page } from '@nativescript/core';
+import { alert, EventData, Page } from '@nativescript/core';
 import { DemoSharedIaSdk } from '@demo/shared';
 import { IaSdk } from '@ihreapotheken/ia-sdk/common';
 import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ihreapotheken/ia-sdk/types';
@@ -13,8 +13,14 @@ export class DemoModel extends DemoSharedIaSdk {
     super();
     this.iaSdk.signatureListener.addEventListener('change', (data) => {
       const observable = data.object as OrderSignatureListener;
-      console.log(observable.value.iaOrderCode);
-      console.log(observable.value.hostAppOrderCode);
+      this.iaSdk.finishAllActivities();
+      setTimeout(() => {
+        alert({
+          title: 'Order Codes',
+          message: 'ia.de order code: ' + observable.value.iaOrderCode + '\nHost app order code: ' + observable.value.hostAppOrderCode,
+          okButtonText: 'OK',
+        });
+      }, 2000);
     });
   }
 
@@ -26,7 +32,6 @@ export class DemoModel extends DemoSharedIaSdk {
       this.iaSdk.configureIaSdk({
         footerShouldShowDataProcessing: false,
       });
-
       await this.iaSdk.initIaSdk('c33b7d2757ff7b24613b78c9dc69950aad1588c8d519706fb69b91fcedec65d7', '5004', IaSdkBase.ServerEnvironment.Staging);
     } catch (error) {
       console.error('Init failed:', error);
@@ -43,7 +48,7 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async transferPrescriptions() {
     try {
-      await this.iaSdk.transferPrescriptions(this.images, this.pdfs, ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 'AAAAAA');
+      await this.iaSdk.transferPrescriptions(this.images, this.pdfs, ['{"urls":["Task\/test9ba2fee0d07e4ef2b6205f8012e1445b\/$accept?ac=5e24cc059ff244bdbb01efcccf834a6329bdac67a4a64733938fe1b799ac19a9"]}'], 'TEST_CODE');
     } catch (error) {
       console.error('Transferring prescriptions failed:', error);
     }
