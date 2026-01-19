@@ -70,7 +70,15 @@ npm install @ihreapotheken/ia-sdk@VERSION_NUMBER
 The `VERSION_NUMBER` value can be referenced from the 
 [package release page](https://github.com/ihreapotheken/IA-SDK-NativeScript/pkgs/npm/ia-sdk).
 
-### 4.2. Plugin usage
+### 4.2. Add typings
+
+In the host app `references.d.ts` file, a reference path is appended in order for the host app to access the library typings:
+
+```ts
+/// <reference path="./node_modules/@ihreapotheken/ia-sdk/references.d.ts" />
+```
+
+### 4.3. Plugin usage
 
 Methods and properties made available as public APIs implemented with the `IaSdk` object.
 
