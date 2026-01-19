@@ -233,17 +233,13 @@ class NSCIaSdk: NSObject {
 }
 
 class IaClientDelegate: SDKDelegate {
-  func orderingWillShowThankYouScreen(orders: [IAOrder], dismissable: (any Dismissable)?)
-    -> HandlingDecision
-  {
-    if let order = orders.first, let clientOrderID = order.clientOrderID {
-      NSCIaSdk.orderSignatureListener.value = NSCIaSdk.SignatureCodes(
-        iaOrderCode: order.orderCode,
-        internalOrderCode: clientOrderID,
-      )
-      return .handled
-    }
-    return .performDefault
+  func orderingDidFinishOrders(orders: [IAOrder]) {
+    guard let orderCode = orders.first?.orderCode else { return }
+    guard let clientOrderID = orders.compactMap(\.clientOrderID).first else { return }
+    NSCIaSdk.orderSignatureListener.value = NSCIaSdk.SignatureCodes(
+      iaOrderCode: orderCode,
+      internalOrderCode: clientOrderID,
+    )
   }
 }
 
