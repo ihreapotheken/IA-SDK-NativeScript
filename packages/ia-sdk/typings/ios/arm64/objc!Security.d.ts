@@ -1,44 +1,31 @@
-
-interface OS_sec_certificate extends NSObjectProtocol {
-}
+interface OS_sec_certificate extends NSObjectProtocol {}
 declare var OS_sec_certificate: {
-
-	prototype: OS_sec_certificate;
+  prototype: OS_sec_certificate;
 };
 
-interface OS_sec_identity extends NSObjectProtocol {
-}
+interface OS_sec_identity extends NSObjectProtocol {}
 declare var OS_sec_identity: {
-
-	prototype: OS_sec_identity;
+  prototype: OS_sec_identity;
 };
 
-interface OS_sec_object extends NSObjectProtocol {
-}
+interface OS_sec_object extends NSObjectProtocol {}
 declare var OS_sec_object: {
-
-	prototype: OS_sec_object;
+  prototype: OS_sec_object;
 };
 
-interface OS_sec_protocol_metadata extends NSObjectProtocol {
-}
+interface OS_sec_protocol_metadata extends NSObjectProtocol {}
 declare var OS_sec_protocol_metadata: {
-
-	prototype: OS_sec_protocol_metadata;
+  prototype: OS_sec_protocol_metadata;
 };
 
-interface OS_sec_protocol_options extends NSObjectProtocol {
-}
+interface OS_sec_protocol_options extends NSObjectProtocol {}
 declare var OS_sec_protocol_options: {
-
-	prototype: OS_sec_protocol_options;
+  prototype: OS_sec_protocol_options;
 };
 
-interface OS_sec_trust extends NSObjectProtocol {
-}
+interface OS_sec_trust extends NSObjectProtocol {}
 declare var OS_sec_trust: {
-
-	prototype: OS_sec_trust;
+  prototype: OS_sec_trust;
 };
 
 /**
@@ -48,36 +35,33 @@ declare var OS_sec_trust: {
 declare function SSLAddDistinguishedName(context: any, derDN: interop.Pointer | interop.Reference<any>, derDNLen: number): number;
 
 declare const enum SSLAuthenticate {
+  kNeverAuthenticate = 0,
 
-	kNeverAuthenticate = 0,
+  kAlwaysAuthenticate = 1,
 
-	kAlwaysAuthenticate = 1,
-
-	kTryAuthenticate = 2
+  kTryAuthenticate = 2,
 }
 
 declare const enum SSLCiphersuiteGroup {
+  kSSLCiphersuiteGroupDefault = 0,
 
-	kSSLCiphersuiteGroupDefault = 0,
+  kSSLCiphersuiteGroupCompatibility = 1,
 
-	kSSLCiphersuiteGroupCompatibility = 1,
+  kSSLCiphersuiteGroupLegacy = 2,
 
-	kSSLCiphersuiteGroupLegacy = 2,
+  kSSLCiphersuiteGroupATS = 3,
 
-	kSSLCiphersuiteGroupATS = 3,
-
-	kSSLCiphersuiteGroupATSCompatibility = 4
+  kSSLCiphersuiteGroupATSCompatibility = 4,
 }
 
 declare const enum SSLClientCertificateState {
+  kSSLClientCertNone = 0,
 
-	kSSLClientCertNone = 0,
+  kSSLClientCertRequested = 1,
 
-	kSSLClientCertRequested = 1,
+  kSSLClientCertSent = 2,
 
-	kSSLClientCertSent = 2,
-
-	kSSLClientCertRejected = 3
+  kSSLClientCertRejected = 3,
 }
 
 /**
@@ -87,10 +71,9 @@ declare const enum SSLClientCertificateState {
 declare function SSLClose(context: any): number;
 
 declare const enum SSLConnectionType {
+  kSSLStreamType = 0,
 
-	kSSLStreamType = 0,
-
-	kSSLDatagramType = 1
+  kSSLDatagramType = 1,
 }
 
 /**
@@ -250,39 +233,37 @@ declare function SSLGetSupportedCiphers(context: any, ciphers: interop.Pointer |
 declare function SSLHandshake(context: any): number;
 
 declare const enum SSLProtocol {
+  kSSLProtocolUnknown = 0,
 
-	kSSLProtocolUnknown = 0,
+  kTLSProtocol1 = 4,
 
-	kTLSProtocol1 = 4,
+  kTLSProtocol11 = 7,
 
-	kTLSProtocol11 = 7,
+  kTLSProtocol12 = 8,
 
-	kTLSProtocol12 = 8,
+  kDTLSProtocol1 = 9,
 
-	kDTLSProtocol1 = 9,
+  kTLSProtocol13 = 10,
 
-	kTLSProtocol13 = 10,
+  kDTLSProtocol12 = 11,
 
-	kDTLSProtocol12 = 11,
+  kTLSProtocolMaxSupported = 999,
 
-	kTLSProtocolMaxSupported = 999,
+  kSSLProtocol2 = 1,
 
-	kSSLProtocol2 = 1,
+  kSSLProtocol3 = 2,
 
-	kSSLProtocol3 = 2,
+  kSSLProtocol3Only = 3,
 
-	kSSLProtocol3Only = 3,
+  kTLSProtocol1Only = 5,
 
-	kTLSProtocol1Only = 5,
-
-	kSSLProtocolAll = 6
+  kSSLProtocolAll = 6,
 }
 
 declare const enum SSLProtocolSide {
+  kSSLServerSide = 0,
 
-	kSSLServerSide = 0,
-
-	kSSLClientSide = 1
+  kSSLClientSide = 1,
 }
 
 /**
@@ -298,39 +279,37 @@ declare function SSLReHandshake(context: any): number;
 declare function SSLRead(context: any, data: interop.Pointer | interop.Reference<any>, dataLength: number, processed: interop.Pointer | interop.Reference<number>): number;
 
 declare const enum SSLSessionOption {
+  kSSLSessionOptionBreakOnServerAuth = 0,
 
-	kSSLSessionOptionBreakOnServerAuth = 0,
+  kSSLSessionOptionBreakOnCertRequested = 1,
 
-	kSSLSessionOptionBreakOnCertRequested = 1,
+  kSSLSessionOptionBreakOnClientAuth = 2,
 
-	kSSLSessionOptionBreakOnClientAuth = 2,
+  kSSLSessionOptionFalseStart = 3,
 
-	kSSLSessionOptionFalseStart = 3,
+  kSSLSessionOptionSendOneByteRecord = 4,
 
-	kSSLSessionOptionSendOneByteRecord = 4,
+  kSSLSessionOptionAllowServerIdentityChange = 5,
 
-	kSSLSessionOptionAllowServerIdentityChange = 5,
+  kSSLSessionOptionFallback = 6,
 
-	kSSLSessionOptionFallback = 6,
+  kSSLSessionOptionBreakOnClientHello = 7,
 
-	kSSLSessionOptionBreakOnClientHello = 7,
+  kSSLSessionOptionAllowRenegotiation = 8,
 
-	kSSLSessionOptionAllowRenegotiation = 8,
-
-	kSSLSessionOptionEnableSessionTickets = 9
+  kSSLSessionOptionEnableSessionTickets = 9,
 }
 
 declare const enum SSLSessionState {
+  kSSLIdle = 0,
 
-	kSSLIdle = 0,
+  kSSLHandshake = 1,
 
-	kSSLHandshake = 1,
+  kSSLConnected = 2,
 
-	kSSLConnected = 2,
+  kSSLClosed = 3,
 
-	kSSLClosed = 3,
-
-	kSSLAborted = 4
+  kSSLAborted = 4,
 }
 
 /**
@@ -521,30 +500,29 @@ declare const SSL_RSA_WITH_RC4_128_SHA: number;
  * @since 8.0
  */
 declare const enum SecAccessControlCreateFlags {
+  kSecAccessControlUserPresence = 1,
 
-	kSecAccessControlUserPresence = 1,
+  kSecAccessControlBiometryAny = 2,
 
-	kSecAccessControlBiometryAny = 2,
+  kSecAccessControlTouchIDAny = 2,
 
-	kSecAccessControlTouchIDAny = 2,
+  kSecAccessControlBiometryCurrentSet = 8,
 
-	kSecAccessControlBiometryCurrentSet = 8,
+  kSecAccessControlTouchIDCurrentSet = 8,
 
-	kSecAccessControlTouchIDCurrentSet = 8,
+  kSecAccessControlDevicePasscode = 16,
 
-	kSecAccessControlDevicePasscode = 16,
+  kSecAccessControlWatch = 32,
 
-	kSecAccessControlWatch = 32,
+  kSecAccessControlCompanion = 32,
 
-	kSecAccessControlCompanion = 32,
+  kSecAccessControlOr = 16384,
 
-	kSecAccessControlOr = 16384,
+  kSecAccessControlAnd = 32768,
 
-	kSecAccessControlAnd = 32768,
+  kSecAccessControlPrivateKeyUsage = 1073741824,
 
-	kSecAccessControlPrivateKeyUsage = 1073741824,
-
-	kSecAccessControlApplicationPassword = 2147483648
+  kSecAccessControlApplicationPassword = 2147483648,
 }
 
 /**
@@ -559,6 +537,7 @@ declare function SecAccessControlGetTypeID(): number;
 
 /**
  * @since 8.0
+ * @deprecated 26.2
  */
 declare function SecAddSharedWebCredential(fqdn: string, account: string, password: string, completionHandler: (p1: NSError) => void): void;
 
@@ -766,16 +745,15 @@ declare function SecKeyIsAlgorithmSupported(key: any, operation: SecKeyOperation
  * @since 10.0
  */
 declare const enum SecKeyOperationType {
+  kSecKeyOperationTypeSign = 0,
 
-	kSecKeyOperationTypeSign = 0,
+  kSecKeyOperationTypeVerify = 1,
 
-	kSecKeyOperationTypeVerify = 1,
+  kSecKeyOperationTypeEncrypt = 2,
 
-	kSecKeyOperationTypeEncrypt = 2,
+  kSecKeyOperationTypeDecrypt = 3,
 
-	kSecKeyOperationTypeDecrypt = 3,
-
-	kSecKeyOperationTypeKeyExchange = 4
+  kSecKeyOperationTypeKeyExchange = 4,
 }
 
 /**
@@ -805,28 +783,27 @@ declare function SecPKCS12Import(pkcs12_data: NSData, options: NSDictionary<any,
  * @deprecated 15.0
  */
 declare const enum SecPadding {
+  kSecPaddingNone = 0,
 
-	kSecPaddingNone = 0,
+  kSecPaddingPKCS1 = 1,
 
-	kSecPaddingPKCS1 = 1,
+  kSecPaddingOAEP = 2,
 
-	kSecPaddingOAEP = 2,
+  kSecPaddingSigRaw = 16384,
 
-	kSecPaddingSigRaw = 16384,
+  kSecPaddingPKCS1MD2 = 32768,
 
-	kSecPaddingPKCS1MD2 = 32768,
+  kSecPaddingPKCS1MD5 = 32769,
 
-	kSecPaddingPKCS1MD5 = 32769,
+  kSecPaddingPKCS1SHA1 = 32770,
 
-	kSecPaddingPKCS1SHA1 = 32770,
+  kSecPaddingPKCS1SHA224 = 32771,
 
-	kSecPaddingPKCS1SHA224 = 32771,
+  kSecPaddingPKCS1SHA256 = 32772,
 
-	kSecPaddingPKCS1SHA256 = 32772,
+  kSecPaddingPKCS1SHA384 = 32773,
 
-	kSecPaddingPKCS1SHA384 = 32773,
-
-	kSecPaddingPKCS1SHA512 = 32774
+  kSecPaddingPKCS1SHA512 = 32774,
 }
 
 /**
@@ -971,22 +948,21 @@ declare function SecTrustGetTypeID(): number;
 declare function SecTrustGetVerifyTime(trust: any): number;
 
 declare const enum SecTrustResultType {
+  kSecTrustResultInvalid = 0,
 
-	kSecTrustResultInvalid = 0,
+  kSecTrustResultProceed = 1,
 
-	kSecTrustResultProceed = 1,
+  kSecTrustResultConfirm = 2,
 
-	kSecTrustResultConfirm = 2,
+  kSecTrustResultDeny = 3,
 
-	kSecTrustResultDeny = 3,
+  kSecTrustResultUnspecified = 4,
 
-	kSecTrustResultUnspecified = 4,
+  kSecTrustResultRecoverableTrustFailure = 5,
 
-	kSecTrustResultRecoverableTrustFailure = 5,
+  kSecTrustResultFatalTrustFailure = 6,
 
-	kSecTrustResultFatalTrustFailure = 6,
-
-	kSecTrustResultOtherError = 7
+  kSecTrustResultOtherError = 7,
 }
 
 /**
@@ -3987,84 +3963,81 @@ declare function sec_trust_copy_ref(trust: NSObject & OS_sec_trust): interop.Unm
 declare function sec_trust_create(trust: any): NSObject & OS_sec_trust;
 
 declare const enum tls_ciphersuite_group_t {
+  tls_ciphersuite_group_default = 0,
 
-	tls_ciphersuite_group_default = 0,
+  tls_ciphersuite_group_compatibility = 1,
 
-	tls_ciphersuite_group_compatibility = 1,
+  tls_ciphersuite_group_legacy = 2,
 
-	tls_ciphersuite_group_legacy = 2,
+  tls_ciphersuite_group_ats = 3,
 
-	tls_ciphersuite_group_ats = 3,
-
-	tls_ciphersuite_group_ats_compatibility = 4
+  tls_ciphersuite_group_ats_compatibility = 4,
 }
 
 declare const enum tls_ciphersuite_t {
+  RSA_WITH_3DES_EDE_CBC_SHA = 10,
 
-	RSA_WITH_3DES_EDE_CBC_SHA = 10,
+  RSA_WITH_AES_128_CBC_SHA = 47,
 
-	RSA_WITH_AES_128_CBC_SHA = 47,
+  RSA_WITH_AES_256_CBC_SHA = 53,
 
-	RSA_WITH_AES_256_CBC_SHA = 53,
+  RSA_WITH_AES_128_GCM_SHA256 = 156,
 
-	RSA_WITH_AES_128_GCM_SHA256 = 156,
+  RSA_WITH_AES_256_GCM_SHA384 = 157,
 
-	RSA_WITH_AES_256_GCM_SHA384 = 157,
+  RSA_WITH_AES_128_CBC_SHA256 = 60,
 
-	RSA_WITH_AES_128_CBC_SHA256 = 60,
+  RSA_WITH_AES_256_CBC_SHA256 = 61,
 
-	RSA_WITH_AES_256_CBC_SHA256 = 61,
+  ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA = 49160,
 
-	ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA = 49160,
+  ECDHE_ECDSA_WITH_AES_128_CBC_SHA = 49161,
 
-	ECDHE_ECDSA_WITH_AES_128_CBC_SHA = 49161,
+  ECDHE_ECDSA_WITH_AES_256_CBC_SHA = 49162,
 
-	ECDHE_ECDSA_WITH_AES_256_CBC_SHA = 49162,
+  ECDHE_RSA_WITH_3DES_EDE_CBC_SHA = 49170,
 
-	ECDHE_RSA_WITH_3DES_EDE_CBC_SHA = 49170,
+  ECDHE_RSA_WITH_AES_128_CBC_SHA = 49171,
 
-	ECDHE_RSA_WITH_AES_128_CBC_SHA = 49171,
+  ECDHE_RSA_WITH_AES_256_CBC_SHA = 49172,
 
-	ECDHE_RSA_WITH_AES_256_CBC_SHA = 49172,
+  ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 = 49187,
 
-	ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 = 49187,
+  ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 = 49188,
 
-	ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 = 49188,
+  ECDHE_RSA_WITH_AES_128_CBC_SHA256 = 49191,
 
-	ECDHE_RSA_WITH_AES_128_CBC_SHA256 = 49191,
+  ECDHE_RSA_WITH_AES_256_CBC_SHA384 = 49192,
 
-	ECDHE_RSA_WITH_AES_256_CBC_SHA384 = 49192,
+  ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 = 49195,
 
-	ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 = 49195,
+  ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 = 49196,
 
-	ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 = 49196,
+  ECDHE_RSA_WITH_AES_128_GCM_SHA256 = 49199,
 
-	ECDHE_RSA_WITH_AES_128_GCM_SHA256 = 49199,
+  ECDHE_RSA_WITH_AES_256_GCM_SHA384 = 49200,
 
-	ECDHE_RSA_WITH_AES_256_GCM_SHA384 = 49200,
+  ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256 = 52392,
 
-	ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256 = 52392,
+  ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 = 52393,
 
-	ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 = 52393,
+  AES_128_GCM_SHA256 = 4865,
 
-	AES_128_GCM_SHA256 = 4865,
+  AES_256_GCM_SHA384 = 4866,
 
-	AES_256_GCM_SHA384 = 4866,
-
-	CHACHA20_POLY1305_SHA256 = 4867
+  CHACHA20_POLY1305_SHA256 = 4867,
 }
 
 declare const enum tls_protocol_version_t {
+  TLSv10 = 769,
 
-	TLSv10 = 769,
+  TLSv11 = 770,
 
-	TLSv11 = 770,
+  TLSv12 = 771,
 
-	TLSv12 = 771,
+  TLSv13 = 772,
 
-	TLSv13 = 772,
+  DTLSv10 = 65279,
 
-	DTLSv10 = 65279,
-
-	DTLSv12 = 65277
+  DTLSv12 = 65277,
 }

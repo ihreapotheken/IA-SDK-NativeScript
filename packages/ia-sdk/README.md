@@ -70,7 +70,15 @@ npm install @ihreapotheken/ia-sdk@VERSION_NUMBER
 The `VERSION_NUMBER` value can be referenced from the 
 [package release page](https://github.com/ihreapotheken/IA-SDK-NativeScript/pkgs/npm/ia-sdk).
 
-### 4.2. Plugin usage
+### 4.2. Add typings
+
+In the host app `references.d.ts` file, a reference path is appended in order for the host app to access the library typings:
+
+```ts
+/// <reference path="./node_modules/@ihreapotheken/ia-sdk/references.d.ts" />
+```
+
+### 4.3. Plugin usage
 
 Methods and properties made available as public APIs implemented with the `IaSdk` object.
 
@@ -90,9 +98,7 @@ You may then proceed with API usages on this object:
 	async initialize() {
 		try {
 			await this.iaSdk.initIaSdk(
-				isAndroid
-					? "a1f4b6e3c7d58f9032eeaa1bc02b4f44f9863d1e5c7a49f7d23e0c96b17af5cd"
-					: "e9f3d6a12c4b8f75d1e0a93c5b7d6e2f3c1a9b8e7f4d2c0a1b6e5d3f8c7a1b9e",
+				"c33b7d2757ff7b24613b78c9dc69950aad1588c8d519706fb69b91fcedec65d7",
 				"5004",
 				IaSdkBase.ServerEnvironment.Staging,
 			);
@@ -101,6 +107,10 @@ You may then proceed with API usages on this object:
 		}
 	}
 ```
+
+The  host app developers must ensure the `accessKey` and `clientId` values are updated according to their specific setup.
+
+For more information, please reach out to the ia.de development team. 
 
 ---
 
