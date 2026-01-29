@@ -11,7 +11,6 @@ import de.ihreapotheken.sdk.core.api.listener.HandlingDecision
 import de.ihreapotheken.sdk.integrations.api.view.IaSdkActivity
 import de.ihreapotheken.sdk.integrations.api.view.IaScreen
 import de.ihreapotheken.sdk.ordering.OrderingModule
-import de.ihreapotheken.sdk.otc.OtcModule
 import de.ihreapotheken.sdk.pharmacy.PharmacyModule
 import de.ihreapotheken.sdk.core.data.EnvironmentType
 import de.ihreapotheken.sdk.core.data.PrerequisiteFlowConfiguration
@@ -48,7 +47,6 @@ class IaSdk {
     ) {
         val channelId = "INIT_EVENT"
         sdkModule = IaSdk.register(
-            OtcModule,
             OrderingModule,
             PharmacyModule,
             ApofinderModule,

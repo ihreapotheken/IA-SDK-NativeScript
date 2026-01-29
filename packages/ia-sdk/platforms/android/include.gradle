@@ -42,7 +42,6 @@ dependencies {
     iaDeSdkVersion = iaDeSdkVersion.replaceAll("\"", "")
     def iaDeSdkDeps = [
             "integrations",
-            "otc",
             "ordering",
             "pharmacy",
             "apofinder",

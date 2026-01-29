@@ -3,7 +3,6 @@ import Foundation
 import IACore
 import IAIntegrations
 import IAOrdering
-import IAOverTheCounter
 import SwiftUI
 import UIKit
 
@@ -39,7 +38,6 @@ class NSCIaSdk: NSObject {
     if !Self.isRegistered {
       IASDK.register([
         .integrations,
-        .overTheCounter,
         .ordering,
         .apofinder,
       ])
@@ -134,7 +132,7 @@ class NSCIaSdk: NSObject {
   ) {
     Task.init {
       do {
-        try await IAOrderingSDK.deleteCart()
+        try await IASDK.ordering.deleteCart()
         var specifiedFinishAction: TransferPrescriptionsFinishAction = .noAction
         switch finishAction {
         case "noAction":
@@ -149,11 +147,12 @@ class NSCIaSdk: NSObject {
         default:
           fatalError("Invalid finish action ID: \(finishAction)")
         }
-        try await IAOrderingSDK.transferPrescriptions(
+        try await IASDK.ordering.transferPrescriptions(
           images: images,
           pdfs: pdfs?.map { pdfBytes in PDFPrescription(data: pdfBytes) },
           codes: codes,
           orderID: orderId,
+          showActivityIndicator: false,
           finishAction: .noAction,
         )
         IaClientViews.cartScreen.iaScreen().present()
@@ -182,7 +181,7 @@ class NSCIaSdk: NSObject {
   ) {
     Task.init {
       do {
-        try await IAOrderingSDK.deleteCart()
+        try await IASDK.ordering.deleteCart()
         completionHandler(nil)
       } catch {
         completionHandler("\(String(describing: error)) \(error.localizedDescription)")
@@ -195,7 +194,7 @@ class NSCIaSdk: NSObject {
   ) {
     Task.init {
       do {
-        try await IASDK.deleteAllUserRelatedData()
+        try await IASDK.clearAllData()
         completionHandler(nil)
       } catch {
         completionHandler("\(String(describing: error)) \(error.localizedDescription)")
