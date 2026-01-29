@@ -115,4 +115,5 @@ For more information, please reach out to the ia.de development team.
 ---
 
 For further information, please see the
-[API reference](https://ihreapotheken.github.io/docs/appsdk/nativescript).
+[API reference](https://ihreapotheken.github.io/docs/appsdk/nativescript) 
+and [Usage and Testing documentation](https://ihreapotheken.github.io/docs/appsdk/common/usage-and-testing).

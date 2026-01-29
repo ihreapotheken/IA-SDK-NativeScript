@@ -15,7 +15,7 @@ export default {
     SPMPackages: [
       {
         name: 'IA-SDK-iOS',
-        libs: ['IAOverTheCounter', 'IAOrdering', 'IAPharmacy', 'IAIntegrations', 'IAPrescription'],
+        libs: ['IAOrdering', 'IAPharmacy', 'IAIntegrations', 'IAPrescription'],
         repositoryURL: 'https://github.com/ihreapotheken/IA-SDK-iOS',
         version: env.IOS_APPSDK_VERSION,
       },
