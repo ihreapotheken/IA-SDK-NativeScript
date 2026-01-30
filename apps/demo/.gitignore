@@ -40,3 +40,5 @@ npm-debug.log
 app/app.scss
 
 package-lock.json
+
+.secrets
