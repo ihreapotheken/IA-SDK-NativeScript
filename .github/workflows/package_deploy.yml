@@ -20,7 +20,10 @@ jobs:
           scope: '@ihreapotheken'
       - name: Publish package
         run: |
-          VERSION="${{ github.ref_name }}"
+          TAG="${{ github.ref_name }}"
+          # Parse version components and strip leading zeros for valid semver
+          IFS='.-' read -r year month day build <<< "$TAG"
+          VERSION="${year}.${month#0}.${day#0}-${build}"
           sed -i "s|\"version\": \".*\"|\"version\": \"${VERSION}\"|" packages/ia-sdk/package.json
           cd packages/ia-sdk
           npm publish
