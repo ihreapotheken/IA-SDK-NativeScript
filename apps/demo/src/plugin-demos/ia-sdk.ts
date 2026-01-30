@@ -3,6 +3,8 @@ import { DemoSharedIaSdk } from '@demo/shared';
 import { IaSdk } from '@ihreapotheken/ia-sdk/common';
 import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ihreapotheken/ia-sdk/types';
 
+declare const APPSDK_ACCESS_KEY: string;
+
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object;
   page.bindingContext = new DemoModel();
@@ -32,7 +34,7 @@ export class DemoModel extends DemoSharedIaSdk {
       this.iaSdk.configureIaSdk({
         footerShouldShowDataProcessing: false,
       });
-      await this.iaSdk.initIaSdk('c33b7d2757ff7b24613b78c9dc69950aad1588c8d519706fb69b91fcedec65d7', '5004', IaSdkBase.ServerEnvironment.Staging);
+      await this.iaSdk.initIaSdk(APPSDK_ACCESS_KEY, '6001', IaSdkBase.ServerEnvironment.Staging);
     } catch (error) {
       console.error('Init failed:', error);
     }
