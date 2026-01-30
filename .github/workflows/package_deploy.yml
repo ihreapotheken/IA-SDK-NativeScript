@@ -20,8 +20,8 @@ jobs:
           scope: '@ihreapotheken'
       - name: Publish package
         run: |
-          VERSION=${{ github.ref_name }}
-          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" packages/ia-sdk/package.json
+          VERSION="${{ github.ref_name }}"
+          sed -i "s|\"version\": \".*\"|\"version\": \"${VERSION}\"|" packages/ia-sdk/package.json
           cd packages/ia-sdk
           npm publish
         env:
