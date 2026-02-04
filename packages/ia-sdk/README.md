@@ -70,7 +70,26 @@ npm install @ihreapotheken/ia-sdk@VERSION_NUMBER
 The `VERSION_NUMBER` value can be referenced from the 
 [package release page](https://github.com/ihreapotheken/IA-SDK-NativeScript/pkgs/npm/ia-sdk).
 
-### 4.2. Add typings
+### 4.2. iOS Permissions
+
+Add the following keys to your `Info.plist` file:
+
+```xml
+<!-- Location permission - required for pharmacy finder and directions -->
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Used to show pharmacies nearby.</string>
+
+<!-- Camera permission - required for prescription upload -->
+<key>NSCameraUsageDescription</key>
+<string>Camera access is needed for prescription upload.</string>
+```
+
+| Permission | Key | Purpose |
+|------------|-----|---------|
+| Location (When In Use) | `NSLocationWhenInUseUsageDescription` | Find nearby pharmacies |
+| Camera | `NSCameraUsageDescription` | Upload prescriptions via camera |
+
+### 4.3. Add typings
 
 In the host app `references.d.ts` file, a reference path is appended in order for the host app to access the library typings:
 
@@ -78,7 +97,7 @@ In the host app `references.d.ts` file, a reference path is appended in order f
 /// <reference path="./node_modules/@ihreapotheken/ia-sdk/references.d.ts" />
 ```
 
-### 4.3. Plugin usage
+### 4.4. Plugin usage
 
 Methods and properties made available as public APIs implemented with the `IaSdk` object.
 
