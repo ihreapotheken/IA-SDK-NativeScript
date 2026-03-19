@@ -34,6 +34,10 @@ module.exports = (env) => {
   webpack.chainWebpack((config) => {
     config.resolve.alias.set('@demo/shared', resolve(__dirname, '..', '..', 'tools', 'demo'));
 
+    // css-tree (via @nativescript/core) pulls in `url` which is a Node.js built-in.
+    // Provide an empty fallback since it's not needed at runtime on mobile.
+    config.resolve.merge({ fallback: { url: false } });
+
     // Disable type checking — platform-specific SDK source files (index.android.ts / index.ios.ts)
     // trigger cross-platform type errors. Type safety is verified in the main workspace.
     config.plugins.delete('ForkTsCheckerWebpackPlugin');

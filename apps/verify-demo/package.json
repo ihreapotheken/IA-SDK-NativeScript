@@ -7,7 +7,7 @@
   "dependencies": {
     "@nativescript/core": "8.9.0",
     "@nativescript/swift-ui": "^4.0.2",
-    "@ihreapotheken/ia-sdk": "2026.3.19-535"
+    "@ihreapotheken/ia-sdk": "2026.3.19-680"
   },
   "devDependencies": {
     "@nativescript/android": "~8.9.0",
