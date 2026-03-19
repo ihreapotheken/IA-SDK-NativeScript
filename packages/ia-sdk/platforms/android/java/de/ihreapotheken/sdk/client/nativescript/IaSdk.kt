@@ -28,6 +28,11 @@ import de.ihreapotheken.sdk.core.domain.model.GuestUser
 
 class IaSdk {
     private lateinit var sdkModule: IaSdk
+    private var onboardingShouldBeShown: Boolean = false
+
+    fun configureIaSdk(onboardingShouldBeShown: Boolean) {
+        this.onboardingShouldBeShown = onboardingShouldBeShown
+    }
 
     fun notifyJs(
         id: String,
@@ -73,7 +78,7 @@ class IaSdk {
                 shouldFetchThemeFromRemote = true,
                 prerequisiteFlowConfiguration = PrerequisiteFlowConfiguration(
                     shouldRunLegal = true,
-                    shouldRunOnboarding = false,
+                    shouldRunOnboarding = onboardingShouldBeShown,
                 ),
             ),
             environmentType = serverEnv,
@@ -207,6 +212,13 @@ class IaSdk {
         } else {
             notifyJs(channelId, "Failed to logout.", context)
         }
+    }
+
+    fun transferSDKv1UserData(
+        context: Context,
+    ) {
+        val channelId = "TRANSFER_SDK_V1_USER_DATA_EVENT"
+        notifyJs(channelId, "success", context)
     }
 
     fun setPharmacyId(

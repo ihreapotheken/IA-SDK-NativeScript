@@ -53,11 +53,11 @@ export class IaSdk extends Observable {
    *
    * @param options Configuration options object:
    *   - footerShouldShowDataProcessing: Whether to show data processing information in the footer
-   *   - Add more options here as needed
+   *   - onboardingShouldBeShown: Whether to show the onboarding flow during SDK initialisation (iOS only, defaults to false)
    */
-  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean }): void {
+  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean; onboardingShouldBeShown?: boolean }): void {
     if (isAndroid) {
-      // @TODO android implementation
+      IaSdkAndroid.instance.configureIaSdk(options);
     }
     if (isIOS) {
       IaSdkIOS.instance.configureIaSdk(options);
@@ -235,6 +235,28 @@ export class IaSdk extends Observable {
       }
       if (isIOS) {
         IaSdkIOS.instance.setPharmacyId(pharmacyId, (e: any) => {
+          if (e == null) {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * Transfers user data from SDK v1 to the current SDK. iOS only.
+   */
+  transferSDKv1UserData(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (isAndroid) {
+        IaSdkAndroid.instance.transferSDKv1UserData((e: any) => {
+          reject(e);
+        });
+      }
+      if (isIOS) {
+        IaSdkIOS.instance.transferSDKv1UserData((e: any) => {
           if (e == null) {
             resolve();
           } else {

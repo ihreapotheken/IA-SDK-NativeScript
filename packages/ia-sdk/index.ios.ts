@@ -69,6 +69,10 @@ export class IaSdkIOS extends IaSdkBase {
     this.iaSdk.setPharmacyIdWithPharmacyIdCompletionHandler(pharmacyId, completionHandler);
   }
 
+  transferSDKv1UserData(completionHandler: (e: any) => void): void {
+    this.iaSdk.transferSDKv1UserDataWithCompletionHandler(completionHandler);
+  }
+
   clearCart(completionHandler: (e: any) => void): void {
     this.iaSdk.clearCartWithCompletionHandler(completionHandler);
   }

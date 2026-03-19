@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDirs": ["."],
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": ["src/*"],
+      "@demo/shared": ["../../tools/demo/index.ts"],
+      "@ihreapotheken/ia-sdk": ["./node_modules/@ihreapotheken/ia-sdk/index.d.ts"],
+      "@ihreapotheken/ia-sdk/*": ["./node_modules/@ihreapotheken/ia-sdk/*"]
+    }
+  }
+}

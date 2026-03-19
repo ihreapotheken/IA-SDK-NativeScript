@@ -31,6 +31,10 @@
             tap="{{ setPharmacyId10041 }}"
             style="margin-bottom:16" />
         <Button
+            text="Transfer SDK V1 Data"
+            tap="{{ transferSDKv1UserData }}"
+            style="margin-bottom:16" />
+        <Button
             text="Clear Cart"
             tap="{{ clearCart }}"
             style="margin-bottom:16" />
