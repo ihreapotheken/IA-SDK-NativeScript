@@ -47,17 +47,11 @@ class NSCIaSdk: NSObject {
     )
     Task.init {
       do {
-        let prerequisitesOptions = IASDKPrerequisitesOptions(
-          isCancellable: true,
-          isAnimated: true,
-          shouldRunLegal: true,
-          shouldRunOnboarding: false,
-          shouldRunApofinder: true,
-        )
+        IASDK.configuration.isAutoInitializationEnabled = true
         let _ = try await IASDK.initialize(
           options: .init(
             shouldShowIndicator: false,
-            prerequisitesOptions: prerequisitesOptions
+            prerequisitesOptions: nil
           ),
         )
         completionHandler(nil)
@@ -79,6 +73,15 @@ class NSCIaSdk: NSObject {
     if let footerShouldShowDataProcessing = options["footerShouldShowDataProcessing"] as? Bool {
       IASDK.configuration.footer.shouldShowDataProcessing = footerShouldShowDataProcessing
     }
+    let onboardingShouldBeShown = options["onboardingShouldBeShown"] as? Bool ?? false
+    IASDK.configuration.defaultInitializationOptions = IASDKInitializationOptions(
+      shouldShowIndicator: false,
+      prerequisitesOptions: IASDKPrerequisitesOptions(
+        isCancellable: true,
+        isAnimated: true,
+        shouldRunOnboarding: onboardingShouldBeShown
+      )
+    )
   }
 
   /**
@@ -191,6 +194,15 @@ class NSCIaSdk: NSObject {
       } catch {
         completionHandler("\(String(describing: error)) \(error.localizedDescription)")
       }
+    }
+  }
+
+  public func transferSDKv1UserData(
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    Task.init {
+      await IASDK.transferSDKv1UserData()
+      completionHandler(nil)
     }
   }
 

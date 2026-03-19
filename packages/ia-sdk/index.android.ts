@@ -26,6 +26,10 @@ export class IaSdkAndroid extends IaSdkBase {
 
   iaSdk = new de.ihreapotheken.sdk.client.nativescript.IaSdk();
 
+  configureIaSdk(options: { onboardingShouldBeShown?: boolean }): void {
+    this.iaSdk.configureIaSdk(options.onboardingShouldBeShown ?? false);
+  }
+
   initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (e: any) => void): void {
     Application.android.registerBroadcastReceiver('INIT_EVENT', (context, intent) => {
       const message = intent.getStringExtra('data');
@@ -92,6 +96,17 @@ export class IaSdkAndroid extends IaSdkBase {
       }, 0);
     });
     this.iaSdk.logout(Utils.android.getCurrentActivity());
+  }
+
+  transferSDKv1UserData(completionHandler: (e: any) => void): void {
+    Application.android.registerBroadcastReceiver('TRANSFER_SDK_V1_USER_DATA_EVENT', (context, intent) => {
+      const message = intent.getStringExtra('data');
+      Application.android.unregisterBroadcastReceiver('TRANSFER_SDK_V1_USER_DATA_EVENT');
+      setTimeout(() => {
+        completionHandler(message);
+      }, 0);
+    });
+    this.iaSdk.transferSDKv1UserData(Utils.android.getCurrentActivity());
   }
 
   setPharmacyId(pharmacyId: string, completionHandler: (e: any) => void): void {

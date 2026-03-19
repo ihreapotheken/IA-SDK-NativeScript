@@ -18,7 +18,10 @@ declare module de {
             public getOrderSignatures(): androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>;
             public transferPrescriptions(this_: globalAndroid.content.Context, context: java.util.List<androidNative.Array<number>>, images: java.util.List<androidNative.Array<number>>, pdfs: java.util.List<string>, codes: string): void;
             public setOrderSignatures(context: androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>): void;
+            public configureIaSdk(onboardingShouldBeShown: boolean): void;
             public startDashboardActivity(context: globalAndroid.content.Context): void;
+            public setPharmacyId(context: globalAndroid.content.Context, pharmacyId: string): void;
+            public transferSDKv1UserData(context: globalAndroid.content.Context): void;
           }
           export module IaSdk {
             export class SignatureCodes {

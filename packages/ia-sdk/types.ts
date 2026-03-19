@@ -15,6 +15,8 @@ export abstract class IaSdkBase extends Observable {
 
   abstract setPharmacyId(pharmacyId: string, completionHandler: ((e: any) => void) | null): void;
 
+  abstract transferSDKv1UserData(completionHandler: ((e: any) => void) | null): void;
+
   abstract clearCart(completionHandler: ((e: any) => void) | null): void;
 
   abstract get orderSignatureListener(): OrderSignatureListener;

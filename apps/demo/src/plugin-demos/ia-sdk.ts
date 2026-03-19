@@ -90,6 +90,14 @@ export class DemoModel extends DemoSharedIaSdk {
     }
   }
 
+  async transferSDKv1UserData() {
+    try {
+      await this.iaSdk.transferSDKv1UserData();
+    } catch (error) {
+      console.error('Transfer SDK V1 user data failed:', error);
+    }
+  }
+
   async clearCart() {
     try {
       this.iaSdk.clearCart();
