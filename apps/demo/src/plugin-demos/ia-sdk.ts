@@ -74,6 +74,22 @@ export class DemoModel extends DemoSharedIaSdk {
     }
   }
 
+  async setPharmacyId2163() {
+    try {
+      await this.iaSdk.setPharmacyId('2163');
+    } catch (error) {
+      console.error('Set pharmacy ID failed:', error);
+    }
+  }
+
+  async setPharmacyId10041() {
+    try {
+      await this.iaSdk.setPharmacyId('10041');
+    } catch (error) {
+      console.error('Set pharmacy ID failed:', error);
+    }
+  }
+
   async clearCart() {
     try {
       this.iaSdk.clearCart();

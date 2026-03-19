@@ -22,8 +22,16 @@
             text="Start Dashboard Activity" 
             tap="{{ startDashboardActivity }}"
             style="margin-bottom:16" />
-        <Button 
-            text="Clear Cart" 
+        <Button
+            text="Set Pharmacy ID 2163"
+            tap="{{ setPharmacyId2163 }}"
+            style="margin-bottom:16" />
+        <Button
+            text="Set Pharmacy ID 10041"
+            tap="{{ setPharmacyId10041 }}"
+            style="margin-bottom:16" />
+        <Button
+            text="Clear Cart"
             tap="{{ clearCart }}"
             style="margin-bottom:16" />
         <Button 

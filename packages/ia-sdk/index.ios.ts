@@ -65,6 +65,10 @@ export class IaSdkIOS extends IaSdkBase {
     this.iaSdk.logoutWithCompletionHandler(completionHandler);
   }
 
+  setPharmacyId(pharmacyId: string, completionHandler: (e: any) => void): void {
+    this.iaSdk.setPharmacyIdWithPharmacyIdCompletionHandler(pharmacyId, completionHandler);
+  }
+
   clearCart(completionHandler: (e: any) => void): void {
     this.iaSdk.clearCartWithCompletionHandler(completionHandler);
   }

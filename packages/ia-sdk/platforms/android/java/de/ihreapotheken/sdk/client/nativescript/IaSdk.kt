@@ -209,6 +209,26 @@ class IaSdk {
         }
     }
 
+    fun setPharmacyId(
+        context: Context,
+        pharmacyId: String,
+    ) {
+        val channelId = "SET_PHARMACY_ID_EVENT"
+        sdkModule.pharmacy.setPharmacyId(
+            pharmacyId,
+            object : PharmacyConfigListener {
+                override fun onPharmacyConfigResult(result: PharmacyConfigResult) {
+                    if (result is PharmacyConfigResult.NotInitialized
+                        || result is PharmacyConfigResult.ValidationFailed) {
+                        notifyJs(channelId, "Setting pharmacy ID failed: $result", context)
+                    } else {
+                        notifyJs(channelId, "success", context)
+                    }
+                }
+            }
+        )
+    }
+
     fun clearCart(
         context: Context,
     ) {
