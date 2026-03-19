@@ -149,7 +149,7 @@ class NSCIaSdk: NSObject {
         }
         try await IASDK.ordering.transferPrescriptions(
           images: images,
-          pdfs: pdfs?.map { pdfBytes in PDFPrescription(data: pdfBytes) },
+          pdfs: pdfs?.map { pdfBytes in PDFPrescription(data: pdfBytes, insuranceType: .privateInsurance) },
           codes: codes,
           orderID: orderId,
           showActivityIndicator: false,
@@ -174,6 +174,24 @@ class NSCIaSdk: NSObject {
   ) {
     UIApplication.shared.rootViewController?.dismiss(animated: true)
     completionHandler(nil)
+  }
+
+  public func setPharmacyId(
+    pharmacyId: String,
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    Task.init {
+      do {
+        guard let pharmacyIdInt = Int(pharmacyId) else {
+          completionHandler("Failed to convert pharmacyId to Int")
+          return
+        }
+        try await IASDK.Pharmacy.setPharmacyID(pharmacyIdInt)
+        completionHandler(nil)
+      } catch {
+        completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+      }
+    }
   }
 
   public func clearCart(

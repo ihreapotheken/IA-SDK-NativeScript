@@ -94,6 +94,17 @@ export class IaSdkAndroid extends IaSdkBase {
     this.iaSdk.logout(Utils.android.getCurrentActivity());
   }
 
+  setPharmacyId(pharmacyId: string, completionHandler: (e: any) => void): void {
+    Application.android.registerBroadcastReceiver('SET_PHARMACY_ID_EVENT', (context, intent) => {
+      const message = intent.getStringExtra('data');
+      Application.android.unregisterBroadcastReceiver('SET_PHARMACY_ID_EVENT');
+      setTimeout(() => {
+        completionHandler(message);
+      }, 0);
+    });
+    this.iaSdk.setPharmacyId(Utils.android.getCurrentActivity(), pharmacyId);
+  }
+
   clearCart(completionHandler: (e: any) => void): void {
     Application.android.registerBroadcastReceiver('CLEAR_CART_EVENT', (context, intent) => {
       const message = intent.getStringExtra('data');

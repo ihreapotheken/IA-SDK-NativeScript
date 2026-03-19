@@ -218,6 +218,34 @@ export class IaSdk extends Observable {
   }
 
   /**
+   * Sets the pharmacy ID for the SDK.
+   *
+   * @param pharmacyId The pharmacy identifier.
+   */
+  setPharmacyId(pharmacyId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (isAndroid) {
+        IaSdkAndroid.instance.setPharmacyId(pharmacyId, (e: any) => {
+          if (e == 'success') {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+      if (isIOS) {
+        IaSdkIOS.instance.setPharmacyId(pharmacyId, (e: any) => {
+          if (e == null) {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * Clears the user cart.
    */
   clearCart(): Promise<void> {
