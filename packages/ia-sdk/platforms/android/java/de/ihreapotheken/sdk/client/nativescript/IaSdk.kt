@@ -24,6 +24,9 @@ import de.ihreapotheken.sdk.core.api.listener.PharmacyConfigResult
 import de.ihreapotheken.sdk.core.api.listener.TransferPrescriptionEvent
 import de.ihreapotheken.sdk.core.api.listener.TransferPrescriptionListener
 import de.ihreapotheken.sdk.integrations.api.TransferPrescriptionRequest
+import de.ihreapotheken.sdk.core.data.model.prescription.ImagePrescription
+import de.ihreapotheken.sdk.core.data.model.prescription.PdfPrescription
+import de.ihreapotheken.sdk.core.data.model.prescription.PrescriptionInsuranceType
 import de.ihreapotheken.sdk.core.domain.model.GuestUser
 
 class IaSdk {
@@ -168,8 +171,8 @@ class IaSdk {
         sdkModule.ordering.transferPrescriptions(
             context = context as Activity,
             transferPrescriptionRequest = TransferPrescriptionRequest(
-                images,
-                pdfs,
+                images?.map { ImagePrescription(it) },
+                pdfs?.map { PdfPrescription(PrescriptionInsuranceType.PRIVATE, it) },
                 codes,
                 orderId,
             ),
@@ -218,6 +221,7 @@ class IaSdk {
         context: Context,
     ) {
         val channelId = "TRANSFER_SDK_V1_USER_DATA_EVENT"
+        IaSdk.transferSDKv1UserData(context)
         notifyJs(channelId, "success", context)
     }
 
