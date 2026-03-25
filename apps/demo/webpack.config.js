@@ -3,30 +3,30 @@ const { resolve } = require('path');
 const { readFileSync, existsSync } = require('fs');
 const { DefinePlugin } = require('webpack');
 
-function loadSecrets() {
-  const secretsPath = resolve(__dirname, '.secrets');
-  const secrets = {};
+function loadKeyValueFile(filePath) {
+  const vars = {};
 
-  if (existsSync(secretsPath)) {
-    const content = readFileSync(secretsPath, 'utf-8');
+  if (existsSync(filePath)) {
+    const content = readFileSync(filePath, 'utf-8');
     content.split('\n').forEach((line) => {
       const trimmed = line.trim();
       if (trimmed && !trimmed.startsWith('#')) {
         const [key, ...valueParts] = trimmed.split('=');
         if (key && valueParts.length > 0) {
-          secrets[key.trim()] = valueParts.join('=').trim();
+          vars[key.trim()] = valueParts.join('=').trim().replace(/^"|"$/g, '');
         }
       }
     });
   } else {
-    console.warn('Warning: .secrets file not found at', secretsPath);
+    console.warn('Warning: file not found at', filePath);
   }
 
-  return secrets;
+  return vars;
 }
 
 module.exports = (env) => {
-  const secrets = loadSecrets();
+  const secrets = loadKeyValueFile(resolve(__dirname, '.secrets'));
+  const envConfig = loadKeyValueFile(resolve(__dirname, '..', '..', 'packages', 'ia-sdk', '.env'));
 
   webpack.init(env);
   webpack.useConfig('typescript');
@@ -35,10 +35,12 @@ module.exports = (env) => {
     // shared demo code
     config.resolve.alias.set('@demo/shared', resolve(__dirname, '..', '..', 'tools', 'demo'));
 
-    // Inject secrets as global constants
+    // Inject secrets and env config as global constants
     config.plugin('define-secrets').use(DefinePlugin, [
       {
         APPSDK_ACCESS_KEY: JSON.stringify(secrets.APPSDK_ACCESS_KEY || ''),
+        ANDROID_APPSDK_VERSION: JSON.stringify(envConfig.ANDROID_APPSDK_VERSION || 'N/A'),
+        IOS_APPSDK_VERSION: JSON.stringify(envConfig.IOS_APPSDK_VERSION || 'N/A'),
       },
     ]);
   });

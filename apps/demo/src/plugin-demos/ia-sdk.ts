@@ -1,9 +1,11 @@
-import { alert, EventData, Page } from '@nativescript/core';
+import { alert, EventData, isIOS, Page } from '@nativescript/core';
 import { DemoSharedIaSdk } from '@demo/shared';
 import { IaSdk } from '@ihreapotheken/ia-sdk/common';
 import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ihreapotheken/ia-sdk/types';
 
 declare const APPSDK_ACCESS_KEY: string;
+declare const ANDROID_APPSDK_VERSION: string;
+declare const IOS_APPSDK_VERSION: string;
 
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object;
@@ -25,6 +27,8 @@ export class DemoModel extends DemoSharedIaSdk {
       }, 2000);
     });
   }
+
+  actionBarTitle = `IA SDK NativeScript | ${isIOS ? 'iOS' : 'Android'} ${isIOS ? IOS_APPSDK_VERSION : ANDROID_APPSDK_VERSION}`;
 
   iaSdk = new IaSdk();
 

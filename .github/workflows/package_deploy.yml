@@ -21,9 +21,16 @@ jobs:
       - name: Publish package
         run: |
           TAG="${{ github.ref_name }}"
+          # Strip optional -beta suffix, parse version, then re-append suffix
+          SUFFIX=""
+          CLEAN_TAG="$TAG"
+          if [[ "$TAG" == *-beta ]]; then
+            SUFFIX="-beta"
+            CLEAN_TAG="${TAG%-beta}"
+          fi
           # Parse version components and strip leading zeros for valid semver
-          IFS='.-' read -r year month day build <<< "$TAG"
-          VERSION="${year}.${month#0}.${day#0}-${build}"
+          IFS='.-' read -r year month day build <<< "$CLEAN_TAG"
+          VERSION="${year}.${month#0}.${day#0}-${build}${SUFFIX}"
           sed -i "s|\"version\": \".*\"|\"version\": \"${VERSION}\"|" packages/ia-sdk/package.json
           cd packages/ia-sdk
           npm publish
