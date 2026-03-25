@@ -73,6 +73,8 @@ class NSCIaSdk: NSObject {
     if let footerShouldShowDataProcessing = options["footerShouldShowDataProcessing"] as? Bool {
       IASDK.configuration.footer.shouldShowDataProcessing = footerShouldShowDataProcessing
     }
+    let shouldFetchThemeFromRemote = options["shouldFetchThemeFromRemote"] as? Bool ?? false
+    IASDK.configuration.shouldLoadRemoteStyleConfiguration = shouldFetchThemeFromRemote
     let onboardingShouldBeShown = options["onboardingShouldBeShown"] as? Bool ?? false
     IASDK.configuration.defaultInitializationOptions = IASDKInitializationOptions(
       shouldShowIndicator: false,

@@ -54,8 +54,9 @@ export class IaSdk extends Observable {
    * @param options Configuration options object:
    *   - footerShouldShowDataProcessing: Whether to show data processing information in the footer
    *   - onboardingShouldBeShown: Whether to show the onboarding flow during SDK initialisation (iOS only, defaults to false)
+   *   - shouldFetchThemeFromRemote: Whether to fetch theme configuration from a remote server (defaults to false)
    */
-  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean; onboardingShouldBeShown?: boolean }): void {
+  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean; onboardingShouldBeShown?: boolean; shouldFetchThemeFromRemote?: boolean }): void {
     if (isAndroid) {
       IaSdkAndroid.instance.configureIaSdk(options);
     }
