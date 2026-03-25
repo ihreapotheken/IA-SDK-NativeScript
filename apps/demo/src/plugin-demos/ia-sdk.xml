@@ -5,7 +5,7 @@
   backgroundColor="white" 
   color="black" >
     <Page.actionBar>
-        <ActionBar title="ia.de AppSDK Demo" icon="" class="action-bar">
+        <ActionBar title="{{ actionBarTitle }}" icon="" class="action-bar">
         </ActionBar>
     </Page.actionBar>
     
