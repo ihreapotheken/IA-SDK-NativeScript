@@ -32,9 +32,11 @@ import de.ihreapotheken.sdk.core.domain.model.GuestUser
 class IaSdk {
     private lateinit var sdkModule: IaSdk
     private var onboardingShouldBeShown: Boolean = false
+    private var shouldFetchThemeFromRemote: Boolean = false
 
-    fun configureIaSdk(onboardingShouldBeShown: Boolean) {
+    fun configureIaSdk(onboardingShouldBeShown: Boolean, shouldFetchThemeFromRemote: Boolean) {
         this.onboardingShouldBeShown = onboardingShouldBeShown
+        this.shouldFetchThemeFromRemote = shouldFetchThemeFromRemote
     }
 
     fun notifyJs(
@@ -78,7 +80,7 @@ class IaSdk {
             apiKey = accessKey,
             clientId = clientId,
             configuration = IaSdkConfiguration(
-                shouldFetchThemeFromRemote = true,
+                shouldFetchThemeFromRemote = shouldFetchThemeFromRemote,
                 prerequisiteFlowConfiguration = PrerequisiteFlowConfiguration(
                     shouldRunLegal = true,
                     shouldRunOnboarding = onboardingShouldBeShown,

@@ -26,11 +26,14 @@ export class IaSdkIOS extends IaSdkBase {
     this.iaSdk.initIaSdkWithAccessKeyClientIdServerEnvironmentCompletionHandler(accessKey, clientId, serverEnvironment, completionHandler);
   }
 
-  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean }): void {
+  configureIaSdk(options: { footerShouldShowDataProcessing?: boolean; shouldFetchThemeFromRemote?: boolean }): void {
     // Convert TypeScript object to NSDictionary
     const nativeOptions: any = {};
     if (options.footerShouldShowDataProcessing !== undefined) {
       nativeOptions.footerShouldShowDataProcessing = options.footerShouldShowDataProcessing;
+    }
+    if (options.shouldFetchThemeFromRemote !== undefined) {
+      nativeOptions.shouldFetchThemeFromRemote = options.shouldFetchThemeFromRemote;
     }
     this.iaSdk.configureIaSdk(nativeOptions);
   }

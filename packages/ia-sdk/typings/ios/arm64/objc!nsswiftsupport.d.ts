@@ -21,9 +21,13 @@ declare class NSCIaSdk extends NSObject {
 
   setGuestUserDataWithSalutationFirstNameLastNameEmailPhoneNumberCountryCodePhoneNumberWithoutCountryCodeCompletionHandler(salutation: string, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: (p1: string) => void): void;
 
+  setPharmacyIdWithPharmacyIdCompletionHandler(pharmacyId: string, completionHandler: (p1: string) => void): void;
+
   startDashboardActivityWithCompletionHandler(completionHandler: (p1: string) => void): void;
 
   transferPrescriptionsWithImagesPdfsCodesOrderIdFinishActionCompletionHandler(images: NSArray<NSData> | NSData[], pdfs: NSArray<NSData> | NSData[], codes: NSArray<string> | string[], orderId: string, finishAction: string, completionHandler: (p1: string) => void): void;
+
+  transferSDKv1UserDataWithCompletionHandler(completionHandler: (p1: string) => void): void;
 }
 
 declare class NativeScriptContainerCtrl extends UIViewController {

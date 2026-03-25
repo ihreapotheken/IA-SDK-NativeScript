@@ -26,8 +26,8 @@ export class IaSdkAndroid extends IaSdkBase {
 
   iaSdk = new de.ihreapotheken.sdk.client.nativescript.IaSdk();
 
-  configureIaSdk(options: { onboardingShouldBeShown?: boolean }): void {
-    this.iaSdk.configureIaSdk(options.onboardingShouldBeShown ?? false);
+  configureIaSdk(options: { onboardingShouldBeShown?: boolean; shouldFetchThemeFromRemote?: boolean }): void {
+    (this.iaSdk as any).configureIaSdk(options.onboardingShouldBeShown ?? false, options.shouldFetchThemeFromRemote ?? false);
   }
 
   initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (e: any) => void): void {
