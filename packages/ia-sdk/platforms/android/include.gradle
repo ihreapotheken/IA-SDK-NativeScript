@@ -1,8 +1,8 @@
-repositories { 
-    google()
-    mavenCentral() 
-    gradlePluginPortal()
+repositories {
     mavenLocal()
+    google()
+    mavenCentral()
+    gradlePluginPortal()
     maven {
         url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
     }
