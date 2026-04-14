@@ -40,3 +40,5 @@ git tag "$APP_SDK_BUILD_VERSION-$APP_SDK_BUILD_NUMBER$TAG_SUFFIX"
 
 # Push the tags, triggering a Github Action workflow for deploying a library update.
 git push --tags
+
+git checkout develop

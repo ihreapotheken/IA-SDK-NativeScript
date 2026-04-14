@@ -6,7 +6,7 @@ android {
   buildToolsVersion "36"
 
   defaultConfig {
-    minSdkVersion 30
+    minSdkVersion 27
     targetSdkVersion 36
     generatedDensities = []
     versionName = System.getenv("APP_SDK_BUILD_VERSION") ?: "1.0.0"

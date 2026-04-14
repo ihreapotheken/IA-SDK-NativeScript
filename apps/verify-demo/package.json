@@ -1,13 +1,13 @@
 {
   "name": "ia-sdk-verify-demo",
   "version": "1.0.0",
-  "description": "Verification demo for @ihreapotheken/ia-sdk v2026.3.19-535",
+  "description": "Verification demo for @ihreapotheken/ia-sdk v2026.3.26-636",
   "main": "./src/app.ts",
   "license": "MIT",
   "dependencies": {
     "@nativescript/core": "8.9.0",
     "@nativescript/swift-ui": "^4.0.2",
-    "@ihreapotheken/ia-sdk": "2026.3.24-729"
+    "@ihreapotheken/ia-sdk": "2026.3.26-636"
   },
   "devDependencies": {
     "@nativescript/android": "~8.9.0",
