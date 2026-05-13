@@ -54,6 +54,7 @@ class IaSdk {
         accessKey: String,
         clientId: String,
         serverEnvironmentId: String,
+        analyticsEnabled: Boolean,
     ) {
         val channelId = "INIT_EVENT"
         sdkModule = IaSdk.register(
@@ -81,6 +82,10 @@ class IaSdk {
             clientId = clientId,
             configuration = IaSdkConfiguration(
                 shouldFetchThemeFromRemote = shouldFetchThemeFromRemote,
+                // Gates the SDK's crash-capture pipeline (SdkCrashHandler install +
+                // ExitInfoCrashCollector + CrashReportUploader drain). Off by default; demos and
+                // hosts that want crash reports must opt in via the JS-side `initIaSdk` flag.
+                analyticsEnabled = analyticsEnabled,
                 prerequisiteFlowConfiguration = PrerequisiteFlowConfiguration(
                     shouldRunLegal = true,
                     shouldRunOnboarding = onboardingShouldBeShown,

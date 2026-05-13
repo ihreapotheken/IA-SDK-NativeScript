@@ -9,5 +9,6 @@
       "@ia-sdk/*": ["../../packages/*"],
       "@ihreapotheken/ia-sdk": ["../../packages/ia-sdk/index.d.ts"]
     }
-  }
+  },
+  "exclude": ["node_modules", "tmp", "platforms", "hooks", "typings"]
 }

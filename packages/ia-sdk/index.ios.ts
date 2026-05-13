@@ -22,8 +22,10 @@ export class IaSdkIOS extends IaSdkBase {
 
   iaSdk = new NSCIaSdk();
 
-  initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (e: any) => void): void {
-    this.iaSdk.initIaSdkWithAccessKeyClientIdServerEnvironmentCompletionHandler(accessKey, clientId, serverEnvironment, completionHandler);
+  initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, analyticsEnabled: boolean, completionHandler: (e: any) => void): void {
+    // Cast: typings still describe the pre-`analyticsEnabled` selector; the Swift side has
+    // the new selector. NS dispatches via Obj-C runtime.
+    (this.iaSdk as any).initIaSdkWithAccessKeyClientIdServerEnvironmentAnalyticsEnabledCompletionHandler(accessKey, clientId, serverEnvironment, analyticsEnabled, completionHandler);
   }
 
   configureIaSdk(options: { footerShouldShowDataProcessing?: boolean; shouldFetchThemeFromRemote?: boolean }): void {

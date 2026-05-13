@@ -13,6 +13,8 @@ export class IaSdk extends Observable {
 
   private static serverEnv: IaSdkBase.ServerEnvironment | null = null;
 
+  private static analyticsEnabled: boolean = false;
+
   /**
    * Allocate the resources required for the ia.de SDK runtime execution.
    *
@@ -21,14 +23,19 @@ export class IaSdk extends Observable {
    * @param accessKey Authentication key used to identify the host app.
    * @param clientId Client identifier used for pharmacy selection services.
    * @param serverEnvironment Specified server environment for the ia.de services.
+   * @param analyticsEnabled Opts the SDK's analytics + automatic crash reporting on. When `false`
+   *   (the default) the SDK does not install its uncaught-exception handler and does not upload
+   *   crash diagnostics. Hosts that want crash reports — including the bundled demo — must pass
+   *   `true` explicitly.
    */
-  initIaSdk(accessKey: string | null, clientId: string | null, serverEnvironment: IaSdkBase.ServerEnvironment = IaSdkBase.ServerEnvironment.Staging): Promise<void> {
+  initIaSdk(accessKey: string | null, clientId: string | null, serverEnvironment: IaSdkBase.ServerEnvironment = IaSdkBase.ServerEnvironment.Staging, analyticsEnabled: boolean = false): Promise<void> {
     IaSdk.accessKey = accessKey;
     IaSdk.clientId = clientId;
     IaSdk.serverEnv = serverEnvironment;
+    IaSdk.analyticsEnabled = analyticsEnabled;
     return new Promise((resolve, reject) => {
       if (isAndroid) {
-        IaSdkAndroid.instance.initIaSdk(accessKey, clientId, serverEnvironment, (e: any) => {
+        IaSdkAndroid.instance.initIaSdk(accessKey, clientId, serverEnvironment, analyticsEnabled, (e: any) => {
           if (e == 'success') {
             resolve();
           } else {
@@ -37,7 +44,7 @@ export class IaSdk extends Observable {
         });
       }
       if (isIOS) {
-        IaSdkIOS.instance.initIaSdk(accessKey, clientId, serverEnvironment.toString(), (e: any) => {
+        IaSdkIOS.instance.initIaSdk(accessKey, clientId, serverEnvironment.toString(), analyticsEnabled, (e: any) => {
           if (e == null) {
             resolve();
           } else {
@@ -148,7 +155,7 @@ export class IaSdk extends Observable {
         });
       }
       if (isIOS) {
-        this.initIaSdk(IaSdk.accessKey, IaSdk.clientId, IaSdk.serverEnv).then(
+        this.initIaSdk(IaSdk.accessKey, IaSdk.clientId, IaSdk.serverEnv, IaSdk.analyticsEnabled).then(
           (_) => {
             IaSdkIOS.instance.startDashboardActivity((e: any) => {
               if (e == null) {
