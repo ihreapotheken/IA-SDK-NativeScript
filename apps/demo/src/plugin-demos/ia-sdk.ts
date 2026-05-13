@@ -38,7 +38,9 @@ export class DemoModel extends DemoSharedIaSdk {
       this.iaSdk.configureIaSdk({
         footerShouldShowDataProcessing: false,
       });
-      await this.iaSdk.initIaSdk(APPSDK_ACCESS_KEY, '6001', IaSdkBase.ServerEnvironment.Staging);
+      // Demo opts into analytics + automatic crash reporting so the report-service receives
+      // events from this build. Production hosts default to `false` and must opt in explicitly.
+      await this.iaSdk.initIaSdk(APPSDK_ACCESS_KEY, '6001', IaSdkBase.ServerEnvironment.Staging, true);
     } catch (error) {
       console.error('Init failed:', error);
     }

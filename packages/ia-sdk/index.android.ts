@@ -30,7 +30,7 @@ export class IaSdkAndroid extends IaSdkBase {
     (this.iaSdk as any).configureIaSdk(options.onboardingShouldBeShown ?? false, options.shouldFetchThemeFromRemote ?? false);
   }
 
-  initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, completionHandler: (e: any) => void): void {
+  initIaSdk(accessKey: string, clientId: string, serverEnvironment: string, analyticsEnabled: boolean, completionHandler: (e: any) => void): void {
     Application.android.registerBroadcastReceiver('INIT_EVENT', (context, intent) => {
       const message = intent.getStringExtra('data');
       Application.android.unregisterBroadcastReceiver('INIT_EVENT');
@@ -38,7 +38,9 @@ export class IaSdkAndroid extends IaSdkBase {
         completionHandler(message);
       }, 0);
     });
-    this.iaSdk.initIaSdk(Utils.android.getCurrentActivity(), accessKey, clientId, serverEnvironment);
+    // Cast: typings still describe the pre-`analyticsEnabled` 4-arg overload; the Kotlin
+    // side accepts the 5th arg. NS dispatches via JNI at runtime.
+    (this.iaSdk as any).initIaSdk(Utils.android.getCurrentActivity(), accessKey, clientId, serverEnvironment, analyticsEnabled);
   }
 
   setGuestUserData(salutation: IaSdkBase.Salutation, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: (e: any) => void): void {

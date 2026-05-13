@@ -16,10 +16,12 @@ class NSCIaSdk: NSObject {
     accessKey: String,
     clientId: String,
     serverEnvironment: String,
+    analyticsEnabled: Bool,
     completionHandler: @escaping (String?) -> Void,
   ) {
     IASDK.configuration.apiKey = accessKey
     IASDK.configuration.clientID = clientId
+    _ = analyticsEnabled
     let specifiedServerEnvironment: EnvironmentID
     switch serverEnvironment {
     case "development":

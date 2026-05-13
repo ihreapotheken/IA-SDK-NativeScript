@@ -1,7 +1,7 @@
 import { Observable } from '@nativescript/core';
 
 export abstract class IaSdkBase extends Observable {
-  abstract initIaSdk(accessKey: string | null, clientId: string | null, serverEnvironment: IaSdkBase.ServerEnvironment, completionHandler: ((e: any) => void) | null): void;
+  abstract initIaSdk(accessKey: string | null, clientId: string | null, serverEnvironment: IaSdkBase.ServerEnvironment, analyticsEnabled: boolean, completionHandler: ((e: any) => void) | null): void;
 
   abstract setGuestUserData(salutation: IaSdkBase.Salutation, firstName: string, lastName: string, email: string, phoneNumberCountryCode: number, phoneNumberWithoutCountryCode: number, completionHandler: ((e: any) => void) | null): void;
 
