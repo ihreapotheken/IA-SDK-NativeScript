@@ -54,7 +54,6 @@ tools/assets/App_Resources/Android/key.properties
 tools/assets/App_Resources/Android/fb-distribution-service-credentials.json
 
 platforms/
-App_Resources/
 
 # Auth tokens — never commit
 .npmrc

@@ -13,6 +13,15 @@ PROJECT_DIR="$SCRIPT_DIR/.."
 # Setup the environment variables.
 source $SCRIPT_DIR/dev-env-setup.sh
 
+# Ensure Android SDK build-tools (zipalign, apksigner) are on PATH. Pick
+# the highest-versioned build-tools dir installed on the runner.
+if [ -n "$ANDROID_HOME" ] && [ -d "$ANDROID_HOME/build-tools" ]; then
+  BUILD_TOOLS_DIR=$(ls -d "$ANDROID_HOME/build-tools"/* 2>/dev/null | sort -V | tail -1)
+  if [ -n "$BUILD_TOOLS_DIR" ]; then
+    export PATH="$BUILD_TOOLS_DIR:$PATH"
+  fi
+fi
+
 # Install workspace dependencies (ns clean wipes node_modules; ns prepare
 # needs @nativescript/webpack et al. resolvable).
 cd "$PROJECT_DIR"
