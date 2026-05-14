@@ -33,6 +33,10 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Install xcodeproj gem (used by NativeScript iOS prepare)
+        if: env.PLATFORM == 'all' || env.PLATFORM == 'ios'
+        run: gem install xcodeproj
+
       - name: Write apps/demo/.secrets
         run: echo "APPSDK_ACCESS_KEY=${{ secrets.APPSDK_ACCESS_KEY }}" > apps/demo/.secrets
 
