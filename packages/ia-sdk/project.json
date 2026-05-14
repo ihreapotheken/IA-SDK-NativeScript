@@ -32,14 +32,10 @@
     "build.all": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "node tools/scripts/build-finish.ts ia-sdk"
-        ],
+        "commands": ["node tools/scripts/build-finish.ts ia-sdk"],
         "parallel": false
       },
-      "outputs": [
-        "{workspaceRoot}/dist/packages/ia-sdk"
-      ],
+      "outputs": ["{workspaceRoot}/dist/packages/ia-sdk"],
       "dependsOn": [
         {
           "target": "build.all",
@@ -54,18 +50,14 @@
     "focus": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx g @nativescript/plugin-tools:focus-packages ia-sdk"
-        ],
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages ia-sdk"],
         "parallel": false
       }
     },
     "lint": {
-      "executor": "@nx/eslint:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [
-          "packages/ia-sdk/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/ia-sdk/*.ts"]
       }
     }
   },

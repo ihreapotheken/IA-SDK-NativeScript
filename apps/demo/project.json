@@ -27,7 +27,10 @@
       "options": {}
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/demo/src/**/*.ts", "apps/demo/nativescript.config.ts"]
+      }
     },
     "debug": {
       "executor": "@nativescript/nx:debug",
