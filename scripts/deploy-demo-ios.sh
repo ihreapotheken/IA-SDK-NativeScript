@@ -48,7 +48,7 @@ xcodebuild -exportArchive \
   -archivePath $XCARCHIVE_PATH \
   -exportOptionsPlist "$PROJECT_DIR/tools/assets/App_Resources/iOS/ExportOptions.plist" \
   -allowProvisioningUpdates \
-  -exportPath "$PROJECT_DIR/demo/ios/build/ios/archive/"
+  -exportPath "$PROJECT_DIR/apps/demo/platforms/ios/build/ios/archive/"
 
 # Display an informative message.
 set -a # Automatically export all variables
