@@ -13,11 +13,21 @@ PROJECT_DIR="$SCRIPT_DIR/.."
 # Setup the environment variables.
 source $SCRIPT_DIR/dev-env-setup.sh
 
+# Install workspace dependencies (ns clean wipes node_modules; ns prepare
+# needs @nativescript/webpack et al. resolvable).
+cd "$PROJECT_DIR"
+npm install
+
 # Change current working directory.
-cd "$PROJECT_DIR/apps/demo" 
+cd "$PROJECT_DIR/apps/demo"
 
 # Clean any temporary files.
 ns clean
+
+# Reinstall after clean, since ns clean removes apps/demo/node_modules.
+cd "$PROJECT_DIR"
+npm install
+cd "$PROJECT_DIR/apps/demo"
 
 # Verify the build.
 ns prepare android --release
