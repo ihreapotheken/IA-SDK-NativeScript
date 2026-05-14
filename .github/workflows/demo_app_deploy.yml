@@ -28,6 +28,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Pin Node 20 (NativeScript 8.9.x is incompatible with Node 25)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
       - name: Write apps/demo/.secrets
         run: echo "APPSDK_ACCESS_KEY=${{ secrets.APPSDK_ACCESS_KEY }}" > apps/demo/.secrets
 
