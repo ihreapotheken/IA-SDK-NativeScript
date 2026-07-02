@@ -133,6 +133,17 @@ export class IaSdkAndroid extends IaSdkBase {
     this.iaSdk.clearCart(Utils.android.getCurrentActivity());
   }
 
+  clearPharmacy(completionHandler: (e: any) => void): void {
+    Application.android.registerBroadcastReceiver('CLEAR_PHARMACY_EVENT', (context, intent) => {
+      const message = intent.getStringExtra('data');
+      Application.android.unregisterBroadcastReceiver('CLEAR_PHARMACY_EVENT');
+      setTimeout(() => {
+        completionHandler(message);
+      }, 0);
+    });
+    this.iaSdk.clearPharmacy(Utils.android.getCurrentActivity());
+  }
+
   signatureListener = new OrderSignatureListener();
 
   get orderSignatureListener(): OrderSignatureListener {

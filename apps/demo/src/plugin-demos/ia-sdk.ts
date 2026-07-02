@@ -112,6 +112,14 @@ export class DemoModel extends DemoSharedIaSdk {
     }
   }
 
+  async clearPharmacy() {
+    try {
+      this.iaSdk.clearPharmacy();
+    } catch (error) {
+      console.error('Clear pharmacy failed:', error);
+    }
+  }
+
   async logout() {
     try {
       this.iaSdk.logout();

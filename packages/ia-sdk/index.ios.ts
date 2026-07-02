@@ -82,6 +82,10 @@ export class IaSdkIOS extends IaSdkBase {
     this.iaSdk.clearCartWithCompletionHandler(completionHandler);
   }
 
+  clearPharmacy(completionHandler: (e: any) => void): void {
+    this.iaSdk.clearPharmacyWithCompletionHandler(completionHandler);
+  }
+
   signatureListener = new OrderSignatureListener();
 
   get orderSignatureListener(): OrderSignatureListener {
