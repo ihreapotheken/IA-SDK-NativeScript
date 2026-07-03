@@ -9,6 +9,8 @@ declare class NSCIaSdk extends NSObject {
 
   clearCartWithCompletionHandler(completionHandler: (p1: string) => void): void;
 
+  clearPharmacyWithCompletionHandler(completionHandler: (p1: string) => void): void;
+
   configureIaSdk(options: NSDictionary<string, any>): void;
 
   finishAllActivitiesWithCompletionHandler(completionHandler: (p1: string) => void): void;

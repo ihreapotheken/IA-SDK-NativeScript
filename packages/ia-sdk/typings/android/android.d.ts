@@ -14,6 +14,7 @@ declare module de {
             public getOrderSignaturesListener(): androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>;
             public setGuestUserData(guestUserData: globalAndroid.content.Context, this_: string, context: string, salutation: string, firstName: string, lastName: string, email: string): void;
             public clearCart(success: globalAndroid.content.Context): void;
+            public clearPharmacy(context: globalAndroid.content.Context): void;
             public notifyJs(this_: string, id: string, message: globalAndroid.content.Context): void;
             public getOrderSignatures(): androidx.lifecycle.MutableLiveData<de.ihreapotheken.sdk.client.nativescript.IaSdk.SignatureCodes>;
             public transferPrescriptions(this_: globalAndroid.content.Context, context: java.util.List<androidNative.Array<number>>, images: java.util.List<androidNative.Array<number>>, pdfs: java.util.List<string>, codes: string): void;

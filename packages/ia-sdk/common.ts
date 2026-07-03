@@ -302,6 +302,32 @@ export class IaSdk extends Observable {
   }
 
   /**
+   * Clears the currently saved pharmacy and the user cart. Also clears prerequisites cache so next time you call initIaSdk it will show Apofinder.
+   */
+  clearPharmacy(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (isAndroid) {
+        IaSdkAndroid.instance.clearPharmacy((e: any) => {
+          if (e == 'success') {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+      if (isIOS) {
+        IaSdkIOS.instance.clearPharmacy((e: any) => {
+          if (e == null) {
+            resolve();
+          } else {
+            reject(e);
+          }
+        });
+      }
+    });
+  }
+
+  /**
    * [Observable] object notifying of any updates with the ia.de checkout process,
    * forwarding the SDK and any submitted order codes to listeners.
    *

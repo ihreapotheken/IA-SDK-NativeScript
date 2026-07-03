@@ -5,6 +5,7 @@ import IAIntegrations
 import IAOrdering
 import SwiftUI
 import UIKit
+import IAPharmacy
 
 @MainActor
 @objcMembers
@@ -42,6 +43,7 @@ class NSCIaSdk: NSObject {
         .integrations,
         .ordering,
         .apofinder,
+        .pharmacy
       ])
     }
     IASDK.setDelegate(
@@ -216,6 +218,21 @@ class NSCIaSdk: NSObject {
     Task.init {
       do {
         try await IASDK.ordering.deleteCart()
+        completionHandler(nil)
+      } catch {
+        completionHandler("\(String(describing: error)) \(error.localizedDescription)")
+      }
+    }
+  }
+
+  public func clearPharmacy(
+    completionHandler: @escaping (String?) -> Void,
+  ) {
+    Task.init {
+      do {
+        IASDK.Pharmacy.savePharmacyID(nil)
+        try await IASDK.ordering.deleteCart()
+        IASDK.cleanCache(initialization: false, prerequisites:true)
         completionHandler(nil)
       } catch {
         completionHandler("\(String(describing: error)) \(error.localizedDescription)")

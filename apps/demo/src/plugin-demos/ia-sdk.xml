@@ -38,7 +38,11 @@
             text="Clear Cart"
             tap="{{ clearCart }}"
             style="margin-bottom:16" />
-        <Button 
+        <Button
+            text="Clear Pharmacy"
+            tap="{{ clearPharmacy }}"
+            style="margin-bottom:16" />
+        <Button
             text="Logout" 
             tap="{{ logout }}"
             style="margin-bottom:16" />

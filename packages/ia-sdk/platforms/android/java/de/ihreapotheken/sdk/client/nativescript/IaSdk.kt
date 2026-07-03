@@ -264,4 +264,10 @@ class IaSdk {
             notifyJs(channelId, "Error clearing cart.", context)
         }
     }
+
+    fun clearPharmacy(
+        context: Context,
+    ) {
+        // @TODO Branimir clear pharmacy and delete cart
+    }
 }
