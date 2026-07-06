@@ -5,7 +5,6 @@ import IAIntegrations
 import IAOrdering
 import SwiftUI
 import UIKit
-import IAPharmacy
 
 @MainActor
 @objcMembers
@@ -42,8 +41,7 @@ class NSCIaSdk: NSObject {
       IASDK.register([
         .integrations,
         .ordering,
-        .apofinder,
-        .pharmacy
+        .apofinder
       ])
     }
     IASDK.setDelegate(
