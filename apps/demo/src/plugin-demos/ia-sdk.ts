@@ -114,7 +114,8 @@ export class DemoModel extends DemoSharedIaSdk {
 
   async clearPharmacy() {
     try {
-      this.iaSdk.clearPharmacy();
+      await this.iaSdk.clearPharmacy();
+      console.log('Clear pharmacy succeeded.');
     } catch (error) {
       console.error('Clear pharmacy failed:', error);
     }

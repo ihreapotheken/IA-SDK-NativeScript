@@ -160,7 +160,7 @@ class NSCIaSdk: NSObject {
           codes: codes,
           orderID: orderId,
           showActivityIndicator: false,
-          finishAction: .noAction,
+          finishAction: specifiedFinishAction,
         )
         IaClientViews.cartScreen.iaScreen().present()
         completionHandler(nil)

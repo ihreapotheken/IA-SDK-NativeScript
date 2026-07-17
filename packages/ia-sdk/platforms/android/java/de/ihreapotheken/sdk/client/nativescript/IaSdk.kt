@@ -24,10 +24,13 @@ import de.ihreapotheken.sdk.core.api.listener.PharmacyConfigResult
 import de.ihreapotheken.sdk.core.api.listener.TransferPrescriptionEvent
 import de.ihreapotheken.sdk.core.api.listener.TransferPrescriptionListener
 import de.ihreapotheken.sdk.integrations.api.TransferPrescriptionRequest
-import de.ihreapotheken.sdk.core.data.model.prescription.ImagePrescription
-import de.ihreapotheken.sdk.core.data.model.prescription.PdfPrescription
-import de.ihreapotheken.sdk.core.data.model.prescription.PrescriptionInsuranceType
+import de.ihreapotheken.sdk.core.domain.model.prescription.ImagePrescription
+import de.ihreapotheken.sdk.core.domain.model.prescription.PdfPrescription
+import de.ihreapotheken.sdk.core.domain.model.prescription.PrescriptionInsuranceType
 import de.ihreapotheken.sdk.core.domain.model.GuestUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class IaSdk {
     private lateinit var sdkModule: IaSdk
@@ -268,6 +271,16 @@ class IaSdk {
     fun clearPharmacy(
         context: Context,
     ) {
-        // @TODO Branimir clear pharmacy and delete cart
+        val channelId = "CLEAR_PHARMACY_EVENT"
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                sdkModule.pharmacy.clearPharmacyId()
+                sdkModule.ordering.deleteCart()
+                notifyJs(channelId, "success", context)
+            } catch (e: Exception) {
+                notifyJs(channelId, e.message ?: "Error clearing pharmacy.", context)
+            }
+        }
     }
 }
