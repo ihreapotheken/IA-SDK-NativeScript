@@ -23,4 +23,10 @@ if (isAndroid) {
   });
 }
 
-Application.run({ moduleName: 'app-root' });
+// With IA_E2E=true (injected by webpack.config.js) the app boots a minimal
+// SDK-init smoke page used by the cross-platform E2E test; otherwise the demo.
+declare const IA_E2E: boolean;
+
+Application.run({
+  moduleName: typeof IA_E2E !== 'undefined' && IA_E2E ? 'e2e/smoke-page' : 'app-root',
+});

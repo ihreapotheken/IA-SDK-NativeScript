@@ -41,6 +41,9 @@ module.exports = (env) => {
         APPSDK_ACCESS_KEY: JSON.stringify(secrets.APPSDK_ACCESS_KEY || ''),
         ANDROID_APPSDK_VERSION: JSON.stringify(envConfig.ANDROID_APPSDK_VERSION || 'N/A'),
         IOS_APPSDK_VERSION: JSON.stringify(envConfig.IOS_APPSDK_VERSION || 'N/A'),
+        // E2E smoke flag: build with IA_E2E=true to boot the SDK-init smoke page
+        // (see app.ts + src/e2e/smoke-page.*) instead of the demo.
+        IA_E2E: JSON.stringify(process.env.IA_E2E === 'true'),
       },
     ]);
   });
