@@ -25,7 +25,7 @@ fi
 # Install workspace dependencies (ns clean wipes node_modules; ns prepare
 # needs @nativescript/webpack et al. resolvable).
 cd "$PROJECT_DIR"
-npm install
+npm install || exit 1
 
 # Change current working directory.
 cd "$PROJECT_DIR/apps/demo"
@@ -35,17 +35,26 @@ ns clean
 
 # Reinstall after clean, since ns clean removes apps/demo/node_modules.
 cd "$PROJECT_DIR"
-npm install
+npm install || exit 1
 cd "$PROJECT_DIR/apps/demo"
 
 # Verify the build.
-ns prepare android --release
+ns prepare android --release || exit 1
 
 # Move to native project location.
 cd "$PROJECT_DIR/apps/demo/platforms/android"
 
 # Build the Android project.
-./gradlew assembleRelease
+#
+# Abort on failure. Without this the align/sign/upload chain below runs against
+# whatever app-release.apk an earlier build left behind, which means a stale APK
+# gets signed and distributed to testers under a fresh version number.
+#
+# --no-daemon: this machine shares its Gradle daemon registry with Android Studio, a Kotlin
+# LSP and other checkouts. A stray `--stop` from any of them killed a deploy mid-upload with
+# "Gradle build daemon has been stopped: stop command received", so the deploy runs in its own
+# single-use JVM rather than a pool anything else can reach into.
+./gradlew --no-daemon assembleRelease || exit 1
 
 # Define the output location.
 APK_OUTPUT_DIR="$PROJECT_DIR/apps/demo/platforms/android/app/build/outputs/apk/release"
@@ -53,7 +62,7 @@ APK_OUTPUT_DIR="$PROJECT_DIR/apps/demo/platforms/android/app/build/outputs/apk/r
 # After the app is built, it needs to be aligned.
 zipalign -v -p 4 \
   "$APK_OUTPUT_DIR/app-release.apk" \
-  "$APK_OUTPUT_DIR/app-release-aligned.apk"
+  "$APK_OUTPUT_DIR/app-release-aligned.apk" || exit 1
 
 # Once the app is aligned, it needs to be signed.
 apksigner sign \
@@ -61,14 +70,14 @@ apksigner sign \
   --ks-key-alias demo \
   --ks-pass pass:Password1! \
   --out "$APK_OUTPUT_DIR/app-release.apk" \
-  "$APK_OUTPUT_DIR/app-release-aligned.apk"
+  "$APK_OUTPUT_DIR/app-release-aligned.apk" || exit 1
 
 # Verify the signing process has completed successfully.
-apksigner verify "$APK_OUTPUT_DIR/app-release.apk"
+apksigner verify "$APK_OUTPUT_DIR/app-release.apk" || exit 1
 
 # Upload the APK to the Firebase app distribution service.
 cd $PROJECT_DIR/apps/demo/platforms/android
-./gradlew appDistributionUploadRelease
+./gradlew --no-daemon appDistributionUploadRelease || exit 1
 
 # Display an informative message.
 set -a # Automatically export all variables

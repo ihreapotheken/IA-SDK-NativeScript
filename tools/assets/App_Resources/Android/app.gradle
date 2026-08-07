@@ -1,5 +1,14 @@
 apply plugin: "com.google.firebase.appdistribution"
 
+// Keep in sync with APPSDK_SERVER_ENV in scripts/dev-env-setup.sh and the webpack define in
+// apps/demo/webpack.config.js -- the same variable drives the launcher label and the environment
+// the demo actually initialises the SDK against, so the two cannot drift.
+// Short environment tag, matching scripts/dev-env-setup.sh: `staging` runs against the QA
+// backend, so it is advertised as QA rather than as its uppercased environment name.
+def serverEnv = System.getenv("APPSDK_SERVER_ENV") ?: "staging"
+def serverEnvLabel = serverEnv == "development" ? "DEV" : serverEnv == "production" ? "PROD" : "QA"
+def demoAppName = "AppSDK NativeScript Demo ${serverEnvLabel}"
+
 android {
   compileSdkVersion 36
 
@@ -10,9 +19,11 @@ android {
     targetSdkVersion 36
     generatedDensities = []
     versionName = System.getenv("APP_SDK_BUILD_VERSION") ?: "1.0.0"
-    versionCode = System.getenv("APP_SDK_BUILD_NUMBER") == null 
-      ? 1 
+    versionCode = System.getenv("APP_SDK_BUILD_NUMBER") == null
+      ? 1
       : Integer.parseInt(System.getenv("APP_SDK_BUILD_NUMBER"))
+    resValue "string", "app_name", demoAppName
+    resValue "string", "title_activity_kimera", demoAppName
   }
 
   aaptOptions {

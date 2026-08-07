@@ -21,6 +21,10 @@ class NSCIaSdk: NSObject {
   ) {
     IASDK.configuration.apiKey = accessKey
     IASDK.configuration.clientID = clientId
+    // Added in AppSDK 2.7.0; mirrors `uiConfiguration.shouldShowMascotIllustrations` on the
+    // Android side. There is deliberately no haptics counterpart here -- 2.7.0 ships haptic
+    // feedback on iOS with no public toggle, so only Android can opt in explicitly.
+    IASDK.configuration.uiConfiguration.shouldShowMascotIllustrations = true
     _ = analyticsEnabled
     let specifiedServerEnvironment: EnvironmentID
     switch serverEnvironment {

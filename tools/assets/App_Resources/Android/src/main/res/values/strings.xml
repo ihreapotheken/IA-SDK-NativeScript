@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Intentionally declares no app_name/title_activity_kimera: it overrides the NativeScript
+     template's strings.xml so those two can be supplied from app.gradle via resValue, which
+     is what lets the launcher label carry the build's server environment. Declaring them here
+     too would be a duplicate-resource error. -->
+<resources>
+</resources>

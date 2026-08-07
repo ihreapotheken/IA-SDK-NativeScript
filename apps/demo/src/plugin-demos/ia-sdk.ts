@@ -6,6 +6,26 @@ import { IaSdkBase, OrderCodes, OrderSignatureListener } from '@ihreapotheken/ia
 declare const APPSDK_ACCESS_KEY: string;
 declare const ANDROID_APPSDK_VERSION: string;
 declare const IOS_APPSDK_VERSION: string;
+declare const APPSDK_SERVER_ENV: string;
+
+const SERVER_ENVIRONMENTS: Record<string, IaSdkBase.ServerEnvironment> = {
+  development: IaSdkBase.ServerEnvironment.Development,
+  staging: IaSdkBase.ServerEnvironment.Staging,
+  production: IaSdkBase.ServerEnvironment.Production,
+};
+
+const serverEnvironment = SERVER_ENVIRONMENTS[APPSDK_SERVER_ENV] ?? IaSdkBase.ServerEnvironment.Staging;
+
+// Short environment tag shown to testers, matching scripts/dev-env-setup.sh and the
+// launcher labels. Deliberately not the uppercased environment name: `staging` runs
+// against the QA backend, and the Flutter and React Native demos both call it QA.
+const SERVER_ENVIRONMENT_LABELS: Record<string, string> = {
+  development: 'DEV',
+  staging: 'QA',
+  production: 'PROD',
+};
+
+const serverEnvironmentLabel = SERVER_ENVIRONMENT_LABELS[APPSDK_SERVER_ENV] ?? 'QA';
 
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object;
@@ -28,7 +48,8 @@ export class DemoModel extends DemoSharedIaSdk {
     });
   }
 
-  actionBarTitle = `IA SDK NativeScript | ${isIOS ? 'iOS' : 'Android'} ${isIOS ? IOS_APPSDK_VERSION : ANDROID_APPSDK_VERSION}`;
+  // Home-screen labels truncate long names, so the environment is repeated here where it is always legible.
+  actionBarTitle = `IA SDK NativeScript | ${isIOS ? 'iOS' : 'Android'} ${isIOS ? IOS_APPSDK_VERSION : ANDROID_APPSDK_VERSION} | ${serverEnvironmentLabel}`;
 
   iaSdk = new IaSdk();
 
@@ -40,7 +61,7 @@ export class DemoModel extends DemoSharedIaSdk {
       });
       // Demo opts into analytics + automatic crash reporting so the report-service receives
       // events from this build. Production hosts default to `false` and must opt in explicitly.
-      await this.iaSdk.initIaSdk(APPSDK_ACCESS_KEY, '6001', IaSdkBase.ServerEnvironment.Staging, true);
+      await this.iaSdk.initIaSdk(APPSDK_ACCESS_KEY, '6001', serverEnvironment, true);
     } catch (error) {
       console.error('Init failed:', error);
     }

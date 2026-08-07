@@ -6,8 +6,10 @@
 	<string>de.ihreapotheken.nativescript</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<!-- Composed and exported by scripts/dev-env-setup.sh so the launcher label carries the build's
+	     server environment; the default keeps a plain `ns build ios` from producing an unnamed app. -->
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>$(IA_DEMO_DISPLAY_NAME:default=AppSDK NativeScript Demo QA)</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>

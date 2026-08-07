@@ -28,6 +28,7 @@ import de.ihreapotheken.sdk.core.domain.model.prescription.ImagePrescription
 import de.ihreapotheken.sdk.core.domain.model.prescription.PdfPrescription
 import de.ihreapotheken.sdk.core.domain.model.prescription.PrescriptionInsuranceType
 import de.ihreapotheken.sdk.core.domain.model.GuestUser
+import de.ihreapotheken.sdk.core.ui.theme.IAUIConfiguration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -89,6 +90,13 @@ class IaSdk {
                 // ExitInfoCrashCollector + CrashReportUploader drain). Off by default; demos and
                 // hosts that want crash reports must opt in via the JS-side `initIaSdk` flag.
                 analyticsEnabled = analyticsEnabled,
+                // Both added in AppSDK 2.7.0 and enabled unconditionally so the demo exercises
+                // them. iOS has no haptics toggle -- the feature ships there with no public
+                // switch -- so only the mascot flag has an iOS counterpart in NSCIaSdk.swift.
+                hapticFeedbackEnabled = true,
+                uiConfiguration = IAUIConfiguration(
+                    shouldShowMascotIllustrations = true,
+                ),
                 prerequisiteFlowConfiguration = PrerequisiteFlowConfiguration(
                     shouldRunLegal = true,
                     shouldRunOnboarding = onboardingShouldBeShown,

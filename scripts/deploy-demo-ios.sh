@@ -16,7 +16,7 @@ source $SCRIPT_DIR/dev-env-setup.sh
 # Install workspace dependencies (ns clean wipes node_modules; ns prepare
 # needs @nativescript/webpack et al. resolvable).
 cd "$PROJECT_DIR"
-npm install
+npm install || exit 1
 
 # Change current working directory.
 cd "$PROJECT_DIR/apps/demo"
@@ -26,29 +26,33 @@ ns clean
 
 # Reinstall after clean, since ns clean removes apps/demo/node_modules.
 cd "$PROJECT_DIR"
-npm install
+npm install || exit 1
 cd "$PROJECT_DIR/apps/demo"
 
 # Verify the build.
-ns prepare ios --release
+ns prepare ios --release || exit 1
 
 # Define the iOS output file paths.
 XCARCHIVE_PATH="$PROJECT_DIR/apps/demo/platforms/ios/build/ia-lib-demo.xcarchive"
 IPA_DIR="$PROJECT_DIR/apps/demo/platforms/ios/build/ipa"
 
 # Build the iOS demo app.
+#
+# Abort on failure. Without this the export below ships whatever archive is left
+# at XCARCHIVE_PATH from an earlier build, and the script still reports a
+# successful deploy.
 xcodebuild archive \
   -workspace $PROJECT_DIR/apps/demo/platforms/ios/demo.xcworkspace \
   -scheme demo \
   -allowProvisioningUpdates \
-  -archivePath $XCARCHIVE_PATH
+  -archivePath $XCARCHIVE_PATH || exit 1
 
 # Export the archive to Testflight.
 xcodebuild -exportArchive \
   -archivePath $XCARCHIVE_PATH \
   -exportOptionsPlist "$PROJECT_DIR/tools/assets/App_Resources/iOS/ExportOptions.plist" \
   -allowProvisioningUpdates \
-  -exportPath "$PROJECT_DIR/apps/demo/platforms/ios/build/ios/archive/"
+  -exportPath "$PROJECT_DIR/apps/demo/platforms/ios/build/ios/archive/" || exit 1
 
 # Display an informative message.
 set -a # Automatically export all variables
