@@ -28,5 +28,5 @@ if (isAndroid) {
 declare const IA_E2E: boolean;
 
 Application.run({
-  moduleName: typeof IA_E2E !== 'undefined' && IA_E2E ? 'e2e/smoke-page' : 'app-root',
+  moduleName: typeof IA_E2E !== 'undefined' && IA_E2E ? 'e2e/smoke-root' : 'app-root',
 });
