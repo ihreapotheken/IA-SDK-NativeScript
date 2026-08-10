@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" backgroundColor="white" color="black">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" navigatedTo="navigatedTo" class="page" backgroundColor="white" color="black">
   <StackLayout class="p-20" verticalAlignment="center" horizontalAlignment="center">
     <Label id="status" text="Initializing…" textWrap="true" textAlignment="center" class="h2"/>
   </StackLayout>
