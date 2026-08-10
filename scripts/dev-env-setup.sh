@@ -23,7 +23,6 @@ fi
 # ServerEnvironment in the demo (via the webpack define) and is stamped into the launcher label on
 # both platforms, so a tester can always tell which backend a build points at.
 export APPSDK_SERVER_ENV="${APPSDK_SERVER_ENV:-staging}"
-echo "APPSDK_SERVER_ENV $APPSDK_SERVER_ENV"
 
 # Short environment tag shown to testers. Deliberately not the uppercased environment
 # name: `staging` runs against the QA backend, and the Flutter and React Native demos
@@ -33,9 +32,19 @@ case "$APPSDK_SERVER_ENV" in
   production) export IA_ENV_LABEL="PROD" ;;
   *) export IA_ENV_LABEL="QA" ;;
 esac
-echo "IA_ENV_LABEL $IA_ENV_LABEL"
 
 # Launcher label for iOS, consumed by CFBundleDisplayName in App_Resources/iOS/Info.plist.
 # Android composes the equivalent string in App_Resources/Android/app.gradle.
 export IA_DEMO_DISPLAY_NAME="AppSDK NativeScript Demo $IA_ENV_LABEL"
-echo "IA_DEMO_DISPLAY_NAME $IA_DEMO_DISPLAY_NAME"
+
+# Announce once per process tree. deploy-demo.sh sources this and then runs the per-platform
+# deploy scripts as children, each of which sources it again; without a guard the block above
+# re-echoes on every pass. The versioning block cannot be reused as the signal here because
+# these values are recomputed on each source rather than preserved, so an explicit sentinel
+# is what keeps the second pass quiet.
+if [[ -z "$IA_ENV_ANNOUNCED" || $0 == "dev-env-setup.sh" ]]; then
+  export IA_ENV_ANNOUNCED=1
+  echo "APPSDK_SERVER_ENV $APPSDK_SERVER_ENV"
+  echo "IA_ENV_LABEL $IA_ENV_LABEL"
+  echo "IA_DEMO_DISPLAY_NAME $IA_DEMO_DISPLAY_NAME"
+fi
