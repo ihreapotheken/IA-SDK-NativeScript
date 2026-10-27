@@ -71,14 +71,16 @@ class NSCIaSdk: NSObject {
    * Configures the ia.de SDK.
    *
    * @param options Dictionary with configuration keys:
-   *   - "footerShouldShowDataProcessing": Bool
+   *   - "shouldFetchThemeFromRemote": Bool
+   *   - "onboardingShouldBeShown": Bool
+   *
+   * "footerShouldShowDataProcessing" is no longer read: AppSDK 2.9.1 removed
+   * SDKFooterConfiguration.shouldShowDataProcessing, and the SDK now decides itself
+   * whether the data processing entry is shown.
    */
   public func configureIaSdk(
     _ options: [String: Any]
   ) {
-    if let footerShouldShowDataProcessing = options["footerShouldShowDataProcessing"] as? Bool {
-      IASDK.configuration.footer.shouldShowDataProcessing = footerShouldShowDataProcessing
-    }
     let shouldFetchThemeFromRemote = options["shouldFetchThemeFromRemote"] as? Bool ?? false
     IASDK.configuration.shouldLoadRemoteStyleConfiguration = shouldFetchThemeFromRemote
     let onboardingShouldBeShown = options["onboardingShouldBeShown"] as? Bool ?? false

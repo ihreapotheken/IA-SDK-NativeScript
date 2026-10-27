@@ -12,10 +12,10 @@ import de.ihreapotheken.sdk.integrations.api.view.IaSdkActivity
 import de.ihreapotheken.sdk.integrations.api.view.IaScreen
 import de.ihreapotheken.sdk.ordering.OrderingModule
 import de.ihreapotheken.sdk.pharmacy.PharmacyModule
-import de.ihreapotheken.sdk.core.data.EnvironmentType
-import de.ihreapotheken.sdk.core.data.PrerequisiteFlowConfiguration
-import de.ihreapotheken.sdk.core.data.model.sdk.SdkEvent
-import de.ihreapotheken.sdk.core.data.model.sdk.SdkEventListener
+import de.ihreapotheken.sdk.core.domain.model.EnvironmentType
+import de.ihreapotheken.sdk.core.domain.session.PrerequisiteFlowConfiguration
+import de.ihreapotheken.sdk.core.domain.model.sdk.SdkEvent
+import de.ihreapotheken.sdk.core.api.listener.SdkEventListener
 import de.ihreapotheken.sdk.apofinder.ApofinderModule
 import de.ihreapotheken.sdk.integrations.api.IaSdkConfiguration
 import de.ihreapotheken.sdk.core.api.listener.CheckoutListener
@@ -86,10 +86,14 @@ class IaSdk {
             clientId = clientId,
             configuration = IaSdkConfiguration(
                 shouldFetchThemeFromRemote = shouldFetchThemeFromRemote,
-                // Gates the SDK's crash-capture pipeline (SdkCrashHandler install +
-                // ExitInfoCrashCollector + CrashReportUploader drain). Off by default; demos and
-                // hosts that want crash reports must opt in via the JS-side `initIaSdk` flag.
+                // The JS-side `initIaSdk` flag gates the SDK's crash-capture pipeline
+                // (SdkCrashHandler install + ExitInfoCrashCollector + CrashReportUploader drain).
+                // Off by default; demos and hosts that want crash reports must opt in. Since
+                // AppSDK 2.9.1 that pipeline has its own `crashReportingEnabled` switch, which
+                // defaults to true, so it is passed explicitly to keep crash capture opt-in.
+                // `analyticsEnabled` now gates the SDK's analytics events instead.
                 analyticsEnabled = analyticsEnabled,
+                crashReportingEnabled = analyticsEnabled,
                 // Both added in AppSDK 2.7.0 and enabled unconditionally so the demo exercises
                 // them. iOS has no haptics toggle -- the feature ships there with no public
                 // switch -- so only the mascot flag has an iOS counterpart in NSCIaSdk.swift.

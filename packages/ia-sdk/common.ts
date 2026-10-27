@@ -59,7 +59,8 @@ export class IaSdk extends Observable {
    * Configures the ia.de SDK settings.
    *
    * @param options Configuration options object:
-   *   - footerShouldShowDataProcessing: Whether to show data processing information in the footer
+   *   - footerShouldShowDataProcessing: Deprecated, has no effect. iOS AppSDK 2.9.1 removed the footer
+   *     toggle and decides itself whether the data processing entry is shown; Android never supported it.
    *   - onboardingShouldBeShown: Whether to show the onboarding flow during SDK initialisation (iOS only, defaults to false)
    *   - shouldFetchThemeFromRemote: Whether to fetch theme configuration from a remote server (defaults to false)
    */
