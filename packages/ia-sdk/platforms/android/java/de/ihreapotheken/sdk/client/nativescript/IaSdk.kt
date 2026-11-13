@@ -28,6 +28,8 @@ import de.ihreapotheken.sdk.core.domain.model.prescription.ImagePrescription
 import de.ihreapotheken.sdk.core.domain.model.prescription.PdfPrescription
 import de.ihreapotheken.sdk.core.domain.model.prescription.PrescriptionInsuranceType
 import de.ihreapotheken.sdk.core.domain.model.GuestUser
+import de.ihreapotheken.sdk.core.di.Inecta
+import de.ihreapotheken.sdk.core.domain.usecase.ClearCartUseCase
 import de.ihreapotheken.sdk.core.ui.theme.IAUIConfiguration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -179,7 +181,6 @@ class IaSdk {
         orderId: String?,
     ) {
         val channelId = "TRANSFER_PRESCRIPTIONS_EVENT"
-        sdkModule.ordering.deleteCart()
         IaSdk.ordering.setCheckoutListener(
             object : CheckoutListener {
                 override fun onCheckoutCompleted(hostOrderId: String, sdkOrderId: String) {
@@ -190,27 +191,41 @@ class IaSdk {
                 }
             }
         )
-        sdkModule.ordering.transferPrescriptions(
-            context = context as Activity,
-            transferPrescriptionRequest = TransferPrescriptionRequest(
-                images?.map { ImagePrescription(it) },
-                pdfs?.map { PdfPrescription(PrescriptionInsuranceType.PRIVATE, it) },
-                codes,
-                orderId,
-            ),
-            transferPrescriptionListener = object : TransferPrescriptionListener {
-                override fun onTransferPrescriptionEvent(event: TransferPrescriptionEvent): HandlingDecision {
-                    if (event is TransferPrescriptionEvent.Success) {
-                        notifyJs(channelId, "success", context)
+        CoroutineScope(Dispatchers.Main).launch {
+            // Empty the cart and wait for it before transferring, as NSCIaSdk.swift does with
+            // `await deleteCart()`. The public `ordering.deleteCart()` only launches the clear and
+            // returns, and the clear's last step wipes the SDK's pending transfer data
+            // (TransferDataHolder). Started side by side, the transfer screen opens, finds nothing
+            // to upload, reports "Upload data is not set" and closes -- always so when the
+            // pharmacy/legal prerequisites run first, since the screen reads the data only after them.
+            try {
+                Inecta.get<ClearCartUseCase>().invoke()
+            } catch (e: Exception) {
+                notifyJs(channelId, e.message ?: "Error clearing cart.", context)
+                return@launch
+            }
+            sdkModule.ordering.transferPrescriptions(
+                context = context as Activity,
+                transferPrescriptionRequest = TransferPrescriptionRequest(
+                    images?.map { ImagePrescription(it) },
+                    pdfs?.map { PdfPrescription(PrescriptionInsuranceType.PRIVATE, it) },
+                    codes,
+                    orderId,
+                ),
+                transferPrescriptionListener = object : TransferPrescriptionListener {
+                    override fun onTransferPrescriptionEvent(event: TransferPrescriptionEvent): HandlingDecision {
+                        if (event is TransferPrescriptionEvent.Success) {
+                            notifyJs(channelId, "success", context)
+                        }
+                        if (event is TransferPrescriptionEvent.Failed) {
+                            notifyJs(channelId, event.errorMessage, context)
+                        }
+                        return HandlingDecision.PERFORM_DEFAULT
                     }
-                    if (event is TransferPrescriptionEvent.Failed) {
-                        notifyJs(channelId, event.errorMessage, context)
-                    }
-                    return HandlingDecision.PERFORM_DEFAULT
-                }
-            },
-            presentationMode = PresentationMode.FULL_FLOW,
-        )
+                },
+                presentationMode = PresentationMode.FULL_FLOW,
+            )
+        }
     }
 
     fun startDashboardActivity(
