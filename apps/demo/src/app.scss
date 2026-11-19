@@ -1,6 +1,148 @@
 @import 'nativescript-theme-core/scss/light';
 @import 'nativescript-theme-core/scss/index';
 
+// The design of the ia.de AppSDK example apps (React Native and Flutter too): the accent is the red of the SDK's own
+// illustrations, so the host screens and the SDK screens they open look like one product.
+$accent: #e73439;
+$accent-soft: #fdecec;
+$ink: #16181d;
+$ink-secondary: #5a606b;
+$ink-tertiary: #8b919b;
+$background: #f4f2ef;
+$surface: #ffffff;
+$surface-sunken: #f0eeea;
+$border: #e7e4df;
+$success: #1e8e5a;
+$success-soft: #e5f4ec;
+
 .rounded {
   border-radius: 20;
+}
+
+.demo-page {
+  background-color: $background;
+}
+
+.header {
+  padding: 12 16 8 16;
+}
+
+.brand-mark {
+  font-size: 26;
+  font-weight: bold;
+  letter-spacing: -0.02;
+  color: $accent;
+}
+
+.brand-product {
+  font-size: 16;
+  font-weight: 600;
+  color: $ink-secondary;
+  margin-left: 8;
+  padding-bottom: 3;
+}
+
+.platform {
+  font-size: 13;
+  color: $ink-tertiary;
+  margin-top: 2;
+}
+
+.state {
+  padding: 4 12;
+  border-radius: 999;
+  background-color: $surface-sunken;
+}
+
+.state-ready {
+  background-color: $success-soft;
+}
+
+.state-dot {
+  width: 7;
+  height: 7;
+  border-radius: 4;
+  background-color: $ink-tertiary;
+  vertical-align: middle;
+}
+
+.state-dot-ready {
+  background-color: $success;
+}
+
+.state-text {
+  font-size: 13;
+  font-weight: 600;
+  color: $ink-secondary;
+  margin-left: 6;
+  vertical-align: middle;
+}
+
+.state-text-ready {
+  color: $success;
+}
+
+.content {
+  padding: 0 16 32 16;
+}
+
+.section-title {
+  font-size: 12;
+  font-weight: bold;
+  letter-spacing: 0.07;
+  text-transform: uppercase;
+  color: $ink-secondary;
+  margin: 24 4 8 4;
+}
+
+.card {
+  background-color: $surface;
+  border-radius: 20;
+  box-shadow: 0 6 14 rgba(43, 27, 18, 0.07);
+}
+
+.row {
+  padding: 14 16;
+  border-top-width: 1;
+  border-top-color: $border;
+}
+
+.row-first {
+  border-top-width: 0;
+}
+
+.row-dimmed {
+  opacity: 0.45;
+}
+
+.row-title {
+  font-size: 15;
+  font-weight: 600;
+  color: $ink;
+}
+
+.row-subtitle {
+  font-size: 13;
+  color: $ink-secondary;
+  margin-top: 2;
+}
+
+.row-trailing {
+  width: 28;
+  margin-left: 8;
+}
+
+.row-chevron {
+  font-size: 26;
+  color: $ink-tertiary;
+  horizontal-align: center;
+  vertical-align: middle;
+}
+
+.row-spinner {
+  color: $accent;
+  width: 24;
+  height: 24;
+  horizontal-align: center;
+  vertical-align: middle;
 }
