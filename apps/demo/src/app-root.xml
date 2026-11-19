@@ -1,2 +1,4 @@
-<Frame defaultPage="main-page">
+<!-- Opens the SDK demo. main-page, the plugin tools' list of package demos, stays for the tools; with one package it
+     would only add a step. -->
+<Frame defaultPage="plugin-demos/ia-sdk">
 </Frame>
