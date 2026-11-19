@@ -1,50 +1,54 @@
-<Page 
-  xmlns="http://schemas.nativescript.org/tns.xsd" 
-  navigatingTo="navigatingTo" 
+<Page
+  xmlns="http://schemas.nativescript.org/tns.xsd"
+  navigatingTo="navigatingTo"
+  actionBarHidden="true"
   backgroundSpanUnderStatusBar="false"
-  backgroundColor="white" 
-  color="black" >
-    <Page.actionBar>
-        <ActionBar title="{{ actionBarTitle }}" icon="" class="action-bar">
-        </ActionBar>
-    </Page.actionBar>
-    
-    <StackLayout>
-        <Button 
-            text="Launch Dermanostic Experience" 
-            tap="{{ launchDermanosticExperience }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Initialize" 
-            tap="{{ initialize }}"
-            style="margin-bottom:16" />
-        <Button 
-            text="Start Dashboard Activity" 
-            tap="{{ startDashboardActivity }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Set Pharmacy ID 2163"
-            tap="{{ setPharmacyId2163 }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Set Pharmacy ID 10041"
-            tap="{{ setPharmacyId10041 }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Transfer SDK V1 Data"
-            tap="{{ transferSDKv1UserData }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Clear Cart"
-            tap="{{ clearCart }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Clear Pharmacy"
-            tap="{{ clearPharmacy }}"
-            style="margin-bottom:16" />
-        <Button
-            text="Logout" 
-            tap="{{ logout }}"
-            style="margin-bottom:16" />
+  class="demo-page">
+  <GridLayout rows="auto, *">
+    <!-- Brand, SDK version and backend, and whether the SDK is initialized. -->
+    <StackLayout row="0" class="header">
+      <GridLayout columns="*, auto">
+        <StackLayout orientation="horizontal" verticalAlignment="bottom">
+          <Label text="ia.de" class="brand-mark" />
+          <Label text="AppSDK Demo" class="brand-product" />
+        </StackLayout>
+        <StackLayout col="1" orientation="horizontal" verticalAlignment="center" class="{{ isInitialized ? 'state state-ready' : 'state' }}">
+          <Label class="{{ isInitialized ? 'state-dot state-dot-ready' : 'state-dot' }}" />
+          <Label text="{{ isInitialized ? 'Initialized' : 'Not initialized' }}" class="{{ isInitialized ? 'state-text state-text-ready' : 'state-text' }}" />
+        </StackLayout>
+      </GridLayout>
+      <Label text="{{ platformLine }}" class="platform" />
     </StackLayout>
+
+    <ScrollView row="1">
+      <Repeater items="{{ sections }}" class="content">
+        <Repeater.itemTemplate>
+          <StackLayout>
+            <Label text="{{ title }}" class="section-title" />
+            <StackLayout class="card">
+              <Repeater items="{{ rows }}">
+                <Repeater.itemTemplate>
+                  <DockLayout
+                    stretchLastChild="true"
+                    class="{{ 'row' + (isFirst ? ' row-first' : '') + (isDimmed ? ' row-dimmed' : '') }}"
+                    isUserInteractionEnabled="{{ !(isDimmed || isBusy) }}"
+                    tap="{{ $parents['Page'].onRowTap }}">
+                    <!-- A spinner while the row's call runs, otherwise a chevron. -->
+                    <GridLayout dock="right" class="row-trailing">
+                      <ActivityIndicator busy="{{ isBusy }}" visibility="{{ isBusy ? 'visible' : 'collapse' }}" class="row-spinner" />
+                      <Label text="›" visibility="{{ isBusy ? 'collapse' : 'visible' }}" class="row-chevron" />
+                    </GridLayout>
+                    <StackLayout verticalAlignment="center">
+                      <Label text="{{ title }}" class="row-title" textWrap="true" />
+                      <Label text="{{ subtitle }}" class="row-subtitle" textWrap="true" />
+                    </StackLayout>
+                  </DockLayout>
+                </Repeater.itemTemplate>
+              </Repeater>
+            </StackLayout>
+          </StackLayout>
+        </Repeater.itemTemplate>
+      </Repeater>
+    </ScrollView>
+  </GridLayout>
 </Page>
